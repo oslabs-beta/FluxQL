@@ -7,6 +7,7 @@ import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import HomePage from './pages/homePage';
 import AppPage from './pages/appPage';
 import ErrorPage from './pages/errorPage';
+import D3 from './d3/graph';
 
 const App = () => {
   console.log('hi from App.tsx');
