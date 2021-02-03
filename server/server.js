@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const router = require('./router');
 
 
 const PORT = 3000;
@@ -22,11 +23,14 @@ app.use((req, res, next) => {
 // route handlers
 
 // static file for webpack dev-server
-app.use(express.static(path.resolve(__dirname, '../dist')))
+app.use(express.static(path.resolve(__dirname, '.å./dist')))
 
 /*** MAIN PAGE ***/
 app.use(express.static(path.resolve(__dirname, '../client')));
 
+
+/* Route for Mongo & PG URI */
+app.use('/', router);
 
 
 // catch all
