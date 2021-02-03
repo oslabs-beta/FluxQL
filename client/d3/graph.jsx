@@ -4,12 +4,13 @@ import * as d3 from 'd3';
 import { GraphQLBoolean } from 'graphql';
 import './graph.scss'
 
+const diameter = 800;
+const width = diameter;
+const height = diameter;
+const margin = {top: 20, right: 120, bottom: 20, left: 120};;
 class Graph extends Component {
   constructor(props){
     super(props),
-    this.state = {
-      diameter: 800
-    },
     this.myRef = createRef();
   }
   
@@ -20,19 +21,28 @@ class Graph extends Component {
     let root;
     
     const tree = d3.tree()
-        .size([360, this.state.diameter / 2 - 80])
+        .size([360, diameter / 2 - 80])
         .separation(function(a, b) { return (a.parent == b.parent ? 1 : 10) / a.depth; });
     
-    const diagonal = d3.svg.diagonal.radial()
+    /* original from CodePen
+    const diagonal = d3.svg.diagonal.radial() // original
         .projection(function(d) { 
           return [d.y, d.x / 180 * Math.PI]; 
         });
+    */
     
+    const diagonal = d => {
+      return 
+      "M" + d.source.y + "," + d.source.x
+      + "C" + (d.source.y + d.target.y) / 2 + "," + d.source.x
+      + " " + (d.source.y + d.target.y) / 2 + "," + d.target.x
+      + " " + d.target.y + "," + d.target.x;
+    };
+
+
     const svg = d3.select(this.myRef.current)
-        .attr("width", width )
-        .attr("height", height )
       .append("g")
-        .attr("transform", "translate(" + this.state.diameter / 2 + "," + this.state.diameter / 2 + ")");
+        .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
     
     root = data;
     root.x0 = height / 2;
@@ -156,10 +166,6 @@ class Graph extends Component {
   }
 
   render() {    
-    const margin = {top: 20, right: 120, bottom: 20, left: 120};
-    const width = this.state.diameter;
-    const height = this.state.diameter;
-
 
     return(
       <div >

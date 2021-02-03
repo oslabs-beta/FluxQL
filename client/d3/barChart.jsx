@@ -18,6 +18,7 @@ class BarChart extends Component {
       .append('rect')
       .attr('width', barHeight - 5)
       .attr('height', data => data)
+      .attr('fill', 'tomato')
       .attr(
         'transform', (data, index) => `translate(${index * barHeight}, 100)`
     )
