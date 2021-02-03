@@ -1,1 +1,12 @@
-// middleware to parse through raw table data and assemble new schema
+const schemaGenerator = {};
+
+schemaGenerator.assembleTypes = (tables) => {
+    return;
+}
+
+
+schemaGenerator.assembleResolvers = (tables) => {
+  return;
+};
+
+module.exports = schemaGenerator;
