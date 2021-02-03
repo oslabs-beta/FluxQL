@@ -2,36 +2,37 @@ import data from './dummyData';
 import React, { Component, createRef } from 'react';
 import * as d3 from 'd3';
 import { GraphQLBoolean } from 'graphql';
+import './graph.scss'
 
 class Graph extends Component {
   constructor(props){
-    super(props)
+    super(props),
+    this.state = {
+      diameter: 800
+    },
     this.myRef = createRef();
   }
   
   componentDidMount() {
-    const diameter = 800;
-    
-    const margin = {top: 20, right: 120, bottom: 20, left: 120};
-    const width = diameter;
-    const height = diameter;
-        
+
     let i = 0;
     let duration = 350
     let root;
     
-    const tree = d3.layout.tree()
-        .size([360, diameter / 2 - 80])
+    const tree = d3.tree()
+        .size([360, this.state.diameter / 2 - 80])
         .separation(function(a, b) { return (a.parent == b.parent ? 1 : 10) / a.depth; });
     
     const diagonal = d3.svg.diagonal.radial()
-        .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+        .projection(function(d) { 
+          return [d.y, d.x / 180 * Math.PI]; 
+        });
     
-    const svg = d3.select("body").append("svg")
+    const svg = d3.select(this.myRef.current)
         .attr("width", width )
         .attr("height", height )
       .append("g")
-        .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+        .attr("transform", "translate(" + this.state.diameter / 2 + "," + this.state.diameter / 2 + ")");
     
     root = data;
     root.x0 = height / 2;
@@ -154,9 +155,20 @@ class Graph extends Component {
     }
   }
 
-  render() {
+  render() {    
+    const margin = {top: 20, right: 120, bottom: 20, left: 120};
+    const width = this.state.diameter;
+    const height = this.state.diameter;
+
+
     return(
-      <div ref={this.myRef}></div>
+      <div >
+          <svg 
+            width={width} 
+            height={height} 
+            ref={this.myRef}>
+          </svg>
+      </div>
     )
   }
 };
