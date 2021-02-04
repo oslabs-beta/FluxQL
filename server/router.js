@@ -4,7 +4,7 @@ const pgController = require('./controllers/pgController');
 //const mongoController = require('./controllers/mongoController');
 
 router.post('/psql', 
-  pgController.SQLTableData,
+  //pgController.SQLTableData,
   (req, res) => {
     res.status(200).send('psql')
 });
