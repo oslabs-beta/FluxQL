@@ -255,3 +255,10 @@ class GraphV4 extends Component {
 }
 
 export default GraphV4;
+
+/*
+for line 211 -> d3.json sends a GET request to server
+
+app.get('/client/v4Data.json', (req, res) =>
+  res.status(200).sendFile(path.join(__dirname, '../client/v4Data.json')));
+*/
