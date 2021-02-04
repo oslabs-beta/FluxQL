@@ -8,11 +8,6 @@ function color(d) {
   } else {
     return '#fd8d3c';
   }
-
-  // d._children
-  //   ? '#3182bd' // collapsed package
-  //   : d.children ? '#c6dbef' // expanded package
-  //     : '#fd8d3c';
 }
 
 function project(x, y) {
@@ -32,31 +27,29 @@ function click(d) {
   update(d);
 }
 
-const update = (source, treemap, root, svg, duration, height, width) => {
+function update(source, treemap, svg, root, height, width, duration, i) {
   // b/c Update doesn't have access to the tree due to scope, we have to declare and store it in a variable
   // treeData basically is our "root" variable from TestGraph
   const treeData = treemap(root);
-  console.log('treeData: ', treeData);
 
   // grabbing all tree nodes (including root)
   const nodes = treeData.descendants();
 
-  // grabbing all nodes off the DOM in the <g>
-  const g = svg
-    .append('g')
-    .attr(
-      'transform',
-      'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')'
-    );
+  // assigning the layers of the circle
+  nodes.forEach(function (d) {
+    d.y = d.depth * 180;
+  });
 
-  const node = g.selectAll('.node');
+  const g = svg.select('g');
+
+  const node = g.selectAll('.node').data(nodes, (d) => d.id || (d.id = ++i));
 
   // the starting location of all nodes (aka the tree root's location)
   const startingPoint = node
     .enter()
     .append('g')
     .attr('class', 'node')
-    .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')') // referencing line 120 in graphv4
+    .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')') // referencing line 118 in graphv4
     .on('click', click);
   // potential mouseover???
 
@@ -75,13 +68,16 @@ const update = (source, treemap, root, svg, duration, height, width) => {
   // do we need text-anchor attr? ref: line 137
 
   /* codepen ref for startingPoint ^
-    https://codepen.io/fernoftheandes/pen/pcoFz?editors=0010
-    nodeEnter.append("text")
-      .attr("x", 10)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .text(function(d) { return d.name; })
-      .style("fill-opacity", 1e-6);
+  //codepen.io/fernoftheandes/pen/pcoFz?editors=0010
+  https: nodeEnter
+    .append('text')
+    .attr('x', 10)
+    .attr('dy', '.35em')
+    .attr('text-anchor', 'start')
+    .text(function (d) {
+      return d.name;
+    })
+    .style('fill-opacity', 1e-6);
   */
 
   // we are merging the original spot to the child point (overrwriting the objects)
@@ -111,7 +107,6 @@ const update = (source, treemap, root, svg, duration, height, width) => {
   childExit.select('select').attr('r', 0);
 
   childExit.select('text').style('fill-opacity', 0);
-  console.log('node: ', node);
-}; // ends update function
+}
 
 export default update;

@@ -21,7 +21,7 @@ class GraphV4 extends Component {
     // grabbing from Graphv4 Render
     const svg = d3.select(this.myRef.current);
 
-    let g = svg
+    const g = svg
       .append('g')
       .attr(
         'transform',
@@ -41,7 +41,7 @@ class GraphV4 extends Component {
       );
     }
 
-    let treeMap = d3.tree().size([360, 250]);
+    const treeMap = d3.tree().size([360, 250]);
 
     let root;
     let nodeSvg;
@@ -70,7 +70,7 @@ class GraphV4 extends Component {
 
     function flatten(root) {
       // hierarchical data to flat data for force layout
-      let nodes = [];
+      const nodes = [];
       function recurse(node) {
         if (node.children) node.children.forEach(recurse);
         if (!node.id) node.id = ++i;
@@ -82,20 +82,21 @@ class GraphV4 extends Component {
     }
 
     function project(x, y) {
-      let angle = ((x - 90) / 180) * Math.PI,
+      const angle = ((x - 90) / 180) * Math.PI,
         radius = y;
       return [radius * Math.cos(angle), radius * Math.sin(angle)];
     }
 
     function update(source) {
       // ends on line 182
-      console.log('entered update func');
-      //root = treeMap(root);
+
       nodes = treeMap(root).descendants();
-      //console.log('nodes: ', nodes); // is an array of all tree nodes, the first one is always the root node
+      // is an array of all tree nodes, the first one is always the root node
+      console.log('OG parent node: ', nodes[0]);
+      console.log('1st child node: ', nodes[1]);
 
       links = nodes.slice(1); // an array of all children nodes
-      //console.log('links: ', links);
+
       let nodeUpdate;
       let nodeExit;
 
@@ -117,7 +118,6 @@ class GraphV4 extends Component {
         //.attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
         .attr('class', 'node')
         .attr('transform', function (d) {
-          console.log(('d on from line 120: ', d));
           return 'translate(' + project(d.x, d.y) + ')';
         })
         //.attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
@@ -154,7 +154,10 @@ class GraphV4 extends Component {
         .merge(nodeSvg)
         .transition()
         .duration(duration) // set to 750 on global variable declaration
-        .attr('transform', function (d) {
+        .attr('transform', function (d, i) {
+          if (i === 0 || i === 1) {
+            console.log('nodeUpdate: parent node: ', d);
+          }
           return 'translate(' + project(d.x, d.y) + ')';
         });
       // .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
@@ -184,7 +187,7 @@ class GraphV4 extends Component {
       });
 
       linkSvg = g.selectAll('.link').data(links, function (link) {
-        let id = link.id + '->' + link.parent.id;
+        const id = link.id + '->' + link.parent.id;
         return id;
       });
 
@@ -258,7 +261,6 @@ class GraphV4 extends Component {
         return d.children;
       });
 
-      console.log(root);
       // customizing our children nodes
       root.each(function (d) {
         d.name = d.data.name; // bringing out the name thats nested inside "data" property
