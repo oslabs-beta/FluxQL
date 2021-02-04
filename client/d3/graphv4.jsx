@@ -60,15 +60,42 @@ class GraphV4 extends Component {
       update(d);
     }
 
+    function color(d) {
+      return d._children
+        ? '#3182bd' // collapsed package
+        : d.children
+        ? '#c6dbef' // expanded package
+        : '#fd8d3c'; // leaf node
+    }
+
+    function flatten(root) {
+      // hierarchical data to flat data for force layout
+      let nodes = [];
+      function recurse(node) {
+        if (node.children) node.children.forEach(recurse);
+        if (!node.id) node.id = ++i;
+        else ++i;
+        nodes.push(node);
+      }
+      recurse(root);
+      return nodes;
+    }
+
+    function project(x, y) {
+      let angle = ((x - 90) / 180) * Math.PI,
+        radius = y;
+      return [radius * Math.cos(angle), radius * Math.sin(angle)];
+    }
+
     function update(source) {
       // ends on line 182
       console.log('entered update func');
       //root = treeMap(root);
       nodes = treeMap(root).descendants();
-      //console.log(nodes);
-      //links = root.descendants().slice(1);
-      links = nodes.slice(1);
-      //console.log(links);
+      //console.log('nodes: ', nodes); // is an array of all tree nodes, the first one is always the root node
+
+      links = nodes.slice(1); // an array of all children nodes
+      //console.log('links: ', links);
       let nodeUpdate;
       let nodeExit;
 
@@ -83,19 +110,21 @@ class GraphV4 extends Component {
 
       //nodeSvg.exit().remove();
 
-      let nodeEnter = nodeSvg
+      // to make all the children nodes start at the parent node
+      nodeEnter = nodeSvg // this was let nodeEnter = nodeSvg
         .enter()
         .append('g')
         //.attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
         .attr('class', 'node')
         .attr('transform', function (d) {
+          console.log(('d on from line 120: ', d));
           return 'translate(' + project(d.x, d.y) + ')';
         })
         //.attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-        .on('click', click)
-        .on('mouseover', function (d) {
-          return 'minu';
-        });
+        .on('click', click);
+      // .on('mouseover', function (d) {
+      // return 'minu';
+      // });
 
       nodeEnter.append('circle').attr('r', 5).style('fill', color);
 
@@ -121,10 +150,10 @@ class GraphV4 extends Component {
       // let nodeUpdate = nodeSvg.merge(nodeEnter).transition()
       //   .duration(duration);
 
-      nodeUpdate = nodeSvg
-        .merge(nodeEnter)
+      nodeUpdate = nodeEnter
+        .merge(nodeSvg)
         .transition()
-        .duration(duration)
+        .duration(duration) // set to 750 on global variable declaration
         .attr('transform', function (d) {
           return 'translate(' + project(d.x, d.y) + ')';
         });
@@ -144,7 +173,8 @@ class GraphV4 extends Component {
         }) //for the animation to either go off there itself or come to centre
         .remove();
 
-      nodeExit.select('circle').attr('r', 1e-6);
+      nodeExit.select('circle').attr('r', 1e-6); // original
+      // nodeExit.select('circle').attr('r', 0);
 
       nodeExit.select('text').style('fill-opacity', 1e-6);
 
@@ -217,35 +247,8 @@ class GraphV4 extends Component {
             );
           }
         )
-        .remove();
+        .remove(); // ----> removes the children node links (blue lines that go out from arizona to arizona airport) // this is also going to need some sort of transition duration property
     } // ENDS UPDATE
-
-    function color(d) {
-      return d._children
-        ? '#3182bd' // collapsed package
-        : d.children
-        ? '#c6dbef' // expanded package
-        : '#fd8d3c'; // leaf node
-    }
-
-    function flatten(root) {
-      // hierarchical data to flat data for force layout
-      let nodes = [];
-      function recurse(node) {
-        if (node.children) node.children.forEach(recurse);
-        if (!node.id) node.id = ++i;
-        else ++i;
-        nodes.push(node);
-      }
-      recurse(root);
-      return nodes;
-    }
-
-    function project(x, y) {
-      let angle = ((x - 90) / 180) * Math.PI,
-        radius = y;
-      return [radius * Math.cos(angle), radius * Math.sin(angle)];
-    }
 
     d3.json('/client/v4Data.json').then((treeData) => {
       //if(!error) throw error;
@@ -256,13 +259,13 @@ class GraphV4 extends Component {
       });
 
       console.log(root);
-
+      // customizing our children nodes
       root.each(function (d) {
         d.name = d.data.name; // bringing out the name thats nested inside "data" property
         d.id = i; //Assigning numerical Ids via global variable  "i"
         i += i; // incrementing i for the next node
       });
-
+      // defining the coordinate of our root
       root.x0 = height / 2;
       root.y0 = 0;
 
