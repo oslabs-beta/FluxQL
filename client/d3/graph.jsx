@@ -39,7 +39,7 @@ class Graph extends Component {
       + " " + d.target.y + "," + d.target.x;
     };
 
-
+    // grabbing from Graph Render
     const svg = d3.select(this.myRef.current)
       .append("g")
         .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
@@ -85,7 +85,7 @@ class Graph extends Component {
           .style("fill-opacity", 1e-6);
     
       // Transition nodes to their new position.
-      var nodeUpdate = node.transition()
+      var nodeUpdatee = node.transition()
           .duration(duration)
           .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
     
