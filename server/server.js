@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const router = require('./router');
 
 
 const PORT = 3000;
@@ -22,14 +23,18 @@ app.use((req, res, next) => {
 // route handlers
 
 // static file for webpack dev-server
-app.use(express.static(path.resolve(__dirname, '../dist')))
+app.use(express.static(path.resolve(__dirname, '.å./dist')))
 
 /*** MAIN PAGE ***/
-app.get('/client/v4Data.json', (req, res) =>
-  res.status(200).sendFile(path.join(__dirname, '../client/v4Data.json')));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
+/* test route for front-end graph */
+app.get('/client/v4Data.json', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../client/v4Data.json')); 
+});
 
+/* Route for Mongo & PG URI */
+app.use('/', router);
 
 // catch all
 app.use('*', (req, res, next) => {
