@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 import './graphv4.scss'
 import { render } from 'react-dom';
 
-
 const width = 960;
 const height = 1000;
 const duration = 750;
@@ -15,8 +14,6 @@ class GraphV4 extends Component {
   }
 
   componentDidMount(){
-    console.log('hi from comp did mount');
-
     let nodes;
     let links;
     let i = 0;
@@ -43,17 +40,19 @@ class GraphV4 extends Component {
     let linkEnter;
 
     function click(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
-  update(d);
-}
+
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+      update(d);
+    }
     
-  function update(source) {
+  function update(source) { // ends on line 182
+      console.log('entered update func')
       //root = treeMap(root);
       nodes = treeMap(root).descendants();
       //console.log(nodes);
@@ -67,7 +66,7 @@ class GraphV4 extends Component {
       nodes.forEach(function(d) { d.y = d.depth * 180; });
 
       nodeSvg = g.selectAll(".node")
-                        .data(nodes,function(d) { return d.id || (d.id = ++i); });
+                  .data(nodes,function(d) { return d.id || (d.id = ++i); });
 
        //nodeSvg.exit().remove();
 
@@ -78,7 +77,7 @@ class GraphV4 extends Component {
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + project(d.x, d.y) + ")"; })
         //.attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-        .on("click",click)
+        .on("click", click)
         .on("mouseover", function(d) { return "minu"; });
 
 
@@ -179,8 +178,8 @@ class GraphV4 extends Component {
                               + " " + project(d.parent.x, d.parent.y);
                     })
           .remove();
-}
-    /******* MOVING THIS AROUND  */
+    } // ENDS UPDATE
+    
     function color(d) {
       return d._children ? "#3182bd" // collapsed package
         : d.children ? "#c6dbef" // expanded package
@@ -206,23 +205,18 @@ class GraphV4 extends Component {
       return [radius * Math.cos(angle), radius * Math.sin(angle)];
     }
 
-    console.log('before d3.json at line 212');
-
     d3.json("/client/v4Data.json")
       .then((treeData) => {
-      console.log('inside d3.json line 215')
       //if(!error) throw error;
 
-      root = d3.hierarchy(treeData,function(d){
+      root = d3.hierarchy(treeData, function(d){ // defining the root of tree and assigning this.children = an array of nodes
           return d.children;
       });
 
-      console.log('root: ', root)
         root.each(function (d) {
-        console.log(d);
-          d.name = d.data.name; //transferring name to a name letiable
-          d.id = i; //Assigning numerical Ids
-          i += i;
+          d.name = d.data.name; // bringing out the name thats nested inside "data" property
+          d.id = i; //Assigning numerical Ids via global variable  "i"
+          i += i; // incrementing i for the next node
           });
 
         root.x0 = height / 2;
@@ -235,8 +229,9 @@ class GraphV4 extends Component {
             d.children = null;
           }
         }
-         //root.children.forEach(collapse);
-            update(root);
+
+          update(root);
+         root.children.forEach(collapse); // somehow closes??? come back to it
     }); // closes line 83
 
   } // componentdidmount
@@ -261,4 +256,16 @@ for line 211 -> d3.json sends a GET request to server
 
 app.get('/client/v4Data.json', (req, res) =>
   res.status(200).sendFile(path.join(__dirname, '../client/v4Data.json')));
+
+! potential json file??
+
+{
+  name: "psql database name",
+  children: [
+    {
+      name: "table name",
+      children: [{name: "column name"},{}]
+    }
+  ]
+}
 */

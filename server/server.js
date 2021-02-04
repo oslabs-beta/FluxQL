@@ -25,6 +25,8 @@ app.use((req, res, next) => {
 app.use(express.static(path.resolve(__dirname, '../dist')))
 
 /*** MAIN PAGE ***/
+app.get('/client/v4Data.json', (req, res) =>
+  res.status(200).sendFile(path.join(__dirname, '../client/v4Data.json')));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 
