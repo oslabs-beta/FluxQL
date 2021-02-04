@@ -213,6 +213,8 @@ class GraphV4 extends Component {
           return d.children;
       });
 
+      console.log(root);
+
         root.each(function (d) {
           d.name = d.data.name; // bringing out the name thats nested inside "data" property
           d.id = i; //Assigning numerical Ids via global variable  "i"
