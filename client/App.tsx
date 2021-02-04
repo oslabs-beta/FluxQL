@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
-
 // import NavBar
 
 // import pages for routes;

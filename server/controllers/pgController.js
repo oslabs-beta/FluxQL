@@ -1,25 +1,26 @@
 const URI = require('./testPSQL.js');
 const schemaGenerator = require('../pgGenerators/schemaGenerators.js');
 const fs = require ('fs');
-const pgQuery = fs.readFileSync('../queries/tables.sql', 'utf8');
+// const pgQuery = fs.readFileSync('../queries/tables.sql', 'utf8');
 
 const pgController = {};
 
 pgController.SQLTableData = (req, res, next) => {
   const db = new Pool({ connectionString: URI }); //change to request body uri in future
-  db.query(pgQuery)
-  .then(data => {
-      res.locals.tables = data.rows[0].tables;
-      return next();
-  })
-  .catch(err => {
-    const errObj = {
-      log: `Error in SQLTableData: ${err}`,
-      status: 400,
-      message: { err: 'Error in SQLTableData middleware' },
-    };
-    return next(errObj);
-  })
+  return next();
+  // db.query(pgQuery)
+  // .then(data => {
+  //     res.locals.tables = data.rows[0].tables;
+  //     return next();
+  // })
+  // .catch(err => {
+  //   const errObj = {
+  //     log: `Error in SQLTableData: ${err}`,
+  //     status: 400,
+  //     message: { err: 'Error in SQLTableData middleware' },
+  //   };
+  //   return next(errObj);
+  // })
 };
 
 pgController.generateSchema = (req, res, next) => {
