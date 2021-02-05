@@ -3,7 +3,6 @@
 }
 
 .node circle {
-  fill: #999;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
@@ -17,4 +16,8 @@
   fill: none;
   stroke: #ccc;
   stroke-width: 1.5px;
+}
+
+svg {
+  background-color: peachpuff;
 }
