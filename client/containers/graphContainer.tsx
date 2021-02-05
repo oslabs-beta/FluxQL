@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import TestGraph from '../d3/testgraph'
+
 
 export default function graphContainer() {
   return (
-    <div>
-      
+    <div className='GraphContainer'>
+      <TestGraph />
     </div>
   )
-}
+};

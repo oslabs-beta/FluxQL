@@ -1,12 +1,18 @@
 import React from 'react'
-//import GraphV4 from '../d3/graphv4.jsx';
-import TestGraph from '../d3/testgraph.jsx';
+
+import GraphContainer from '../containers/graphContainer';
+import CodeContainer from '../containers/codeContainer';
+import AdviceContainer from '../containers/adviceContainer';
 
 export default function appPage() {
   return (
-    <div>
+    <div className="appPageParent">
       <h1>APP PAGE</h1>
-      <TestGraph />
+      <div className='AppPage'>
+        <GraphContainer />
+        <CodeContainer/>
+        <AdviceContainer/>
+      </div>
     </div>
   )
 };
