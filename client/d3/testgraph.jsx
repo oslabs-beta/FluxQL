@@ -152,12 +152,13 @@ class TestGraph extends Component {
         .exit()
         .transition()
         .duration(duration)
-        // .attr(
+        .remove();
+        //! we don't want this b/c it does the weird transition off the page */
+        // .attr(  
         //   'transform',
         //   (d) => 'translate(' + source.y + ',' + source.x + ')'
         // )
-        .remove();
-
+        
       // styling the invisibility of the collapsed child
       childExit.select('circle').attr('r', 1e-6);
       childExit.select('text').style('fill-opacity', 1e-6);
@@ -175,35 +176,6 @@ class TestGraph extends Component {
           d.children = d._children;
           d._children = null;
         }
-/* 
-! our last attempt
-        const parent = d3.select(this); // <g>
-        //const childExit = node // ref: line 166
-        console.log('parent: ', parent);
-        const desc = d.descendants(); // data -> node
-        console.log('descendants: ', desc);
-
-        // const circleExit = parent.select('circle.node').attr('r', 0).remove();
-        // const textExit = parent
-        //   .select('text')
-        //   .style('fill-opacity', 0)
-        //   .remove();
-
-        parent
-          .exit()
-          .transition()
-          .duration(duration)
-          .attr(
-            'transform',
-            (d) => 'translate(' + source.y + ',' + source.x + ')'
-          )
-          .attr('hidden', true)
-          .remove();
-*/
-        // styling the invisibility of the collapsed child
-        // childExit.select('circle').attr('r', 0);
-        // childExit.select('text').style('fill-opacity', 0);
-
         update(d);
       }
     }
@@ -276,4 +248,30 @@ class TestGraph extends Component {
     );
   }
 }
+*/
+
+/* 
+! our last attempt -> was placed inside click function
+        const parent = d3.select(this); // <g>
+        //const childExit = node // ref: line 166
+        console.log('parent: ', parent);
+        const desc = d.descendants(); // data -> node
+        console.log('descendants: ', desc);
+
+        // const circleExit = parent.select('circle.node').attr('r', 0).remove();
+        // const textExit = parent
+        //   .select('text')
+        //   .style('fill-opacity', 0)
+        //   .remove();
+
+        parent
+          .exit()
+          .transition()
+          .duration(duration)
+          .attr(
+            'transform',
+            (d) => 'translate(' + source.y + ',' + source.x + ')'
+          )
+          .attr('hidden', true)
+          .remove();
 */
