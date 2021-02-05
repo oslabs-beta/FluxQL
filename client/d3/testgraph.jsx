@@ -19,26 +19,10 @@ class TestGraph extends Component {
     const { width, height, duration } = this.state;
     let i = 0;
 
-    // function click(event, d) {
-    //   console.log('event: ', event);
-    //   console.log('d on click: ', d);
-
-    //   if (d.children) {
-    //     d._children = d.children;
-    //     d.children = null;
-    //   } else {
-    //     d.children = d._children;
-    //     d._children = null;
-    //   }
-    //   console.log('d after click :', d);
-    //   update(d);
-    // }
-
     // grabbing from DOM
     const svg = d3.select(this.myRef.current);
 
     const g = svg.append('g').attr(
-      //maybe where the treemap is?
       'transform',
       'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')'
     );
@@ -48,6 +32,7 @@ class TestGraph extends Component {
 
     // defining the parent root & it's coordinates
     const root = d3.hierarchy(treeData, (d) => d.children);
+    console.log('root before: ', root)
     root.x0 = height / 2;
     root.y0 = 0;
 
@@ -57,7 +42,7 @@ class TestGraph extends Component {
       d.id = i;
       i += 1;
     });
-
+    console.log('root after: ', root)
     // to actually open up the tree graph
     update(root);
 
@@ -70,9 +55,11 @@ class TestGraph extends Component {
 
       // grabbing all tree nodes (including root)
       const nodes = treeData.descendants();
+      console.log('all nodes: ', nodes);
 
       // assigning the layers of the circle
       nodes.forEach(function (d) {
+        //if (d.data.children) {d.children = d.data.children};
         d.y = d.depth * 180;
       });
 
@@ -90,14 +77,13 @@ class TestGraph extends Component {
         .attr('id', (d) => d.id)
         .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')') // referencing line 118 in graphv4
         .on('click', click);
-      // potential mouseover???
 
       startingPoint // ref: line 128
         .append('circle')
         .attr('class', 'node')
         .attr('id', (d) => d.id)
         .attr('r', 1e-6) // original radius was 5
-        .style('fill', color);
+        .style('fill', (d) =>  d._children ? 'lightsteelblue' : '#fff)');
 
       // adding text label to each node
       startingPoint
@@ -107,20 +93,6 @@ class TestGraph extends Component {
         .attr('text-anchor', 'start')
         .text((d) => d.data.name)
         .style('fill-opacity', 1e-6)
-      // do we need text-anchor attr? ref: line 137
-
-      /* codepen ref for startingPoint ^
-      //codepen.io/fernoftheandes/pen/pcoFz?editors=0010
-      https: nodeEnter
-        .append('text')
-        .attr('x', 10)
-        .attr('dy', '.35em')
-        .attr('text-anchor', 'start')
-        .text(function (d) {
-          return d.name;
-        })
-        .style('fill-opacity', 1e-6);
-      */
 
       // we are merging the original spot to the child point (overrwriting the objects)
       const childPoint = startingPoint.merge(node);
@@ -129,13 +101,15 @@ class TestGraph extends Component {
       childPoint
         .transition()
         .duration(duration)
-        .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')');
+        .attr('transform', (d) => 'rotate(' + (d.x - 90) + ')translate(' + d.y +')');
+        // ! our original below.. the above changees the text to be on angle??
+        //.attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')');
 
       // style the child node at its correct location
       childPoint // ref: line 161
-        .select('circle.node')
+        .select('circle') // original -> circle.node
         .attr('r', 5)
-        .attr('fill', color)
+        .attr('fill', (d) => d._children ? 'lightsteelblue' : '#fff')
         .attr('cursor', 'pointer');
 
       childPoint
@@ -143,25 +117,29 @@ class TestGraph extends Component {
         .style('fill-opacity', 1)
         .attr('transform', (d) => {
           d.x < 180 ? 'translate(0)' : 'rotate(180)translate(-' + (d.name.length + 50) + ')';
-        });
+        }); //! to get the text to rotate on an angle
 
       // defining the "disappearance" of the child node when collapsing
-
-      const childExit = node
-        //const childExit = node // ref: line 166
-        .exit()
-        .transition()
-        .duration(duration)
-        .remove();
-        //! we don't want this b/c it does the weird transition off the page */
-        // .attr(  
-        //   'transform',
-        //   (d) => 'translate(' + source.y + ',' + source.x + ')'
-        // )
-        
-      // styling the invisibility of the collapsed child
-      childExit.select('circle').attr('r', 1e-6);
-      childExit.select('text').style('fill-opacity', 1e-6);
+      // check if d._children exists, if it does, need to grab the children out of source._children 
+      if (source._children){
+        console.log('hi')
+        const childExit = node
+          .exit()
+          .transition()
+          .duration(duration)
+          .remove();
+          /* 
+          ! we don't want this b/c it does the weird transition off the page 
+          // .attr(  
+          //   'transform',
+          //   (d) => 'translate(' + source.y + ',' + source.x + ')'
+          // ) 
+          */
+          
+        // styling the invisibility of the collapsed child
+        childExit.select('circle').attr('r', 1e-6);
+        childExit.select('text').style('fill-opacity', 1e-6);
+      }
 
       nodes.forEach((d) => {
         d.x0 = d.x;
@@ -169,6 +147,10 @@ class TestGraph extends Component {
       });
 
       function click(event, d) {
+        console.log('d in click: ', d);
+        console.log('event: ', event);
+        console.log('this: ', this)
+
         if (d.children) {
           d._children = d.children;
           d.children = null;
@@ -176,6 +158,8 @@ class TestGraph extends Component {
           d.children = d._children;
           d._children = null;
         }
+
+        console.log('updated d in click: ', d)
         update(d);
       }
     }
