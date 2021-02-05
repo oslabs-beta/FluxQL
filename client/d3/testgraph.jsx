@@ -159,9 +159,6 @@ class TestGraph extends Component {
       });
 
       function click(event, d) {
-        console.log('event: ', event);
-        console.log('d on click: ', d);
-
         if (d.children) {
           d._children = d.children;
           d.children = null;
@@ -169,11 +166,20 @@ class TestGraph extends Component {
           d.children = d._children;
           d._children = null;
         }
-        console.log('d after click :', d);
 
-        const childExit = d3
-          .select(this)
-          //const childExit = node // ref: line 166
+        const parent = d3.select(this); // <g>
+        //const childExit = node // ref: line 166
+        console.log('parent: ', parent);
+        const desc = d.descendants(); // data -> node
+        console.log('descendants: ', desc);
+
+        // const circleExit = parent.select('circle.node').attr('r', 0).remove();
+        // const textExit = parent
+        //   .select('text')
+        //   .style('fill-opacity', 0)
+        //   .remove();
+
+        parent
           .exit()
           .transition()
           .duration(duration)
@@ -185,7 +191,7 @@ class TestGraph extends Component {
           .remove();
 
         // styling the invisibility of the collapsed child
-        // childExit.select('select').attr('r', 0);
+        // childExit.select('circle').attr('r', 0);
         // childExit.select('text').style('fill-opacity', 0);
 
         update(d);
