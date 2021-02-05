@@ -87,15 +87,14 @@ const treeData = {
       ],
     },
   ],
-};
+}; 
 
 
-
-export default treeData;
+export default usData;
 
 
 /*
-const treeData = {
+const usData = {
   name: 'United States',
   children: [
     {
@@ -195,6 +194,4 @@ const treeData = {
     },
   ],
 };
-
-
 */
