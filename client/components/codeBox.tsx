@@ -5,8 +5,9 @@ import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/dracula.css';
 import '../../node_modules/codemirror/addon/scroll/annotatescrollbar.js'
 import '../../node_modules/codemirror/addon/scroll/simplescrollbars.js'
-
 import SchemaString from '../codeboxdata/schemaString';
+
+
 // import ResolverObject from '../codeboxdata/resolverData';
 
 export default function codeBox() {
@@ -18,6 +19,7 @@ export default function codeBox() {
   // }
 
   return (
+    // <div className="codeboxContainer">
     <>
       <CodeMirror 
         value={SchemaString}
@@ -30,6 +32,7 @@ export default function codeBox() {
           //scrollbarStyle: 'native'
         }}
       />
-    </>
+      </>
+    // </div>
   )
 }

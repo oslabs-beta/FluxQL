@@ -1,6 +1,5 @@
 export default `
 type Query {
-  jfadlsjfiosadjfipuerhyg9fausdadiofjshoaerofjugaeipofjpiugvaudosjiugvdfhosaj;uipfshuapdfiojasphdso
   people: [Person!]!
   person(_id: Int!): Person!
   films: [Film!]!
