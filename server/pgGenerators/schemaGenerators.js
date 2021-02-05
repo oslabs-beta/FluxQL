@@ -1,5 +1,5 @@
 const resolverGenerator = require('../pgGenerators/resolverGenerators.js');
-const isJoinTable = require('./helperFunctions.js');
+const { isJoinTable } = require('./helperFunctions.js');
 
 const schemaGenerator = {};
 const { mutations } = require('./typeGenerator');
@@ -9,18 +9,14 @@ schemaGenerator.assembleTypes = (tables) => {
   let queryType = '';
   let mutationType = '';
 
-  for (const tableName in tables){
+  for (const tableName in tables) {
     const tableData = tables[tableName];
     queryType += TypeGenerator.queries(tableName, tableData);
-    mutationType += TypeGenerator.mutations(tableName, tableData)
+    mutationType += TypeGenerator.mutations(tableName, tableData);
   }
 
   return queryType + mutationType;
-  
-}
-
-
-
+};
 
 schemaGenerator.assembleResolvers = (tables) => {
   let queryResolvers = '';
@@ -31,20 +27,28 @@ schemaGenerator.assembleResolvers = (tables) => {
     const tableData = tables[currentTable];
     const { foreignKeys, columns } = tableData;
     if (!foreignKeys || !isJoinTable(foreignKeys, columns)) {
-      queryResolvers += resolverGenerator.assembleQueries(currentTable, tableData);
-      mutationResolvers += resolverGenerator.assembleMutations(currentTable, tableData);
-      customRelationshipResolvers += resolverGenerator.assembleCustomRelationships(currentTable);
+      queryResolvers += resolverGenerator.assembleQueries(
+        currentTable,
+        tableData
+      );
+      mutationResolvers += resolverGenerator.assembleMutations(
+        currentTable,
+        tableData
+      );
+      customRelationshipResolvers += resolverGenerator.assembleCustomRelationships(
+        currentTable
+      );
     }
   }
 
   return (
-    `\n  const resolvers = {\n` +  
-    `    Query: {` + 
-    `      ${queryResolvers}\n` + 
-    `    },\n\n` +
-    `    Mutation: {\n` + 
+    '\n  const resolvers = {\n' +
+    '    Query: {' +
+    `      ${queryResolvers}\n` +
+    '    },\n\n' +
+    '    Mutation: {\n' +
     `      ${mutationResolvers}\n` +
-    `    },\n` +
+    '    },\n' +
     `      ${customRelationshipResolvers}\n  }\n`
   );
 };

@@ -1,0 +1,39 @@
+body {
+  background-color: #282a36;
+  color: white;
+}
+
+.appHeader {
+  border: 1px solid white;
+}
+
+// for App Page
+.appPageParent {
+  height: 100%; // come back to check on the scroll...
+
+  .AppPage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0px 0px;
+    grid-template-areas:
+      'Code Graph Graph'
+      'Code Graph Graph'
+      'Advice Graph Graph';
+
+    .GraphContainer {
+      border: 1px solid black;
+      grid-area: Graph;
+    }
+
+    .CodeContainer {
+      border: 1px solid black;
+      grid-area: Code;
+    }
+
+    .AdviceContainer {
+      border: 1px solid black;
+      grid-area: Advice;
+    }
+  }
+}

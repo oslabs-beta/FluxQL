@@ -3,21 +3,21 @@
 }
 
 .node circle {
-  stroke: steelblue;
+  stroke: #f6f3e4;
   stroke-width: 1.5px;
 }
 
 .node text {
-  font: 10px sans-serif;
-  color: black;
+  font: 12px sans-serif;
+  color: white !important;
 }
 
 .link {
   fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
+  stroke: #ffd1ff;
+  stroke-width: 0.7px;
 }
 
 svg {
-  background-color: peachpuff;
+  background-color: #44475a;
 }
