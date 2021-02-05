@@ -7,7 +7,7 @@ router.post('/psql',
   pgController.SQLTableData,
   pgController.generateSchema,
   (req, res) => {
-    res.status(200).send('psql')
+    res.status(200).send(res.locals.types);
 });
 
 router.post('/mongo', (req, res) => {
