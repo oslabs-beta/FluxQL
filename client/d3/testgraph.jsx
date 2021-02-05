@@ -163,8 +163,13 @@ class TestGraph extends Component {
       // defining the number of links we need, excluding the root
       const links = nodes.slice(1);
 
-      const link = svg.selectAll('path.link')
-        .data(links, (d) => d.id); 
+      const link = g.selectAll('.link')
+        .data(links, (link) => {
+          const id = link.id + '->' + link.parent.id;
+          return id;
+        })
+      // const link = svg.selectAll('path.link')
+      //   .data(links, (d) => d.id); 
 
       // defining the transition of links to their new position
       // link
@@ -176,17 +181,17 @@ class TestGraph extends Component {
         .enter()
         .insert('path', 'g')
         .attr('class', 'link')
-        .attr('d', (d) => {
-          return (
-            'M' +
-            project(d.x, d.y) +
-            'C' +
-            project(d.x, (d.y + d.parent.y) / 2) +
-            ' ' +
-            project(d.parent.x, (d.y + d.parent.y) / 2) +
-            ' ' +
-            project(d.parent.x, d.parent.y)
-          );
+        .attr('d', (d) => { diagonal(d)
+          // return (
+          //   'M' +
+          //   project(d.x, d.y) +
+          //   'C' +
+          //   project(d.x, (d.y + d.parent.y) / 2) +
+          //   ' ' +
+          //   project(d.parent.x, (d.y + d.parent.y) / 2) +
+          //   ' ' +
+          //   project(d.parent.x, d.parent.y)
+          // );
         });
       
       // defining the correct spots of the links
