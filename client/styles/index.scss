@@ -1,4 +1,8 @@
 @import './radialTree.scss';
+@import './codeMirror.scss';
+
+@import 'codemirror/lib/codemirror.css';
+@import 'codemirror/theme/dracula.css';
 
 body {
   background-color: #282a36;
@@ -10,12 +14,16 @@ body {
 }
 
 // for App Page
-.appPageParent {
+.AppPageGrid {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
   height: 100%; // come back to check on the scroll...
 
   .AppPage {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    //grid-template-columns: repeat(auto-fill, minmax(3fr));
+    grid-template-columns: repeat(3, 33%);
     grid-template-rows: repeat(3, 1fr);
     gap: 0px 0px;
     grid-template-areas:

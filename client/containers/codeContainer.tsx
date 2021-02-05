@@ -1,9 +1,10 @@
 import React from 'react'
+import CodeBox from '../components/codeBox';
 
 export default function codeContainer() {
   return (
     <div className='CodeContainer'>
-      <h1>Code Container</h1>
+      <CodeBox/>
     </div>
   )
 }
