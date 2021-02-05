@@ -8,15 +8,22 @@ class TestGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: 960,
-      height: 1000,
+      width: 960, 
+      height: 1000, 
       duration: 350,
-    };
+      diameter: 800,
+      margin: {
+        top: 20,
+        right: 120, 
+        bottom: 20, 
+        left: 120
+      }
+    }
     this.myRef = createRef();
   }
 
   componentDidMount() {
-    const { width, height, duration } = this.state;
+    const { diameter, duration, margin, width, height } = this.state;
     let i = 0;
 
     // grabbing from DOM
@@ -27,12 +34,11 @@ class TestGraph extends Component {
       'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')'
     );
 
-    //defining where the actual area of the tree is...
+    //defining where the actual area of the tree is
     const treemap = d3.tree().size([360, 250]);
 
     // defining the parent root & it's coordinates
     const root = d3.hierarchy(treeData, (d) => d.children);
-    console.log('root before: ', root)
     root.x0 = height / 2;
     root.y0 = 0;
 
@@ -42,24 +48,20 @@ class TestGraph extends Component {
       d.id = i;
       i += 1;
     });
-    console.log('root after: ', root)
+
     // to actually open up the tree graph
     update(root);
 
     function update(source) {
-      console.log('source: ', source);
       
-      // b/c Update doesn't have access to the tree due to scope, we have to declare and store it in a variable
       // treeData basically is our "root" variable from TestGraph
       const treeData = treemap(root);
 
       // grabbing all tree nodes (including root)
       const nodes = treeData.descendants();
-      console.log('all nodes: ', nodes);
 
       // assigning the layers of the circle
       nodes.forEach(function (d) {
-        //if (d.data.children) {d.children = d.data.children};
         d.y = d.depth * 180;
       });
 
@@ -75,21 +77,21 @@ class TestGraph extends Component {
         .append('g')
         .attr('class', 'node')
         .attr('id', (d) => d.id)
-        .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')') // referencing line 118 in graphv4
+        .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')')
         .on('click', click);
 
       startingPoint // ref: line 128
         .append('circle')
         .attr('class', 'node')
         .attr('id', (d) => d.id)
-        .attr('r', 1e-6) // original radius was 5
+        .attr('r', 1e-6) // ! original radius was 5 but we want it to start off as "invisible"
         .style('fill', (d) =>  d._children ? 'lightsteelblue' : '#fff)');
 
       // adding text label to each node
       startingPoint
         .append('text')
         .attr('dy', '.35em')
-        .attr('x', 10)//(d) => (d.children || d._children ? -13 : 13))
+        .attr('x', 10)// ! (d) => (d.children || d._children ? -13 : 13)) was putting the text on top of the <g> so it threw off the clicking 
         .attr('text-anchor', 'start')
         .text((d) => d.data.name)
         .style('fill-opacity', 1e-6)
@@ -102,12 +104,12 @@ class TestGraph extends Component {
         .transition()
         .duration(duration)
         .attr('transform', (d) => 'rotate(' + (d.x - 90) + ')translate(' + d.y +')');
-        // ! our original below.. the above changees the text to be on angle??
+        // ! our original below.. the above changees the text to be on angle
         //.attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')');
 
       // style the child node at its correct location
-      childPoint // ref: line 161
-        .select('circle') // original -> circle.node
+      childPoint
+        .select('circle.node')
         .attr('r', 5)
         .attr('fill', (d) => d._children ? 'lightsteelblue' : '#fff')
         .attr('cursor', 'pointer');
@@ -119,15 +121,12 @@ class TestGraph extends Component {
           d.x < 180 ? 'translate(0)' : 'rotate(180)translate(-' + (d.name.length + 50) + ')';
         }); //! to get the text to rotate on an angle
 
-      // defining the "disappearance" of the child node when collapsing
-      // check if d._children exists, if it does, need to grab the children out of source._children 
-      if (source._children){
-        console.log('hi')
-        const childExit = node
-          .exit()
-          .transition()
-          .duration(duration)
-          .remove();
+      // defining the "disappearance" of the children nodes of the collapsed parent node 
+      const childExit = node
+        .exit()
+        .transition()
+        .duration(duration)
+          // .remove(); // ! this was removing the entire circle tag
           /* 
           ! we don't want this b/c it does the weird transition off the page 
           // .attr(  
@@ -136,10 +135,9 @@ class TestGraph extends Component {
           // ) 
           */
           
-        // styling the invisibility of the collapsed child
-        childExit.select('circle').attr('r', 1e-6);
-        childExit.select('text').style('fill-opacity', 1e-6);
-      }
+      // styling the invisibility of the collapsed child
+      childExit.select('circle').attr('r', 1e-6);
+      childExit.select('text').style('fill-opacity', 1e-6);
 
       nodes.forEach((d) => {
         d.x0 = d.x;
@@ -147,10 +145,6 @@ class TestGraph extends Component {
       });
 
       function click(event, d) {
-        console.log('d in click: ', d);
-        console.log('event: ', event);
-        console.log('this: ', this)
-
         if (d.children) {
           d._children = d.children;
           d.children = null;
@@ -158,8 +152,6 @@ class TestGraph extends Component {
           d.children = d._children;
           d._children = null;
         }
-
-        console.log('updated d in click: ', d)
         update(d);
       }
     }
