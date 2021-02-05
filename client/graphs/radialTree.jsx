@@ -26,7 +26,10 @@ class RadialTree extends Component {
     let i = 0;
 
     // grabbing from DOM
-    const svg = d3.select(this.myRef.current);
+    const svg = d3
+      .select(this.myRef.current)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', '0 0 960 1000'); // width 960, height 1000
 
     const g = svg
       .append('g')
@@ -190,11 +193,13 @@ class RadialTree extends Component {
   }
 
   render() {
-    const { width, height } = this.state;
+    // ! original sizing of the svg. revisit to center the tree
+    // const { width, height } = this.state;
+    // <svg width={width} height={height} ref={this.myRef}></svg>
 
     return (
       <div>
-        <svg width={width} height={height} ref={this.myRef}></svg>
+        <svg ref={this.myRef}></svg>
       </div>
     );
   }
