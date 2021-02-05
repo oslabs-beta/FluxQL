@@ -181,18 +181,8 @@ class TestGraph extends Component {
         .enter()
         .insert('path', 'g')
         .attr('class', 'link')
-        .attr('d', (d) => { diagonal(d)
-          // return (
-          //   'M' +
-          //   project(d.x, d.y) +
-          //   'C' +
-          //   project(d.x, (d.y + d.parent.y) / 2) +
-          //   ' ' +
-          //   project(d.parent.x, (d.y + d.parent.y) / 2) +
-          //   ' ' +
-          //   project(d.parent.x, d.parent.y)
-          // );
-        });
+        .attr('d', (d) => { diagonal(d) })
+        //.style('stroke-opacity', 1e-6);
       
       // defining the correct spots of the links
       const linkUpdate = linkEnter.merge(link);
@@ -200,7 +190,8 @@ class TestGraph extends Component {
       linkUpdate
         .transition()
         .duration(duration)
-        .attr('d', (d) => diagonal(d, d.parent));
+        .attr('d', (d) => diagonal(d, d.parent))
+        //.attr('stroke-opacity', 10);
 
       const linkExit = link
         .exit()
