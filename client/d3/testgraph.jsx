@@ -168,13 +168,6 @@ class TestGraph extends Component {
           const id = link.id + '->' + link.parent.id;
           return id;
         })
-      // const link = svg.selectAll('path.link')
-      //   .data(links, (d) => d.id); 
-
-      // defining the transition of links to their new position
-      // link
-      //   .transition()
-      //   .duration(duration);
 
       // starts the links at 
       const linkEnter = link
@@ -182,7 +175,6 @@ class TestGraph extends Component {
         .insert('path', 'g')
         .attr('class', 'link')
         .attr('d', (d) => { diagonal(d) })
-        //.style('stroke-opacity', 1e-6);
       
       // defining the correct spots of the links
       const linkUpdate = linkEnter.merge(link);
@@ -190,8 +182,7 @@ class TestGraph extends Component {
       linkUpdate
         .transition()
         .duration(duration)
-        .attr('d', (d) => diagonal(d, d.parent))
-        //.attr('stroke-opacity', 10);
+        .attr('d', (d) => diagonal(d))
 
       const linkExit = link
         .exit()
