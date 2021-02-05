@@ -26,6 +26,20 @@ class TestGraph extends Component {
     const { diameter, duration, margin, width, height } = this.state;
     let i = 0;
 
+    // defining the angle of the link?
+    function diagonal (d) {
+      return (
+        'M' +
+        project(d.x, d.y) +
+        'C' +
+        project(d.x, (d.y + d.parent.y) / 2) +
+        ' ' +
+        project(d.parent.x, (d.y + d.parent.y) / 2) +
+        ' ' +
+        project(d.parent.x, d.parent.y)
+      )
+    } 
+
     // grabbing from DOM
     const svg = d3.select(this.myRef.current);
 
@@ -57,6 +71,7 @@ class TestGraph extends Component {
       // treeData basically is our "root" variable from TestGraph
       const treeData = treemap(root);
 
+      /******** NODES (G, CIRCLE, TEXT) *******/
       // grabbing all tree nodes (including root)
       const nodes = treeData.descendants();
 
@@ -143,6 +158,50 @@ class TestGraph extends Component {
         d.x0 = d.x;
         d.y0 = d.y;
       });
+
+      /******** LINKS (PATH) *******/      
+      // defining the number of links we need, excluding the root
+      const links = nodes.slice(1);
+
+      const link = svg.selectAll('path.link')
+        .data(links, (d) => d.id); 
+
+      // defining the transition of links to their new position
+      // link
+      //   .transition()
+      //   .duration(duration);
+
+      // starts the links at 
+      const linkEnter = link
+        .enter()
+        .insert('path', 'g')
+        .attr('class', 'link')
+        .attr('d', (d) => {
+          return (
+            'M' +
+            project(d.x, d.y) +
+            'C' +
+            project(d.x, (d.y + d.parent.y) / 2) +
+            ' ' +
+            project(d.parent.x, (d.y + d.parent.y) / 2) +
+            ' ' +
+            project(d.parent.x, d.parent.y)
+          );
+        });
+      
+      // defining the correct spots of the links
+      const linkUpdate = linkEnter.merge(link);
+
+      linkUpdate
+        .transition()
+        .duration(duration)
+        .attr('d', (d) => diagonal(d, d.parent));
+
+      const linkExit = link
+        .exit()
+        .transition()
+        .duration(duration)
+        .remove()
 
       function click(event, d) {
         if (d.children) {

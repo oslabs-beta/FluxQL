@@ -92,8 +92,6 @@ class GraphV4 extends Component {
 
       nodes = treeMap(root).descendants();
       // is an array of all tree nodes, the first one is always the root node
-      console.log('OG parent node: ', nodes[0]);
-      console.log('1st child node: ', nodes[1]);
 
       links = nodes.slice(1); // an array of all children nodes
 
