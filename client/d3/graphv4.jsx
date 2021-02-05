@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 
 const width = 960;
 const height = 1000;
-const duration = 750;
+const duration = 350;
 
 class GraphV4 extends Component {
   constructor(props) {

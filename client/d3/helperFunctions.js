@@ -1,6 +1,4 @@
-import * as d3 from 'd3';
-
-function color(d) {
+export function color(d) {
   if (d._children) {
     return '#3182bd';
   } else if (d.children) {
@@ -10,13 +8,15 @@ function color(d) {
   }
 }
 
-function project(x, y) {
+export function project(x, y) {
   const angle = ((x - 90) / 180) * Math.PI;
   const radius = y;
   return [radius * Math.cos(angle), radius * Math.sin(angle)];
 }
 
-function click(d) {
+/*
+function click(d, treemap) {
+  console.log('click');
   if (d.children) {
     d._children = d.children;
     d.children = null;
@@ -24,9 +24,9 @@ function click(d) {
     d.children = d._children;
     d._children = null;
   }
-  update(d);
+  update(d, treemap);
 }
-
+ß
 function update(source, treemap, svg, root, height, width, duration, i) {
   // b/c Update doesn't have access to the tree due to scope, we have to declare and store it in a variable
   // treeData basically is our "root" variable from TestGraph
@@ -50,7 +50,7 @@ function update(source, treemap, svg, root, height, width, duration, i) {
     .append('g')
     .attr('class', 'node')
     .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')') // referencing line 118 in graphv4
-    .on('click', click);
+    .on('click', (d, treemap) => click(d, treemap));
   // potential mouseover???
 
   startingPoint // ref: line 128
@@ -67,7 +67,7 @@ function update(source, treemap, svg, root, height, width, duration, i) {
     .text((d) => d.data.name);
   // do we need text-anchor attr? ref: line 137
 
-  /* codepen ref for startingPoint ^
+  codepen ref for startingPoint ^
   //codepen.io/fernoftheandes/pen/pcoFz?editors=0010
   https: nodeEnter
     .append('text')
@@ -78,7 +78,7 @@ function update(source, treemap, svg, root, height, width, duration, i) {
       return d.name;
     })
     .style('fill-opacity', 1e-6);
-  */
+  
 
   // we are merging the original spot to the child point (overrwriting the objects)
   const childPoint = startingPoint.merge(node);
@@ -108,5 +108,6 @@ function update(source, treemap, svg, root, height, width, duration, i) {
 
   childExit.select('text').style('fill-opacity', 0);
 }
+*/
 
-export default update;
+// export default { color, project };
