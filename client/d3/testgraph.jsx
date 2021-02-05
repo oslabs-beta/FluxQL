@@ -63,7 +63,7 @@ class TestGraph extends Component {
 
     function update(source) {
       console.log('source: ', source);
-      console.log('source: ');
+      
       // b/c Update doesn't have access to the tree due to scope, we have to declare and store it in a variable
       // treeData basically is our "root" variable from TestGraph
       const treeData = treemap(root);
@@ -96,15 +96,17 @@ class TestGraph extends Component {
         .append('circle')
         .attr('class', 'node')
         .attr('id', (d) => d.id)
-        .attr('r', 5)
+        .attr('r', 1e-6) // original radius was 5
         .style('fill', color);
 
       // adding text label to each node
       startingPoint
         .append('text')
         .attr('dy', '.35em')
-        .attr('x', (d) => (d.children || d._children ? -13 : 13))
-        .text((d) => d.data.name);
+        .attr('x', 10)//(d) => (d.children || d._children ? -13 : 13))
+        .attr('text-anchor', 'start')
+        .text((d) => d.data.name)
+        .style('fill-opacity', 1e-6)
       // do we need text-anchor attr? ref: line 137
 
       /* codepen ref for startingPoint ^
@@ -132,26 +134,33 @@ class TestGraph extends Component {
       // style the child node at its correct location
       childPoint // ref: line 161
         .select('circle.node')
+        .attr('r', 5)
         .attr('fill', color)
         .attr('cursor', 'pointer');
 
+      childPoint
+        .select('text')
+        .style('fill-opacity', 1)
+        .attr('transform', (d) => {
+          d.x < 180 ? 'translate(0)' : 'rotate(180)translate(-' + (d.name.length + 50) + ')';
+        });
+
       // defining the "disappearance" of the child node when collapsing
 
-      // const childExit = svg
-      //   .select(`#${source.id}`)
-      //   //const childExit = node // ref: line 166
-      //   .exit()
-      //   .transition()
-      //   .duration(duration)
-      //   .attr(
-      //     'transform',
-      //     (d) => 'translate(' + source.y + ',' + source.x + ')'
-      //   )
-      //   .remove();
+      const childExit = node
+        //const childExit = node // ref: line 166
+        .exit()
+        .transition()
+        .duration(duration)
+        // .attr(
+        //   'transform',
+        //   (d) => 'translate(' + source.y + ',' + source.x + ')'
+        // )
+        .remove();
 
-      // // styling the invisibility of the collapsed child
-      // childExit.select('select').attr('r', 0);
-      // childExit.select('text').style('fill-opacity', 0);
+      // styling the invisibility of the collapsed child
+      childExit.select('circle').attr('r', 1e-6);
+      childExit.select('text').style('fill-opacity', 1e-6);
 
       nodes.forEach((d) => {
         d.x0 = d.x;
@@ -166,7 +175,8 @@ class TestGraph extends Component {
           d.children = d._children;
           d._children = null;
         }
-
+/* 
+! our last attempt
         const parent = d3.select(this); // <g>
         //const childExit = node // ref: line 166
         console.log('parent: ', parent);
@@ -189,7 +199,7 @@ class TestGraph extends Component {
           )
           .attr('hidden', true)
           .remove();
-
+*/
         // styling the invisibility of the collapsed child
         // childExit.select('circle').attr('r', 0);
         // childExit.select('text').style('fill-opacity', 0);
