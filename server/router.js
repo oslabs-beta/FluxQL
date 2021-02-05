@@ -5,6 +5,7 @@ const pgController = require('./controllers/pgController');
 
 router.post('/psql', 
   pgController.SQLTableData,
+  pgController.generateSchema,
   (req, res) => {
     res.status(200).send('psql')
 });
