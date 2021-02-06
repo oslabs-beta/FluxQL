@@ -51,6 +51,8 @@ h1 {
     .CodeContainer {
       border: 1px solid black;
       grid-area: Code;
+      display: flex;
+      flex-direction: column;
     }
 
     .AdviceContainer {

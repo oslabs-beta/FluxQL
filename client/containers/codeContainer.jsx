@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import CodeBox from '../components/codeBox';
-
-// import buttons
-// import ExportButton from '../components/exportButton'
+import ExportButton from '../components/exportButton';
 
 // dummy data for now
 import SchemaString from '../codeboxdata/schemaString';
@@ -21,13 +19,9 @@ const codeContainer = () => {
 
   const handleSchema = () => {
     setShowSchema(true);
-    //code = schema;
-    console.log('schemabutt');
   };
   const handleResolver = () => {
     setShowSchema(false);
-    //code = resolver;
-    console.log('resolve my ass');
   };
 
   showSchema ? (code = schema) : (code = resolver);
@@ -43,40 +37,11 @@ const codeContainer = () => {
         </button>
       </div>
       <CodeBox code={code} />
+      <div className="exportBtnDiv">
+        <ExportButton />
+      </div>
     </div>
   );
 };
 
 export default codeContainer;
-
-/* 
-! Vanilla React 
-class codeContainer extends Component {
-  constructor(props: string){
-    super(props)
-    this.state = {
-      schema: SchemaString,
-      resolver: ResolverString,
-      showSchema: true,
-    }
-  }
-
-  render(){
-    let code: string;
-
-    if (this.state.showSchema){
-
-    }
-
-    return (
-      <div className='CodeContainer'>
-        <CodeBox code={code}/>
-      </div>
-    )
-  }
-}
-
-
-
-
-*/
