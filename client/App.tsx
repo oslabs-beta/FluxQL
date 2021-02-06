@@ -34,7 +34,7 @@ const App = () => {
 
   let displayURIModal;
   if (showURIModal){
-    displayURIModal = <URIModal />
+    displayURIModal = <URIModal handleURIModal={handleURIModal}/>
   } else {
     displayURIModal = null;
   }

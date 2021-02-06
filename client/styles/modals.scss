@@ -1,8 +1,9 @@
 .modal {
-  height: 400px; //100%;
-  width: 600px; //100%;
-  border: 1px solid $pink;
-  background-color: rgba(0, 0, 0, 0.4);
+  height: 400px;
+  width: 800px;
+  //border: 1px solid $pink;
+  border-radius: 3px;
+  background-color: $comment;
   margin-left: auto;
   margin-right: auto;
   z-index: 1000;
@@ -11,8 +12,82 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
 
-  .modalContent {
-    background-color: pink;
+// URI Links Modal Styling
+
+#uriModalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+#uriBanner {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#sampleDBbtn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: $purple;
+  width: 75%;
+  height: 35px;
+  border: none;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+#sampleDBbtn:hover {
+  border: 2px solid #a9a9a9;
+  cursor: pointer;
+}
+
+.URILinks {
+  display: flex;
+  flex-direction: row;
+
+  .URILinkBox {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin: 10px;
+    padding: 5%;
+    width: 370px;
+
+    button {
+      border-radius: 8px;
+      color: #000;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      padding: 5px 15px;
+      border: 2px solid hsla(0, 0%, 66.3%, 0.3);
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      border: 2px solid #a9a9a9;
+      cursor: pointer;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .linkInput {
+      display: inline-block;
+      border: none;
+      text-align: center;
+      box-shadow: 3px 2px #a9a9a9;
+      padding: 10px;
+      margin: 10px 0;
+      background: white;
+      color: #000;
+    }
   }
 }
