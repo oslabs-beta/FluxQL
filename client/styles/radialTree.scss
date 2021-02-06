@@ -8,8 +8,8 @@
 }
 
 .node text {
-  font: 12px sans-serif;
-  color: white !important;
+  font: 11px sans-serif;
+  //color: white !important;
 }
 
 .link {
@@ -20,4 +20,6 @@
 
 svg {
   background-color: #44475a;
+  width: 100%;
+  height: 100%;
 }
