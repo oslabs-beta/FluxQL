@@ -36,7 +36,8 @@ schemaGenerator.assembleResolvers = (tables) => {
         tableData
       );
       customRelationshipResolvers += resolverGenerator.assembleCustomRelationships(
-        currentTable
+        currentTable, 
+        tables
       );
     }
   }
