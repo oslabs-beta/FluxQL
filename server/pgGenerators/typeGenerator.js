@@ -3,6 +3,8 @@ const toCamelCase = require('camelcase');
 const { singular } = require('pluralize');
 const { typeSet } = require('./helperFunctions');
 const { mutationHelper } = require('./helperFunctions');
+const { isJoinTable } = require('./helperFunctions.js');
+const { customHelper } = require('./helperFunctions.js');
 
 /* 
 todo helper functions/imports include:
@@ -16,10 +18,7 @@ TypeGenerator.queries = (tableName, tableData) => {
   const nameSingular = singular(tableName);
   const primaryKeyType = typeSet(columns[primaryKey].dataType);
 
-  if (
-    !foreignKeys ||
-    Object.keys(columns).length !== Object.keys(foreignKeys).length + 1
-  ) {
+  if (!foreignKeys || !isJoinTable(foreignKeys, columns)) {
     /* 
                                     Only non-join tables enter this block 
         There can be no foreign keys OR if there are foreign keys, make sure that you have more than 1 unqiue column. 
@@ -40,15 +39,26 @@ TypeGenerator.queries = (tableName, tableData) => {
 
 TypeGenerator.mutations = (tableName, tableData) => {
   const { primaryKey, foreignKeys, columns } = tableData;
-  if (
-    !foreignKeys ||
-    Object.keys(columns).length !== Object.keys(foreignKeys).length + 1
-  ) {
+  if (!foreignKeys || !isJoinTable(foreignKeys, columns))
+   {
     return (
       mutationHelper.create(tableName, primaryKey, foreignKeys, columns) +
       mutationHelper.update(tableName, primaryKey, foreignKeys, columns) +
       mutationHelper.destroy(tableName, primaryKey)
     );
+  }
+  return '';
+};
+
+TypeGenerator.custom = (tableName, tables) => {
+  const { primaryKey, foreignKeys, columns } = tables[tableName];
+  const primaryKeyType = typeSet(columns[primaryKey].dataType);
+  if (!foreignKeys || !isJoinTable(foreignKeys, columns)) {
+    return `${`  type ${pascalCase(singular(tableName))} {\n` + `    ${primaryKey}: ${primaryKeyType}!`}${customHelper.getColumns(
+      primaryKey,
+      foreignKeys,
+      columns
+    )}${customHelper.getRelationships(tableName, tables)}\n  }\n\n`;
   }
   return '';
 };

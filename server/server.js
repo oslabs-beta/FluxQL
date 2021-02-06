@@ -28,7 +28,6 @@ app.use(express.static(path.resolve(__dirname, '../dist')))
 /*** MAIN PAGE ***/
 app.use(express.static(path.resolve(__dirname, '../client')));
 
-
 /* Route for Mongo & PG URI */
 app.use('/', router);
 
