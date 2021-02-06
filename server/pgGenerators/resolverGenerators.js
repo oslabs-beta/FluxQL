@@ -87,7 +87,7 @@ resolverGenerator.queryAll = (currentTable) => {
 resolverGenerator.createMutation = (currentTable, columns) => {
   const queryName = camelCase('create_' + singular(currentTable));
   const columnNames = Object.keys(columns);
-  const values = columnNames.map((el, i) => `$${++i}`);
+  const values = columnNames.map((el, i) => `$${++i}`); // * Revisit -- add join in line? line 95
 
   return `
       ${queryName}: (parent, args) => {
@@ -217,7 +217,15 @@ resolverGenerator.oneToMany = (currentTable, primaryKey, refTable, refForeignKey
         },`;
 };
 
-resolverGenerator.manyToMany = (currentTable, primaryKey, refTable, manyToManyTableRefKey, currentTableRefKey, manyToManyTable, manyToManyTablePKey) => {
+resolverGenerator.manyToMany = (
+  currentTable, 
+  primaryKey, 
+  refTable, 
+  manyToManyTableRefKey, 
+  currentTableRefKey, 
+  manyToManyTable, 
+  manyToManyTablePKey
+  ) => {
 
   return `
         ${camelCase(manyToManyTable)}: (${camelCase(currentTable)}) => {
