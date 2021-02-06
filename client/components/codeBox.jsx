@@ -3,26 +3,23 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/mode/javascript/javascript';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/dracula.css';
-import '../../node_modules/codemirror/addon/scroll/annotatescrollbar.js'
-import '../../node_modules/codemirror/addon/scroll/simplescrollbars.js'
-import SchemaString from '../codeboxdata/schemaString';
-
+import 'codemirror/addon/scroll/annotatescrollbar';
+import 'codemirror/addon/scroll/simplescrollbars';
 
 // import ResolverObject from '../codeboxdata/resolverData';
 
-export default function codeBox() {
+export default function codeBox({ code }) {
   // ! ask backend what executableSchema() returns
-  // const object = { 
+  // const object = {
   //   team: 'DraQLa',
   //   members: 5,
   //   awesome: true
   // }
 
   return (
-    // <div className="codeboxContainer">
     <>
-      <CodeMirror 
-        value={SchemaString}
+      <CodeMirror
+        value={code}
         options={{
           mode: 'javascript',
           theme: 'dracula',
@@ -32,7 +29,6 @@ export default function codeBox() {
           //scrollbarStyle: 'native'
         }}
       />
-      </>
-    // </div>
-  )
+    </>
+  );
 }
