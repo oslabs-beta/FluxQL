@@ -4,6 +4,4 @@ import App from './App.tsx';
 
 import './styles/index.scss';
 
-console.log('hi from index.js');
-
 render(<App />, document.getElementById('root'));

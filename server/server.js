@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 // route handlers
 
 // static file for webpack dev-server
-app.use(express.static(path.resolve(__dirname, '.å./dist')))
+app.use(express.static(path.resolve(__dirname, '../dist')))
 
 /*** MAIN PAGE ***/
 app.use(express.static(path.resolve(__dirname, '../client')));

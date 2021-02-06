@@ -1,10 +1,9 @@
 import React, { Component, createRef } from 'react';
 import * as d3 from 'd3';
-import './graphv4.scss';
 import treeData from './treeData';
-import { project } from './helperFunctions';
+import { project, diagonal } from './helperFunctions';
 
-class TestGraph extends Component {
+class RadialTree extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,22 +25,11 @@ class TestGraph extends Component {
     const { diameter, duration, margin, width, height } = this.state;
     let i = 0;
 
-    // defining the angle of the link?
-    function diagonal(d) {
-      return (
-        'M' +
-        project(d.x, d.y) +
-        'C' +
-        project(d.x, (d.y + d.parent.y) / 2) +
-        ' ' +
-        project(d.parent.x, (d.y + d.parent.y) / 2) +
-        ' ' +
-        project(d.parent.x, d.parent.y)
-      );
-    }
-
     // grabbing from DOM
-    const svg = d3.select(this.myRef.current);
+    const svg = d3
+      .select(this.myRef.current)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', '0 0 960 1000'); // width 960, height 1000
 
     const g = svg
       .append('g')
@@ -110,8 +98,7 @@ class TestGraph extends Component {
         .attr('x', 10) // ! (d) => (d.children || d._children ? -13 : 13)) was putting the text on top of the <g> so it threw off the clicking
         .attr('text-anchor', 'start')
         .text((d) => d.data.name)
-        .style('fill-opacity', 1e-6)
-        .style('color', 'white');
+        .style('fill-opacity', 1e-6);
 
       // we are merging the original spot to the child point (overrwriting the objects)
       const childPoint = startingPoint.merge(node);
@@ -206,14 +193,16 @@ class TestGraph extends Component {
   }
 
   render() {
-    const { width, height } = this.state;
+    // ! original sizing of the svg. revisit to center the tree
+    // const { width, height } = this.state;
+    // <svg width={width} height={height} ref={this.myRef}></svg>
 
     return (
       <div>
-        <svg width={width} height={height} ref={this.myRef}></svg>
+        <svg ref={this.myRef}></svg>
       </div>
     );
   }
 }
 
-export default TestGraph;
+export default RadialTree;
