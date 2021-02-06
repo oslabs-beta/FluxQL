@@ -6,8 +6,7 @@ import AdviceContainer from '../containers/adviceContainer';
 
 export default function appPage() {
   return (
-    <div className="appPageParent">
-      <h1>APP PAGE</h1>
+    <div className="AppPageGrid">
       <div className='AppPage'>
         <GraphContainer />
         <CodeContainer/>

@@ -1,0 +1,22 @@
+.CodeMirror {
+  width: 100%;
+  height: 80vh;
+  // overflow: hidden;
+}
+
+.codeButtons {
+  margin-bottom: 5px;
+
+  button {
+  }
+}
+
+.exportBtnDiv {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#ExportButton {
+  margin-top: 5px;
+  //width: 30px;
+}
