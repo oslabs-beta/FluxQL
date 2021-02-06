@@ -29,7 +29,6 @@ pgController.generateSchema = (req, res, next) => {
   try {
     res.locals.types = schemaGenerator.assembleTypes(tables); // here we will break apart the larger assemble into types & resolvers
     res.locals.resolvers = schemaGenerator.assembleResolvers(tables);
-    console.log(res.locals.resolvers)
     // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc
     return next();
   }
