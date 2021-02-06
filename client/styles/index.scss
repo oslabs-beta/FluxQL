@@ -2,6 +2,7 @@
 @import './codeMirror.scss';
 @import './_fonts.scss';
 @import './_colors.scss';
+@import './navbar.scss';
 
 @import 'codemirror/lib/codemirror.css';
 @import 'codemirror/theme/dracula.css';
@@ -22,6 +23,8 @@ h1 {
 
 .appHeader {
   border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
 }
 
 // for App Page
