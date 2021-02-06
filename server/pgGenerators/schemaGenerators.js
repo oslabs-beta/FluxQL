@@ -8,14 +8,20 @@ const TypeGenerator = require('./typeGenerator');
 schemaGenerator.assembleTypes = (tables) => {
   let queryType = '';
   let mutationType = '';
-
+  let customType = '';
   for (const tableName in tables) {
     const tableData = tables[tableName];
     queryType += TypeGenerator.queries(tableName, tableData);
     mutationType += TypeGenerator.mutations(tableName, tableData);
+    customType += TypeGenerator.custom(tableName, tables);
   }
 
-  return queryType + mutationType;
+  return (
+    `${'const typeDefs = `\n' + 
+    '  type Query {\n'}${queryType}  }\n\n` +
+    `  type Mutation {${mutationType}  }\n\n` +
+    `${customType}\`;\n\n`
+  )
 };
 
 schemaGenerator.assembleResolvers = (tables) => {

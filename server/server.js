@@ -28,11 +28,6 @@ app.use(express.static(path.resolve(__dirname, '.å./dist')))
 /*** MAIN PAGE ***/
 app.use(express.static(path.resolve(__dirname, '../client')));
 
-/* test route for front-end graph */
-app.get('/client/v4Data.json', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../client/v4Data.json')); 
-});
-
 /* Route for Mongo & PG URI */
 app.use('/', router);
 
