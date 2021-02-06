@@ -8,23 +8,34 @@ import AppPage from './pages/appPage';
 
 const App = () => {
   const [onHomePage, setOnHomePage] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showURIModal, setShowURIModal] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
   
   const handleHomeBtn = () => {
     setOnHomePage(true);
     console.log('handleHome');
-    
   }
 
   const handlePlayBtn = () => {
     setOnHomePage(false)
     console.log('handlePlay');
   }
-  
-  const handleModal = () => {
-    setShowModal(!showModal)
-    console.log('handleModal');
+
+  const handleURIModal = () => {
+    setShowURIModal(!showURIModal);
+    console.log('handleURIModal', showURIModal);
   }
+
+  const handleHelpModal = () => {
+    setShowHelpModal(!showHelpModal);
+    console.log('handleHelpModal', showHelpModal);
+  }
+  
+  // const handleMongo = () => {
+    
+  //   handleURIModal();
+  // }
+
 
   /* 
   !things to do for appHeader:
@@ -36,7 +47,7 @@ const App = () => {
     <>
       <Router>
         <div className='appHeader'> 
-          <Link to="/"> 
+          <Link to="/" onClick={handleHomeBtn}> 
               <img
                 className="logo"
                 id="logo"
@@ -50,13 +61,18 @@ const App = () => {
             onHomePage={onHomePage}
             handleHomeBtn={handleHomeBtn}
             handlePlayBtn={handlePlayBtn}
-            handleModal={handleModal}
+            handleURIModal={handleURIModal}
             />
         </div>
 
         <Switch>
-          <Route path='/app' component={AppPage} />
+          <Route path='/app' render={() => (
+            <AppPage
+            handleHelpModal={handleHelpModal}
+            />)} 
+          />
           <Route path='/' exact component={HomePage}/>
+
         </Switch>
       </Router>
     </>
@@ -64,3 +80,9 @@ const App = () => {
 };
 
 export default App;
+
+
+/*
+! original app link
+<Route path='/app' component={AppPage} />
+*/

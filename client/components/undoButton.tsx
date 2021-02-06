@@ -2,8 +2,6 @@ import React from 'react'
 
 export default function undoButton() {
   return (
-    <div>
-      
-    </div>
+      <button id='undoButton' onClick={() => console.log('undo clicked')}>Undo</button>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 
-export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handleModal }) {
+export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handleURIModal }) {
 
   let navbarDisplay;
   
@@ -30,7 +30,7 @@ export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handl
           Home
         </Link>
 
-        <a href='#' className='link' onClick={handleModal}>
+        <a href='#' className='link' onClick={handleURIModal}>
           DB URI
         </a>
 
