@@ -7,6 +7,9 @@ const { Pool } = require('pg');
 const pgController = {};
 
 pgController.SQLTableData = (req, res, next) => {
+  const psqlURI = req.body;
+  console.log(psqlURI);
+  
   const db = new Pool({ connectionString: URI }); // ! change to request body uri in future
 
   db.query(pgQuery)
