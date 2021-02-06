@@ -5,12 +5,40 @@ import NavBar from './components/navbar';
 // import pages for routes;
 import HomePage from './pages/homePage';
 import AppPage from './pages/appPage';
-import ErrorPage from './pages/errorPage';
+import URIModal from './modals/URIModal';
 
 const App = () => {
   const [onHomePage, setOnHomePage] = useState(true);
+  const [showURIModal, setShowURIModal] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
   
-  
+  const handleHomeBtn = () => {
+    setOnHomePage(true);
+    console.log('handleHome');
+  }
+
+  const handlePlayBtn = () => {
+    setOnHomePage(false)
+    console.log('handlePlay');
+  }
+
+  const handleURIModal = () => {
+    setShowURIModal(!showURIModal);
+    console.log('handleURIModal', showURIModal);
+  }
+
+  const handleHelpModal = () => {
+    setShowHelpModal(!showHelpModal);
+    console.log('handleHelpModal', showHelpModal);
+  }
+
+  let displayURIModal;
+  if (showURIModal){
+    displayURIModal = <URIModal handleURIModal={handleURIModal}/>
+  } else {
+    displayURIModal = null;
+  }
+
 
   /* 
   !things to do for appHeader:
@@ -22,26 +50,44 @@ const App = () => {
     <>
       <Router>
         <div className='appHeader'> 
-          <Link to="/"> 
+          <Link to="/" onClick={handleHomeBtn}> 
               <img
                 className="logo"
                 id="logo"
-                src="https://res.cloudinary.com/mrtommyliang/image/upload/v1612572081/bannericon_ld8ofl.png"
+                src="./assets/bannericon.png"
                 alt="DraQLa Logo"
                 height='75px'
                 width='75px'
               ></img>
             </Link>       
-          <NavBar />
+          <NavBar 
+            onHomePage={onHomePage}
+            handleHomeBtn={handleHomeBtn}
+            handlePlayBtn={handlePlayBtn}
+            handleURIModal={handleURIModal}
+            showURIModal={showURIModal}
+            />
         </div>
 
         <Switch>
-          <Route path='/app' component={AppPage} />
+          <Route path='/app' render={() => (
+            <AppPage
+            handleHelpModal={handleHelpModal}
+            />)} 
+          />
           <Route path='/' exact component={HomePage}/>
         </Switch>
+
+          {displayURIModal}
       </Router>
     </>
   )
 };
 
 export default App;
+
+
+/*
+! original app link
+<Route path='/app' component={AppPage} />
+*/

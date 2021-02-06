@@ -1,9 +1,13 @@
+.appHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
 .NavBarContainer {
   width: 50%;
-  border: 1px solid $cyan;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end;
   padding-right: 20px;
 
   .link {

@@ -1,9 +1,7 @@
 import React from 'react'
 
-export default function helpButton() {
+export default function helpButton({ handleHelpModal }) {
   return (
-    <div>
-      
-    </div>
+      <button id='helpButton' onClick={handleHelpModal}>Help</button>
   )
 }

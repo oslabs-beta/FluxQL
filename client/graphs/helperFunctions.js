@@ -16,3 +16,12 @@ export function project(x, y) {
   const radius = y;
   return [radius * Math.cos(angle), radius * Math.sin(angle)];
 }
+
+export function blurToggle() {
+  // ! refactor........ we may need to pass down in a parameter
+  // if (!showURIModal) {
+  //   fullAppPage.style.filter = 'blur(1.5px)';
+  // } else {
+  //   fullAppPage.style.filter = 'none';
+  // }
+}
