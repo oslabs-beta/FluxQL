@@ -13,18 +13,11 @@ todo helper functions/imports include:
 const TypeGenerator = {};
 
 TypeGenerator.queries = (tableName, tableData) => {
-  /* the result of this function builds the 'query type' string referenced in the generateSchema Middleware -> schemaGenerator.assembleTypes */
   const { primaryKey, foreignKeys, columns } = tableData;
   const nameSingular = singular(tableName);
   const primaryKeyType = typeSet(columns[primaryKey].dataType);
 
   if (!foreignKeys || !isJoinTable(foreignKeys, columns)) {
-    /* 
-                                    Only non-join tables enter this block 
-        There can be no foreign keys OR if there are foreign keys, make sure that you have more than 1 unqiue column. 
-        This ensure it is not just a join table. for example a join table will have columns of all its foregin keys and 
-        an additional primary key to join those tables. 
-        */
     let byID = toCamelCase(nameSingular);
     if (nameSingular === tableName) byID += 'ByID';
     return (
