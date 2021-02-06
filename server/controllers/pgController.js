@@ -7,6 +7,9 @@ const { Pool } = require('pg');
 const pgController = {};
 
 pgController.SQLTableData = (req, res, next) => {
+  const psqlURI = req.body;
+  console.log(psqlURI);
+  
   const db = new Pool({ connectionString: URI }); // ! change to request body uri in future
 
   db.query(pgQuery)
@@ -29,7 +32,6 @@ pgController.generateSchema = (req, res, next) => {
   try {
     res.locals.types = schemaGenerator.assembleTypes(tables); // here we will break apart the larger assemble into types & resolvers
     res.locals.resolvers = schemaGenerator.assembleResolvers(tables);
-    console.log(res.locals.resolvers)
     // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc
     return next();
   }

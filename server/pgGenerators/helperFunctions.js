@@ -93,7 +93,7 @@ customHelper.getColumns = (primaryKey, foreignKeys, columns) => {
   for (const columnName in columns) {
     if (!(foreignKeys && foreignKeys[columnName]) && columnName !== primaryKey) {
       const { dataType, isNullable, columnDefault } = columns[columnName];
-      columnsStr += `\n    ${columnName}: ${typeSet(dataType)}`;
+      columnsStr += `\n    ${columnName}: ${typeConversion[dataType] ? typeConversion[dataType] : 'Int'}`;
       if (isNullable === 'NO' && columnDefault === null) columnsStr += '!';
     }
   }
@@ -102,13 +102,15 @@ customHelper.getColumns = (primaryKey, foreignKeys, columns) => {
 };
 
 
-
+//modularize get relationship to return a type of relationship, route of that response
 customHelper.getRelationships = (tableName, tables) => {
   let relationships = '';
   const alreadyAddedType = [];
   for (const refTableName in tables[tableName].referencedBy) {
 
-    const { referencedBy: foreignRefBy, foreignKeys: foreignFKeys, columns: foreignColumns } = tables[refTableName];
+    const { referencedBy: foreignRefBy, 
+      foreignKeys: foreignFKeys, 
+      columns: foreignColumns } = tables[refTableName];
 
     if (foreignRefBy && foreignRefBy[tableName]) {
 
