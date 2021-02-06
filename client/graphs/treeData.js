@@ -16,6 +16,8 @@ const treeData = {
         { name: 'homeworld_id', type: 'bigint' },
         { name: 'height', type: 'integer' },
       ],
+      referencedBy: [], // string of table names // the table is referenced by other tables
+      foreignKeys: [], // string of table names // the table references to other tables
     },
     {
       name: 'Vessels',
@@ -87,111 +89,23 @@ const treeData = {
       ],
     },
   ],
-}; 
-
+};
 
 export default treeData;
 
-
-/*
-const usData = {
-  name: 'United States',
-  children: [
-    {
-      name: 'Arizona',
-      children: [{ name: 'Arizona Airport', size: 13 }],
-    },
-    {
-      name: 'California',
-      children: [
-        { name: 'San Francisco', size: 15 },
-        { name: 'San Jose', size: 25 },
-        { name: 'Los Angeles', size: 17 },
-      ],
-    },
-    {
-      name: 'Illinois',
-      children: [
-        { name: "Chicago O'Hare", size: 13 },
-        { name: 'Midway', size: 18 },
-      ],
-    },
-    {
-      name: 'Colorado',
-      children: [{ name: 'Denver', size: 7 }],
-    },
-    {
-      name: 'Florida',
-      size: 2,
-    },
-    {
-      name: 'Georgia',
-      size: 25,
-    },
-    {
-      name: 'Kentucky',
-      size: 2,
-    },
-    {
-      name: 'Massachussets',
-      size: 25,
-    },
-    {
-      name: 'Michigan',
-      size: 2,
-    },
-    {
-      name: 'Minnesota',
-      size: 25,
-    },
-    {
-      name: 'Missouri',
-      size: 2,
-    },
-    {
-      name: 'North Carolina',
-      size: 25,
-    },
-    {
-      name: 'Nevada',
-      size: 2,
-    },
-    {
-      name: 'Newyork',
-      size: 12,
-    },
-    {
-      name: 'Oregon',
-      size: 2,
-    },
-    {
-      name: 'Pennsylvania',
-      size: 25,
-    },
-    {
-      name: 'Washington',
-      children: [{ name: 'Seattle', size: 13 }],
-    },
-    {
-      name: 'Hawaii',
-      size: 25,
-    },
-    {
-      name: 'Texas',
-      children: [
-        { name: 'Dallas', size: 9 },
-        { name: 'Houston', size: 13 },
-        { name: 'Austin', size: 17 },
-      ],
-    },
-    {
-      name: 'Utah',
-      size: 25,
-    },
-    {
-      name: 'Virginia',
-      size: 25,
-    },
-  ],
-};
-*/
+/*********************   ADDED THIS IN   ********************/
+// currentTable: {
+//   primaryKey: '___',
+//   foreignKeys: { foreignKeyName: { referenceTable: ____, referenceKey: ______ }, ....},
+//   referencedBy: {tableName: foreignKey, ...}, // <--- this refers to tables that reference the current table
+//   columns: {
+//     columnName: {
+//       'dataType': _____,
+//       'columnDefault': _____,
+//       'charMaxLength': ______,
+//       'isNullable': ______,
+//     }
+//     //.......
+//   },
+// }
+/*********************   ADDED THIS IN   ********************/

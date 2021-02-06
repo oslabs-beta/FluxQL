@@ -3,6 +3,7 @@
 @import './_fonts.scss';
 @import './_colors.scss';
 @import './navbar.scss';
+@import './modals.scss';
 
 @import 'codemirror/lib/codemirror.css';
 @import 'codemirror/theme/dracula.css';
@@ -21,12 +22,6 @@ h1 {
   color: $purple;
 }
 
-.appHeader {
-  border: 1px solid white;
-  display: flex;
-  justify-content: space-between;
-}
-
 // for App Page
 .AppPageGrid {
   margin-top: 30px;
@@ -35,7 +30,7 @@ h1 {
   width: 90%;
   height: 100%; // come back to check on the scroll...
 
-  .AppPage {
+  #AppPage {
     display: grid;
     //grid-template-columns: repeat(auto-fill, minmax(3fr));
     grid-template-columns: repeat(3, 1fr);
