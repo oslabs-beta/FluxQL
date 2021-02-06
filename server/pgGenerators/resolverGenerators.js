@@ -87,7 +87,7 @@ resolverGenerator.queryAll = (currentTable) => {
 resolverGenerator.createMutation = (currentTable, columns) => {
   const queryName = camelCase('create_' + singular(currentTable));
   const columnNames = Object.keys(columns);
-  const values = columnNames.map((el, i) => `$${++i}`);
+  const values = columnNames.map((el, i) => `$${++i}`); // * Revisit -- add join in line? line 95
 
   return `
       ${queryName}: (parent, args) => {
@@ -166,15 +166,30 @@ resolverGenerator.determineRelationships = (currentTable, tables) => {
     }
     // Many-to-Many relationship
     else {
-      // iterating through the foreign keys of the refTable
-      // checking if currentTable does NOT equal the reference table of the foreign key
-      // Do not include original table in output
-      // name of table that the foreign key is referencing
-      // foreign key from the current table that references the refTable
-      // grabbing the foreign key from the refTable
-      // grabbing the primary key from the many to many table
+      // iterate through the foreign keys of the refTable -- refTable is a Join Table
+      // locate the foreign key that does not reference our current table (this is the link to the 3rd table)
+      Object.keys(foreignFKeys).forEach(FKey => {
+        if (currentTable !== foreignFKeys[FKey].referenceTable) {
+          // store the name of the table that the join table links to our current table
+          const manyToManyTable = foreignFKeys[FKey].referenceTable; // films
+          // store the foreign key from the join table that links to the manyToManyTable
+          const manyToManyTableRefKey = FKey; // films_id
+          // store the foreign key from the join table that links the currentTable
+          const currentTableRefKey = tables[currentTable].referencedBy[refTable]; // person_id
+          // store the primary key name from the manyToManyTable
+          const manyToManyTablePKey = tables[manyToManyTable].primaryKey; // primary key of the films table (_id)
+          relationships += resolverGenerator.manyToMany(
+            currentTable, // people
+            primaryKey, // _id (primary key from people)
+            refTable, // people_in_films ... aka join table
+            manyToManyTableRefKey, // key inside of people_in_films that points to films table (film_id)
+            currentTableRefKey, // key inside of people_in_films that points to people table (person_id)
+            manyToManyTable, // films table
+            manyToManyTablePKey // primary key from films table, aka _id
+          );
+        }
+      });
 
-      relationships += resolverGenerator.manyToMany();
     }
   });
   return relationships;
@@ -202,8 +217,24 @@ resolverGenerator.oneToMany = (currentTable, primaryKey, refTable, refForeignKey
         },`;
 };
 
-resolverGenerator.manyToMany = () => {
-  return '';
+resolverGenerator.manyToMany = (
+  currentTable, 
+  primaryKey, 
+  refTable, 
+  manyToManyTableRefKey, 
+  currentTableRefKey, 
+  manyToManyTable, 
+  manyToManyTablePKey
+  ) => {
+
+  return `
+        ${camelCase(manyToManyTable)}: (${camelCase(currentTable)}) => {
+          const query = 'SELECT * FROM ${manyToManyTable} LEFT OUTER JOIN ${refTable} ON ${manyToManyTable}.${manyToManyTablePKey} = ${refTable}.${manyToManyTableRefKey} WHERE ${refTable}.${currentTableRefKey} = $1';
+          const values = [${currentTable}.${primaryKey}];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => throw new Error(err));
+        }, `;
 };
 
 
