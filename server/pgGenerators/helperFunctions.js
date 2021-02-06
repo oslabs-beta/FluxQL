@@ -23,6 +23,16 @@ const typeSet = (str) => {
   }
 };
 
+const typeConversion = {
+  'character varying': 'String',
+  'character': 'String',
+  'integer': 'Int',
+  'text': 'String',
+  'date': 'String',
+  'boolean': 'Boolean',
+  'numeric' : 'Int'
+} // return 'Int' if undefined; 
+
 
 mutationHelper.create = (tableName, primaryKey, foreignKeys, columns) => {
   return `\n    ${toCamelCase(
@@ -61,9 +71,9 @@ mutationHelper.paramType = (primaryKey, foreignKeys, columns, isRequired) => {
     }
 
     if (isRequired && columnName === primaryKey) {
-      typeDef += `      ${columnName}: ${typeSet(dataType)}!,\n`;
+      typeDef += `      ${columnName}: ${typeConversion[dataType] ? typeConversion[dataType] : 'Int' }!,\n`; //see if this breaks it
     } else {
-      typeDef += `      ${columnName}: ${typeSet(dataType)}`;
+      typeDef += `      ${columnName}: ${typeConversion[dataType] ? typeConversion[dataType] : 'Int' }`; // SEE IF THIS BREAKS TOO
       if (isNullable !== 'YES') typeDef += '!';
       typeDef += ',\n';
     }
@@ -80,26 +90,27 @@ const isJoinTable = (foreignKeys, columns) => {
 
 customHelper.getColumns = (primaryKey, foreignKeys, columns) => {
   let columnsStr = '';
-  //building columns: type for eatch table in a column
   for (const columnName in columns) {
     if (!(foreignKeys && foreignKeys[columnName]) && columnName !== primaryKey) {
       const { dataType, isNullable, columnDefault } = columns[columnName];
-      columnsStr += `\n    ${columnName}: ${typeSet(dataType)}`;
+      columnsStr += `\n    ${columnName}: ${typeConversion[dataType] ? typeConversion[dataType] : 'Int'}`;
       if (isNullable === 'NO' && columnDefault === null) columnsStr += '!';
     }
   }
-  console.log('colstr', columnsStr)
+
   return columnsStr;
 };
 
 
-
+//modularize get relationship to return a type of relationship, route of that response
 customHelper.getRelationships = (tableName, tables) => {
   let relationships = '';
   const alreadyAddedType = [];
   for (const refTableName in tables[tableName].referencedBy) {
 
-    const { referencedBy: foreignRefBy, foreignKeys: foreignFKeys, columns: foreignColumns } = tables[refTableName];
+    const { referencedBy: foreignRefBy, 
+      foreignKeys: foreignFKeys, 
+      columns: foreignColumns } = tables[refTableName];
 
     if (foreignRefBy && foreignRefBy[tableName]) {
 

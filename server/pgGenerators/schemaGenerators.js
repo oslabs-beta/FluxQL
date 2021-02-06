@@ -11,9 +11,12 @@ schemaGenerator.assembleTypes = (tables) => {
   let customType = '';
   for (const tableName in tables) {
     const tableData = tables[tableName];
-    queryType += TypeGenerator.queries(tableName, tableData);
-    mutationType += TypeGenerator.mutations(tableName, tableData);
-    customType += TypeGenerator.custom(tableName, tables);
+    const { foreignKeys, columns } = tableData;
+    if (!foreignKeys || !isJoinTable(foreignKeys, columns)){
+      queryType += TypeGenerator.queries(tableName, tableData);
+      mutationType += TypeGenerator.mutations(tableName, tableData);
+      customType += TypeGenerator.custom(tableName, tables);
+    }
   }
 
   return (
