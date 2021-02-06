@@ -7,7 +7,7 @@ import AdviceContainer from '../containers/adviceContainer';
 export default function appPage({ handleHelpModal }) {
   return (
     <div className="AppPageGrid">
-      <div className='AppPage'>
+      <div id='AppPage'>
         <GraphContainer 
           handleHelpModal={handleHelpModal}
         />

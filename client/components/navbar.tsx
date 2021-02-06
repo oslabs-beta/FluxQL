@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 
-export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handleURIModal }) {
+export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handleURIModal, showURIModal }) {
 
   let navbarDisplay;
   
@@ -30,7 +30,22 @@ export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handl
           Home
         </Link>
 
-        <a href='#' className='link' onClick={handleURIModal}>
+        <a href='#' className='link' onClick={() => {
+
+          
+          // add blur to App Page Container if it exists
+          const fullAppPage = document.getElementById('AppPage');
+          
+          if (!showURIModal){
+            fullAppPage.style.filter = 'blur(1.5px)';
+          } else {
+            fullAppPage.style.filter = 'none';
+          }
+          
+          // toggle state to pop up the modal
+          handleURIModal()
+
+          }}>
           DB URI
         </a>
 

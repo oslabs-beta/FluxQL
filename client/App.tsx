@@ -5,6 +5,7 @@ import NavBar from './components/navbar';
 // import pages for routes;
 import HomePage from './pages/homePage';
 import AppPage from './pages/appPage';
+import URIModal from './modals/URIModal';
 
 const App = () => {
   const [onHomePage, setOnHomePage] = useState(true);
@@ -30,11 +31,13 @@ const App = () => {
     setShowHelpModal(!showHelpModal);
     console.log('handleHelpModal', showHelpModal);
   }
-  
-  // const handleMongo = () => {
-    
-  //   handleURIModal();
-  // }
+
+  let displayURIModal;
+  if (showURIModal){
+    displayURIModal = <URIModal />
+  } else {
+    displayURIModal = null;
+  }
 
 
   /* 
@@ -62,6 +65,7 @@ const App = () => {
             handleHomeBtn={handleHomeBtn}
             handlePlayBtn={handlePlayBtn}
             handleURIModal={handleURIModal}
+            showURIModal={showURIModal}
             />
         </div>
 
@@ -72,8 +76,9 @@ const App = () => {
             />)} 
           />
           <Route path='/' exact component={HomePage}/>
-
         </Switch>
+
+          {displayURIModal}
       </Router>
     </>
   )
