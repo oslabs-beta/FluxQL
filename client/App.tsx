@@ -5,12 +5,26 @@ import NavBar from './components/navbar';
 // import pages for routes;
 import HomePage from './pages/homePage';
 import AppPage from './pages/appPage';
-import ErrorPage from './pages/errorPage';
 
 const App = () => {
   const [onHomePage, setOnHomePage] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   
+  const handleHomeBtn = () => {
+    setOnHomePage(true);
+    console.log('handleHome');
+    
+  }
+
+  const handlePlayBtn = () => {
+    setOnHomePage(false)
+    console.log('handlePlay');
+  }
   
+  const handleModal = () => {
+    setShowModal(!showModal)
+    console.log('handleModal');
+  }
 
   /* 
   !things to do for appHeader:
@@ -26,13 +40,18 @@ const App = () => {
               <img
                 className="logo"
                 id="logo"
-                src="https://res.cloudinary.com/mrtommyliang/image/upload/v1612572081/bannericon_ld8ofl.png"
+                src="./assets/bannericon.png"
                 alt="DraQLa Logo"
                 height='75px'
                 width='75px'
               ></img>
             </Link>       
-          <NavBar />
+          <NavBar 
+            onHomePage={onHomePage}
+            handleHomeBtn={handleHomeBtn}
+            handlePlayBtn={handlePlayBtn}
+            handleModal={handleModal}
+            />
         </div>
 
         <Switch>

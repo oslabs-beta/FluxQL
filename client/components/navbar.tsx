@@ -2,36 +2,46 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 
-export default function navbar() {
+export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handleModal }) {
 
-
-  /*
-  ! for NavBar
+  let navbarDisplay;
+  
   if (onHomePage){
-  }
-  */
+    navbarDisplay = 
+      <div className='NavBarContainer'>
+        <a href='#' className='link'>
+          About
+        </a>
+        <a href='#' className='link'>
+          Team
+        </a>
+        <a href='https://github.com/oslabs-beta/DraQLa' target="_blank" className='link'>
+          GitHub
+        </a>
+        <Link to='/app' className='link' onClick={handlePlayBtn}>
+          Play
+        </Link>
+      </div>
+  } else {
+    navbarDisplay = 
+      <div className='NavBarContainer'>
 
+        <Link to="/" className='link' onClick={handleHomeBtn}> 
+          Home
+        </Link>
 
+        <a href='#' className='link' onClick={handleModal}>
+          DB URI
+        </a>
 
-  return (
-    <div className='NavBarContainer'>
-      <a href='#' className='link'>
-        About
-      </a>
+        <a href='#' className='link' onClick={() => {alert('hi')}}>
+          Playground
+        </a>
 
-      <a href='#' className='link'>
-        Team
-      </a>
-      
-      <a href='https://github.com/oslabs-beta/DraQLa' target="_blank" className='link'>
-        GitHub
-      </a>
+      </div>
+  };
 
-      <Link to="/app" className='link'>
-        Play
-      </Link>
-    </div>
-  )
+  return navbarDisplay;
 };
 
 
