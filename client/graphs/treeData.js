@@ -16,6 +16,8 @@ const treeData = {
         { name: 'homeworld_id', type: 'bigint' },
         { name: 'height', type: 'integer' },
       ],
+      referencedBy: [], // string of table names // the table is referenced by other tables
+      foreignKeys: [] // string of table names // the table references to other tables
     },
     {
       name: 'Vessels',
@@ -91,6 +93,32 @@ const treeData = {
 
 
 export default treeData;
+
+
+currentTable: {
+  primaryKey: '___',
+  foreignKeys: { foreignKeyName: { referenceTable: ____, referenceKey: ______ }, ....},
+  referencedBy: {tableName: foreignKey, ...}, // <--- this refers to tables that reference the current table
+  columns: {
+    columnName: {
+      'dataType': _____,
+      'columnDefault': _____,
+      'charMaxLength': ______,
+      'isNullable': ______,
+    }
+    //.......
+  },
+}
+
+
+
+
+
+
+
+
+
+
 
 
 /*
