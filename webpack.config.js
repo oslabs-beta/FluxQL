@@ -1,4 +1,3 @@
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -26,12 +25,12 @@ module.exports = {
       },
       // sass-loader to bundle all the css files into one file and style-loader to add all the styles  inside the style tag of the document
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(sa|sc|c)ss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [{loader: 'file-loader'}],
+        use: [{ loader: 'file-loader' }],
       },
     ],
   },
@@ -50,8 +49,6 @@ module.exports = {
     }),
   ],
 };
-
-
 
 /*
 * maybe file loader?? 

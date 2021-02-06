@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
-// import NavBar
+import NavBar from './components/navbar';
 
 // import pages for routes;
 import HomePage from './pages/homePage';
@@ -8,13 +8,13 @@ import AppPage from './pages/appPage';
 import ErrorPage from './pages/errorPage';
 
 const App = () => {
-  console.log('hi from App.tsx');
+  const [onHomePage, setOnHomePage] = useState(true);
+  
+  
 
   /* 
   !things to do for appHeader:
-  - import logo -> change line 26-30 to an image tag with DraQLa Logo
-  - import NavBar
-
+  - NavBar: pass down onHomePage and event handler to toggle state
   - also create a react router for No Match 404 error
   */
 
@@ -23,17 +23,16 @@ const App = () => {
       <Router>
         <div className='appHeader'> 
           <Link to="/"> 
-              <button type="button">
-                HOME PAGE
-              </button>
-          </Link>
-
-          {/* NavBar */}
-          <Link to="/app">
-              <button type="button">
-                APP PAGE
-              </button>
-          </Link>
+              <img
+                className="logo"
+                id="logo"
+                src="https://res.cloudinary.com/mrtommyliang/image/upload/v1612572081/bannericon_ld8ofl.png"
+                alt="DraQLa Logo"
+                height='75px'
+                width='75px'
+              ></img>
+            </Link>       
+          <NavBar />
         </div>
 
         <Switch>

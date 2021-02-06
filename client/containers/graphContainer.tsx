@@ -1,11 +1,11 @@
 import React from 'react';
-import TestGraph from '../d3/testgraph'
+import RadialTree from '../graphs/radialTree'
 
 
 export default function graphContainer() {
   return (
     <div className='GraphContainer'>
-      <TestGraph />
+      <RadialTree />
     </div>
   )
 };

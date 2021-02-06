@@ -1,18 +1,43 @@
+@import './radialTree.scss';
+@import './codeMirror.scss';
+@import './_fonts.scss';
+@import './_colors.scss';
+@import './navbar.scss';
+
+@import 'codemirror/lib/codemirror.css';
+@import 'codemirror/theme/dracula.css';
+
+* {
+  outline: none;
+}
+
 body {
   background-color: #282a36;
   color: white;
+  font-family: 'Roboto';
+}
+
+h1 {
+  color: $purple;
 }
 
 .appHeader {
   border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
 }
 
 // for App Page
-.appPageParent {
+.AppPageGrid {
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
   height: 100%; // come back to check on the scroll...
 
   .AppPage {
     display: grid;
+    //grid-template-columns: repeat(auto-fill, minmax(3fr));
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 0px 0px;
@@ -29,6 +54,8 @@ body {
     .CodeContainer {
       border: 1px solid black;
       grid-area: Code;
+      display: flex;
+      flex-direction: column;
     }
 
     .AdviceContainer {
