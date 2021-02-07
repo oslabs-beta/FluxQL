@@ -18,7 +18,12 @@ export default function navbar({ onHomePage, handleHomeBtn, handlePlayBtn, handl
         <a href='https://github.com/oslabs-beta/DraQLa' target="_blank" className='link'>
           GitHub
         </a>
-        <Link to='/app' className='link' onClick={handlePlayBtn}>
+        <Link to='/app' className='link' onClick={()=> {
+          handlePlayBtn();
+
+          // to make the modal pop up after we reach the play page
+          setTimeout(handleURIModal, 200);
+          }}>
           Play
         </Link>
       </div>

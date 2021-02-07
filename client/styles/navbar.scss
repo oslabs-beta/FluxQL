@@ -1,6 +1,11 @@
 .appHeader {
   display: flex;
   justify-content: space-between;
+
+  #logotext {
+    justify-self: end;
+    align-self: end;
+  }
 }
 
 .NavBarContainer {

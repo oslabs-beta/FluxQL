@@ -52,13 +52,21 @@ const App = () => {
         <div className='appHeader'> 
           <Link to="/" onClick={handleHomeBtn}> 
               <img
-                className="logo"
-                id="logo"
-                src="./assets/bannericon.png"
-                alt="DraQLa Logo"
+                className='logo'
+                id='logo'
+                src='./assets/bannericon.png'
+                alt='DraQLa Logo'
                 height='75px'
                 width='75px'
               ></img>
+              <img
+                id='logotext'
+                src='./assets/logotext.png'
+                alt='DraQLa Text'
+                height='65px'
+                width='150px'
+              ></img>
+              
             </Link>       
           <NavBar 
             onHomePage={onHomePage}
