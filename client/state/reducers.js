@@ -25,6 +25,10 @@ export const initialMongoState = {
 };
 
 export const initialAdviceState = {
+  queryTypeCount: 0,
+  mutationTypeCount: 0,
+  queryExample: '',
+  mutationExample: '',
 };
 
 
@@ -122,6 +126,18 @@ export const mongoReducer = (state, action) => {
 };
 
 export const adviceReducer = (state, action) => {
-  // need type: update_advice
-  // type: use_sample
+  switch (action.type) {
+    case 'UPDATE_ADVICE': 
+      return {
+        ...state,
+        queryTypeCount: action.payload.queryTypeCount,
+        mutationTypeCount: action.payload.mutationTypeCount,
+        queryExample: action.payload.queryExample,
+        mutationExample: action.payload.queryExample,
+      }
+    case 'USE_SAMPLE': 
+      return {
+        ...state,
+      }
+  };
 };

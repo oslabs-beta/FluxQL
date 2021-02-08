@@ -17,8 +17,8 @@ const App = () => {
   return (
     <GeneralContext.Provider 
       value={{
-        generalState,
-        generalDispatch
+        generalState, // read only
+        generalDispatch // update only
       }}>
       <Router>
         <div className='appHeader'> 

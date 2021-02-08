@@ -51,13 +51,19 @@ export default function appPage() {
           <CodeContainer/>
         </CodeContext.Provider>
         
-        <AdviceContainer/>
+        <AdviceContext.Provider 
+          value={{
+            adviceState,
+            adviceDispatch
+          }}> 
+          <AdviceContainer/>
+        </AdviceContext.Provider>
 
         <URIContext.Provider value={{
           codeDispatch,
           psqlDispatch,
           mongoDispatch,
-          //adviceDispatch
+          adviceDispatch
         }}>
           {generalState.URImodal ? <URIModal /> : null}
         </URIContext.Provider>

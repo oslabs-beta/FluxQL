@@ -7,7 +7,7 @@ import { GeneralContext, URIContext } from '../state/contexts';
 export default function URIModal() {
 
   const { generalDispatch } = useContext(GeneralContext);
-  const { codeDispatch, psqlDispatch, mongoDispatch } = useContext(URIContext);
+  const { codeDispatch, psqlDispatch, mongoDispatch, adviceDispatch } = useContext(URIContext);
 
   return (
     <div className='modal' id='uriModalContainer'>
@@ -29,7 +29,7 @@ export default function URIModal() {
         // update Mongo State with the sample data
         mongoDispatch({type: 'USE_SAMPLE'});
         // update Advice State with sample data
-        // adviceDispatch({type: 'USE_SAMPLE'})
+        adviceDispatch({type: 'USE_SAMPLE'})
       }}>Sample Database</button>
 
       <div className='URILinks'>
