@@ -3,10 +3,10 @@ import CodeBox from '../components/codeBox';
 import ExportButton from '../components/exportButton';
 
 // dummy data for now
-import SchemaString from '../codeboxdata/schemaString';
-import ResolverString from '../codeboxdata/resolverString';
+import SchemaString from '../sampleData/schemaString';
+import ResolverString from '../sampleData/resolverString';
 import { Schema } from 'mongoose';
-import resolverString from '../codeboxdata/resolverString';
+import resolverString from '../sampleData/resolverString';
 
 // import SchemaString from '../codeboxdata/schemaString';
 

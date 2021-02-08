@@ -1,8 +1,8 @@
 import React from 'react';
 import URILink from '../components/URILink';
 import treeData from '../graphs/treeData';
-import schemaString from '../codeboxdata/schemaString';
-import resolverString from '../codeboxdata/resolverString';
+import schemaString from '../sampleData/schemaString';
+import resolverString from '../sampleData/resolverString';
 
 export default function URIModal({ handleURIModal }) {
   return (
