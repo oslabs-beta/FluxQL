@@ -5,7 +5,6 @@ import NavBar from './components/navbar';
 // import pages for routes;
 import HomePage from './pages/homePage';
 import AppPage from './pages/appPage';
-import URIModal from './modals/URIModal';
 
 // import context object
 import { GeneralContext } from './state/contexts';
@@ -54,8 +53,6 @@ const App = () => {
           />
           <Route path='/' exact component={HomePage}/>
         </Switch>
-
-          {generalState.URImodal ? <URIModal /> : null}
       </Router>
     </GeneralContext.Provider>
   )

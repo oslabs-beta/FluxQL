@@ -1,12 +1,25 @@
-import React, { useContext, useEffect } from 'react';
-import {GeneralContext} from '../state/contexts';
+import React, { useContext, useEffect, useReducer } from 'react';
+import {GeneralContext, CodeContext, PSQLContext, MongoContext, AdviceContext, URIContext } from '../state/contexts';
+import { 
+  initialCodeState, codeReducer,
+  initialPsqlState, psqlReducer,
+  initialMongoState, mongoReducer,
+  initialAdviceState, adviceReducer } from '../state/reducers';
 
 import GraphContainer from '../containers/graphContainer';
 import CodeContainer from '../containers/codeContainer';
 import AdviceContainer from '../containers/adviceContainer';
+import URIModal from '../modals/URIModal'
+
 
 export default function appPage() {
   
+  const [codeState, codeDispatch] = useReducer(codeReducer, initialCodeState);
+  const [psqlState, psqlDispatch] = useReducer(psqlReducer, initialPsqlState);
+  const [mongoState, mongoDispatch] = useReducer(mongoReducer, initialMongoState);
+  const [adviceState, adviceDispatch] = useReducer(adviceReducer, initialAdviceState);
+
+
   const { generalState } = useContext(GeneralContext);
 
   useEffect(() => {
@@ -22,10 +35,42 @@ export default function appPage() {
   return (
     <div className="AppPageGrid">
       <div id='AppPage'>
-        <GraphContainer />
-        <CodeContainer/>
+        <PSQLContext.Provider
+          value={{
+            psqlState,
+            psqlDispatch
+          }}>
+          <GraphContainer />
+        </PSQLContext.Provider>
+
+        <CodeContext.Provider
+            value={{
+              codeState, 
+              codeDispatch
+            }}>
+          <CodeContainer/>
+        </CodeContext.Provider>
+        
         <AdviceContainer/>
+
+        <URIContext.Provider value={{
+          codeDispatch,
+          psqlDispatch,
+          mongoDispatch,
+          //adviceDispatch
+        }}>
+          {generalState.URImodal ? <URIModal /> : null}
+        </URIContext.Provider>
       </div>
     </div>
   )
 };
+
+/*
+      <AdviceContext.Provider
+        value={{
+          
+        }}>
+        <AdviceContainer/>
+      </AdviceContext.Provider>
+*/

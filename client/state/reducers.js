@@ -122,5 +122,6 @@ export const mongoReducer = (state, action) => {
 };
 
 export const adviceReducer = (state, action) => {
-  
+  // need type: update_advice
+  // type: use_sample
 };
