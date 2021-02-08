@@ -25,7 +25,7 @@ export default function appPage() {
   useEffect(() => {
     // if URI Modal is open, blur out the background
     const fullAppPage = document.getElementById('AppPage');
-    
+
     if (generalState.URImodal){
       fullAppPage.style.filter = 'blur(1.5px)';
     } else {
@@ -74,12 +74,3 @@ export default function appPage() {
     </div>
   )
 };
-
-/*
-      <AdviceContext.Provider
-        value={{
-          
-        }}>
-        <AdviceContainer/>
-      </AdviceContext.Provider>
-*/

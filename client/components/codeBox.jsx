@@ -3,8 +3,8 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/mode/javascript/javascript';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/dracula.css';
-import 'codemirror/addon/scroll/annotatescrollbar';
-import 'codemirror/addon/scroll/simplescrollbars';
+// import 'codemirror/addon/scroll/annotatescrollbar';
+// import 'codemirror/addon/scroll/simplescrollbars';
 
 // import ResolverObject from '../codeboxdata/resolverData';
 

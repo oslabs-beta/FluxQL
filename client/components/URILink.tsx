@@ -19,9 +19,6 @@ export default function URILink ({ databaseName }){
       placeholder="paste your database link"></input>
 
       <button onClick={() => {
-        // to change remove the blur affect
-        // const fullAppPage = document.getElementById('AppPage');
-        // fullAppPage.style.filter = 'none';
         
         // send POST request to server
         const url = document.getElementById(`${databaseName}Input`).value;
@@ -74,7 +71,6 @@ export default function URILink ({ databaseName }){
               payload: data.d3tables
             })
           }
-
         })
         .catch(e => console.log('error: ', e));
         
