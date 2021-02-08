@@ -32,12 +32,12 @@ const App = () => {
     console.log('handleHelpModal', showHelpModal);
   }
 
-  let displayURIModal;
-  if (showURIModal){
-    displayURIModal = <URIModal handleURIModal={handleURIModal}/>
-  } else {
-    displayURIModal = null;
-  }
+  // let displayURIModal;
+  // if (showURIModal){
+  //   displayURIModal = <URIModal handleURIModal={handleURIModal}/>
+  // } else {
+  //   displayURIModal = null;
+  // }
 
 
   /* 
@@ -86,7 +86,7 @@ const App = () => {
           <Route path='/' exact component={HomePage}/>
         </Switch>
 
-          {displayURIModal}
+          {showURIModal ? <URIModal handleURIModal={handleURIModal}/> : null}
       </Router>
     </>
   )
