@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import * as d3 from 'd3';
-import treeData from './treeData';
+import treeData from '../sampleData/treeData';
 import { project, diagonal } from './helperFunctions';
 
 class RadialTree extends Component {

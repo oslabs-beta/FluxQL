@@ -1,6 +1,6 @@
 import React from 'react';
 import URILink from '../components/URILink';
-import treeData from '../graphs/treeData';
+import treeData from '../sampleData/treeData';
 import schemaString from '../sampleData/schemaString';
 import resolverString from '../sampleData/resolverString';
 
