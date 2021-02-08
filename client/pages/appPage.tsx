@@ -23,8 +23,10 @@ export default function appPage() {
   const { generalState } = useContext(GeneralContext);
 
   useEffect(() => {
+    // if URI Modal is open, blur out the background
     const fullAppPage = document.getElementById('AppPage');
-    if (!generalState.URIModal){
+    
+    if (generalState.URImodal){
       fullAppPage.style.filter = 'blur(1.5px)';
     } else {
       fullAppPage.style.filter = 'none';
@@ -34,6 +36,15 @@ export default function appPage() {
 
   return (
     <div className="AppPageGrid">
+      <URIContext.Provider value={{
+        codeDispatch,
+        psqlDispatch,
+        mongoDispatch,
+        adviceDispatch
+      }}>
+        {generalState.URImodal ? <URIModal /> : null}
+      </URIContext.Provider>
+
       <div id='AppPage'>
         <PSQLContext.Provider
           value={{
@@ -59,14 +70,6 @@ export default function appPage() {
           <AdviceContainer/>
         </AdviceContext.Provider>
 
-        <URIContext.Provider value={{
-          codeDispatch,
-          psqlDispatch,
-          mongoDispatch,
-          adviceDispatch
-        }}>
-          {generalState.URImodal ? <URIModal /> : null}
-        </URIContext.Provider>
       </div>
     </div>
   )
