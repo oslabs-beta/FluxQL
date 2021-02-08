@@ -21,7 +21,7 @@ pgController.SQLTableData = (req, res, next) => {
     const errObj = {
       log: `Error in SQLTableData: ${err}`,
       status: 400,
-      message: { err: 'Error in SQLTableData middleware' },
+      message: { err: '' },
     };
     return next(errObj);
   })
@@ -30,8 +30,13 @@ pgController.SQLTableData = (req, res, next) => {
 pgController.generateSchema = (req, res, next) => {
   const { tables } = res.locals;
   try {
-    res.locals.types = schemaGenerator.assembleTypes(tables); // here we will break apart the larger assemble into types & resolvers
-    res.locals.resolvers = schemaGenerator.assembleResolvers(tables);
+    // here we will break apart the larger assemble into types & resolvers
+    const { types, queryTypeCount, mutationTypeCount, queryExample, mutationExample } = schemaGenerator.assembleTypes(tables);
+    const resolvers  = schemaGenerator.assembleResolvers(tables);
+
+    res.locals.schema = { types, resolvers };
+    res.locals.advice = { queryTypeCount, mutationTypeCount, queryExample, mutationExample };
+    
     // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc
     return next();
   }
