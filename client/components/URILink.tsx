@@ -15,8 +15,8 @@ export default function URILink ({ databaseName, handleURIModal }){
 
       <button onClick={() => {
         // to change remove the blur affect
-        const fullAppPage = document.getElementById('AppPage');
-        fullAppPage.style.filter = 'none';
+        // const fullAppPage = document.getElementById('AppPage');
+        // fullAppPage.style.filter = 'none';
 
         handleURIModal();
         

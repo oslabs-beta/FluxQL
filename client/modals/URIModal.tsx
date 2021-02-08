@@ -14,8 +14,8 @@ export default function URIModal({ handleURIModal }) {
       <button id='sampleDBbtn' onClick={() => {
         console.log('NEED TO ADD HOOK TO TOGGLE STATE')
 
-        const fullAppPage = document.getElementById('AppPage');
-        fullAppPage.style.filter = 'none';
+        // const fullAppPage = document.getElementById('AppPage');
+        // fullAppPage.style.filter = 'none';
 
         handleURIModal()
       }}>Sample Database</button>
