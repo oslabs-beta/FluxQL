@@ -34,6 +34,7 @@ resolverGenerator.assembleMutations = (currentTable, tableData) => {
   const { primaryKey, columns } = tableData;
   const createMutation = resolverGenerator.createMutation(
     currentTable,
+    primaryKey,
     columns
   );
   const updateMutation = resolverGenerator.updateMutation(
@@ -63,14 +64,14 @@ resolverGenerator.assembleCustomRelationships = (currentTable, tables) => {
 
 resolverGenerator.queryByPrimaryKey = (currentTable, primaryKey) => {
   let queryName = camelCase(singular(currentTable));
-  if (currentTable === singular(currentTable)) queryName += 'ById';
+  if (currentTable === singular(currentTable)) queryName += 'ByID';
   return `
       ${queryName}: (parent, args) => {
         const query = 'SELECT * FROM ${currentTable} WHERE ${primaryKey} = $1';
         const values = [args.${primaryKey}];
         return db.query(query, values)
           .then(data => data.rows[0])
-          .catch(err => throw new Error(err));
+          .catch(err => new Error(err));
       },`;
 };
 
@@ -81,25 +82,26 @@ resolverGenerator.queryAll = (currentTable) => {
         const query = 'SELECT * FROM ${currentTable}';
         return db.query(query)
           .then(data => data.rows)
-          .catch(err => throw new Error(err));
+          .catch(err => new Error(err));
       },`;
 };
 
-resolverGenerator.createMutation = (currentTable, columns) => {
+resolverGenerator.createMutation = (currentTable, primaryKey, columns) => {
   const queryName = camelCase('create_' + singular(currentTable));
   const columnNames = Object.keys(columns);
-  const values = columnNames.map((el, i) => `$${++i}`); // * Revisit -- add join in line? line 95
+  const queryValues = columnNames.filter((column) => column !== primaryKey);
+  //const values = columnNames.map((el, i) => `$${++i}`); // * Revisit -- add join in line? line 95
 
   return `
       ${queryName}: (parent, args) => {
-        const query = 'INSERT INTO ${currentTable}(${columnNames
-          .join(', ')}) VALUES(${values}) RETURNING *';
-        const values = [${columnNames
+        const query = 'INSERT INTO ${currentTable}(${queryValues
+          .join(', ')}) VALUES(${queryValues.map((el, i) => `$${++i}`).join(', ')}) RETURNING *';
+        const values = [${queryValues
           .map((column) => `args.${column}`)
           .join(', ')}];
         return db.query(query, values)
           .then(data => data.rows[0])
-          .catch(err => throw new Error(err));
+          .catch(err => new Error(err));
       },`;
 };
 
@@ -119,7 +121,7 @@ resolverGenerator.updateMutation = (currentTable, primaryKey, columns) => {
           .join(', ')}, args.${primaryKey}];
         return db.query(query, values)
           .then(data => data.rows[0])
-          .catch(err => throw new Error(err));
+          .catch(err => new Error(err));
       },`;
 };
 
@@ -132,7 +134,7 @@ resolverGenerator.deleteMutation = (currentTable, primaryKey) => {
         const values = [args.${primaryKey}];
         return db.query(query, values)
           .then(data => data.rows[0])
-          .catch(err => throw new Error(err));
+          .catch(err => new Error(err));
       },`;
 };
 
@@ -203,7 +205,7 @@ resolverGenerator.oneToOne = (currentTable, primaryKey, refTable, refForeignKey)
           const values = [${currentTable}.${primaryKey}];
           return db.query(query, values)
             .then(data => data.rows[0])
-            .catch(err => throw new Error(err));
+            .catch(err => new Error(err));
         },`;
 };
 
@@ -214,7 +216,7 @@ resolverGenerator.oneToMany = (currentTable, primaryKey, refTable, refForeignKey
           const values = [${currentTable}.${primaryKey}];
           return db.query(query, values)
             .then(data => data.rows)
-            .catch(err => throw new Error(err));
+            .catch(err => new Error(err));
         },`;
 };
 
@@ -234,7 +236,7 @@ resolverGenerator.manyToMany = (
           const values = [${currentTable}.${primaryKey}];
           return db.query(query, values)
             .then(data => data.rows)
-            .catch(err => throw new Error(err));
+            .catch(err => new Error(err));
         }, `;
 };
 

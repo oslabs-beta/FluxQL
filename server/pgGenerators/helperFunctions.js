@@ -159,12 +159,34 @@ customHelper.getRelationships = (tableName, tables) => {
 };
 
 
+const schemaImport = (uri) => {
 
+  return ( 
+   `const { makeExecutableSchema } = require('graphql-tools');
+    const {Pool} = require('pg');
+    const PG_URI = '${uri}';
+    
+    const pool = new Pool({
+        connectionString: PG_URI
+    });
 
+    const db = {}
+    db.query = (text,params, callback) => {
+              console.log('executed query:', text)
+              return pool.query(text, params, callback)
+          }`);
+};
 
+const schemaExport = () => {
+  return (
+    `  const schema = makeExecutableSchema({    
+    typeDefs,    
+    resolvers,
+    });
 
-
-
+    module.exports = schema;`
+  )
+};
 
 
 module.exports = {
@@ -172,4 +194,6 @@ module.exports = {
   typeSet,
   mutationHelper,
   isJoinTable,
+  schemaImport,
+  schemaExport
 };
