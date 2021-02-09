@@ -53,6 +53,7 @@ resolverGenerator.assembleCustomRelationships = (currentTable, tables) => {
   if (!referencedBy) return '';
   const queryName = pascalCase(singular(currentTable));
   let relationshipTypes = '';
+
   relationshipTypes += resolverGenerator.determineRelationships(currentTable, tables);
   return `
     ${queryName}: {
