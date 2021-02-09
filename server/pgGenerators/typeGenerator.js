@@ -10,6 +10,8 @@ const { customHelper } = require('./helperFunctions.js');
 todo helper functions/imports include:
     typeset, getPrimaryKeyType
 */
+
+
 const TypeGenerator = {};
 
 TypeGenerator.queries = (tableName, tableData) => {
@@ -44,5 +46,46 @@ TypeGenerator.custom = (tableName, tables) => {
     columns
   )}${customHelper.getRelationships(tableName, tables)}\n  }\n\n`;
 };
+
+TypeGenerator.exampleQuery = (tableName, tables) => {
+  const { primaryKey, foreignKeys, columns } = tables[tableName];  
+  const queryColumns = [];
+  Object.keys(columns).forEach(columnName => {
+    if (!(foreignKeys && foreignKeys[columnName]) && columnName !== primaryKey) {
+      queryColumns.push(`      ${columnName},`);
+    }
+  });
+  
+  return (
+`  query: {
+    ${tableName} {\n${queryColumns.join('\n')}
+     <insert additional column names here>
+    }
+  }`
+  );
+ 
+};
+
+TypeGenerator.exampleMutation = (tableName, tables) => {
+  const { primaryKey, foreignKeys, columns } = tables[tableName];
+  const mutationName = toCamelCase('delete_' + singular(tableName));
+  const queryColumns = [];
+  Object.keys(columns).forEach(columnName => {
+    if (!(foreignKeys && foreignKeys[columnName]) && columnName !== primaryKey) {
+      queryColumns.push(`      ${columnName},`);
+    }
+  });
+  
+  return (
+`  mutation: {
+    ${mutationName} (${primaryKey}: <insert value here> ) {\n${queryColumns.join('\n')}
+     <insert additional column names here>
+    }
+  }`
+  );
+};
+
+
+
 
 module.exports = TypeGenerator;

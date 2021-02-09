@@ -158,6 +158,15 @@ customHelper.getRelationships = (tableName, tables) => {
   return relationships;
 };
 
+
+
+
+
+
+
+
+
+
 module.exports = {
   customHelper,
   typeSet,
