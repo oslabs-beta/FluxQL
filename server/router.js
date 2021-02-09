@@ -7,7 +7,7 @@ router.post('/psql',
   pgController.SQLTableData,
   pgController.generateSchema,
   pgController.generateGraphData,
-  //pgController.writeSchemaToFile,
+  pgController.writeSchemaToFile,
   (req, res) => {
     res.status(200).json({ dbName: 'psql', schema: res.locals.schema, advice: res.locals.advice, d3Data: res.locals.d3Data });
 });

@@ -1,7 +1,8 @@
 const URI = require('./testPSQL.js');
 const schemaGenerator = require('../pgGenerators/schemaGenerators.js');
-const { isJoinTable } = require('../pgGenerators/helperFunctions.js');
+const { isJoinTable, schemaImport, schemaExport } = require('../pgGenerators/helperFunctions.js');
 const fs = require ('fs');
+const path = require('path');
 const pgQuery = fs.readFileSync('server/queries/tables.sql', 'utf8');
 const { Pool } = require('pg');
 
@@ -9,7 +10,7 @@ const pgController = {};
 
 pgController.SQLTableData = (req, res, next) => {
   const { psqlURI } = req.body;
-  console.log(psqlURI);
+  res.locals.dbURI = psqlURI;
   
   //const db = new Pool({ connectionString: URI }); // ! change to request body uri in future
   const db = new Pool({ connectionString: psqlURI });
@@ -111,6 +112,14 @@ pgController.generateGraphData = (req, res, next) => {
 
 pgController.writeSchemaToFile = (req, res, next) => {
   try {
+    const { dbURI } = res.locals;
+    const schemaImportText = schemaImport(dbURI);
+    const schemaExportText = schemaExport();
+    
+    const schemaFile = schemaImportText + '\n' + res.locals.schema.types + '\n' +  res.locals.schema.resolvers + '\n' + schemaExportText;
+
+    fs.writeFileSync(path.resolve(__dirname, '../graphQLServer/schema.js'), schemaFile);
+
     return next();
   }
   catch (err) {
