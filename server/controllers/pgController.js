@@ -57,7 +57,9 @@ pgController.generateSchema = (req, res, next) => {
 pgController.generateGraphData = (req, res, next) => {
   try {
     const { tables } = res.locals;
-    const graphData = {};
+    const children = [];
+    const graphData = { name: 'Your Database', children };
+
     Object.keys(tables).forEach(tableName => {
       const { foreignKeys, referencedBy, columns } = tables[tableName];
       if (!foreignKeys || !isJoinTable(foreignKeys, columns)) {
@@ -68,13 +70,28 @@ pgController.generateGraphData = (req, res, next) => {
             pointsTo.push(referenceTable);
           })
         };  
+
+        const tableChildren = [];
+        Object.keys(columns).forEach(columnName => {
+          const child = {};
+          console.log(columns[columnName]);
+          child['name'] = columnName;
+          child['type'] = columns[columnName].dataType;
+          child['columnDefault'] = columns[columnName].columnDefault;
+          child['isNullable'] = columns[columnName].isNullable;
+          child['charMaxLength'] = columns[columnName].charMaxLength;
+          
+          tableChildren.push(child);
+
+        });
         
         const tableData = {};
-        tableData['pointsTo'] = pointsTo;
+        tableData['name'] = tableName;
+        tableData['foreignKeys'] = pointsTo;
         tableData['referencedBy'] = referencedBy ? Object.keys(referencedBy) : [];
-        tableData['children'] = columns;
+        tableData['children'] = tableChildren;
         
-        graphData[tableName] = tableData;
+        children.push(tableData);
       }
     });
   
