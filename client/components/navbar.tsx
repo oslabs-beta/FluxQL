@@ -50,7 +50,7 @@ export default function navbar() {
           DB URI
         </a>
 
-        <a href='#' className='link' onClick={() => {alert('hi')}}>
+        <a href='#' className='link' onClick={() => {window.open('/graphql', '_blank')}}>
           Playground
         </a>
 

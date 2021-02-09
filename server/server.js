@@ -3,11 +3,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const router = require('./router');
+const { graphqlHTTP } = require('express-graphql');
+const schema = require('./graphQLServer/schema');
 
 
 const PORT = 3000;
-
-// require routers here
 
 app.use(express.json());
 
@@ -20,13 +20,18 @@ app.use((req, res, next) => {
   return next();
 });
 
-// route handlers
 
 // static file for webpack dev-server
 app.use(express.static(path.resolve(__dirname, '../dist')))
 
 /*** MAIN PAGE ***/
 app.use(express.static(path.resolve(__dirname, '../client')));
+
+
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: true,
+}));
 
 /* Route for Mongo & PG URI */
 app.use('/', router);
