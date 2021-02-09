@@ -6,30 +6,25 @@
   justify-content: space-between;
 }
 
-// Radial Tree Styling
+// PSQL Graph Styling
 
 svg {
   background-color: #44475a;
-  width: 100%;
-  height: 100%;
-}
-
-.node {
-  cursor: pointer;
+  //width: 100%;
+  //height: 100%;
 }
 
 .node circle {
-  stroke: #f6f3e4;
   stroke-width: 1.5px;
 }
 
 .node text {
   font: 11px sans-serif;
-  //color: white !important;
 }
 
 .link {
   fill: none;
-  stroke: #ffd1ff;
+  //stroke: #ffd1ff;
+  stroke: $cyan;
   stroke-width: 0.7px;
 }

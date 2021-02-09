@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import adviceSample from '../sampleData/adviceSample';
 
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
@@ -13,47 +14,58 @@ export default function adviceGraph() {
     // if there is advice data, render data
     if (adviceState.advice) {
       //let width = parseInt(d3.select('#pieChart').style('width'), 10);
-      let width = parseInt(d3.select(adviceGraphContainer).style('width'), 10);
-      let height = width;
-      let radius = (Math.min(width, height) - 15) / 2;
+      const width = parseInt(
+        d3.select(adviceGraphContainer.current).style('width'),
+        10
+      );
+      const height = width;
+      const radius = (Math.min(width, height) - 15) / 2;
 
-      let type = function getObject(obj) {
+      //! an array of the "Type" strings -> ['Queries','Mutations'] for the color scheme
+      const type = function getObject(arr) {
         const types = [];
-        for (let i = 0; i < obj.length; i++) {
-          types.push(obj[i].Type);
+        for (let i = 0; i < arr.length; i++) {
+          const obj = arr[i]; // [{Type: 1}, {Type: 2}]
+          types.push(obj.Type);
         }
         return types;
       };
-      let arcOver = d3.svg
+
+      //! setting the color scheme of the graph, each index matches the types array index
+      const color = d3
+        .scaleOrdinal()
+        .domain(type(adviceState.advice))
+        .range(['#ff79c6', '#bd93f9']);
+
+      //! creating the outer arc of the graph
+      const arcOver = d3 //.svg
         .arc()
         .outerRadius(radius + 10)
         .innerRadius(150);
 
-      let color = d3.scale
-        .ordinal()
-        .domain(type(data_V1))
-        .range(['#8A76A6', '#54B5BF', '#8EA65B', '#F27B35']);
-
-      /*let color = d3.scale.category20();
-    color.domain(type(data))*/
-
-      let arc = d3.svg
+      //! creating inner arc?
+      const arc = d3 //.svg
         .arc()
         .outerRadius(radius - 10)
         .innerRadius(150);
 
-      let pie = d3.layout
+      //! creates an object for each piece of data, prepping for the pie graph
+      const pie = d3 //.layout
         .pie()
         .sort(null)
         .value(function (d) {
+          console.log(d);
           return +d.Amount;
         });
 
-      change = function (d, i) {
-        let angle =
+      // ! creates the transition of the onClick
+      // eslint-disable-next-line no-inner-declarations
+      function change(d, i) {
+        const angle =
           90 -
           (d.startAngle * (180 / Math.PI) +
             ((d.endAngle - d.startAngle) * (180 / Math.PI)) / 2);
+
         svg
           .transition()
           .duration(1000)
@@ -61,12 +73,14 @@ export default function adviceGraph() {
             'transform',
             'translate(' + radius + ',' + height / 2 + ') rotate(' + angle + ')'
           );
-        d3.selectAll('path').transition().attr('d', arc);
+        //! rotates over the inner arc & outer arc
+        d3.selectAll('.piepath').transition().attr('d', arc);
         d3.select(i).transition().duration(1000).attr('d', arcOver);
-      };
+      }
 
-      let svg = d3
-        .select('#pieChart')
+      //! finally appending the svg onto our div
+      const svg = d3
+        .select(adviceGraphContainer.current)
         .append('svg')
         .attr('width', '100%')
         .attr('height', '100%')
@@ -78,11 +92,13 @@ export default function adviceGraph() {
         .append('g')
         .attr('transform', 'translate(' + radius + ',' + height / 2 + ')');
 
-      let g = svg
+      //! creating the individual parts of the pie
+      const g = svg
         .selectAll('path')
-        .data(pie(data_V1))
+        .data(pie(adviceState.advice))
         .enter()
         .append('path')
+        .attr('class', 'piepath')
         .style('fill', function (d) {
           return color(d.data.Type);
         })
@@ -90,25 +106,33 @@ export default function adviceGraph() {
         .style('fill', function (d) {
           return color(d.data.Type);
         })
-        .on('click', function (d) {
+        .on('click', function (e, d) {
+          //! invokes the rotating of the graph
           change(d, this);
-          d3.select('.text-container').hide();
-          d3.select('#segmentTitle').replaceWith(
-            '<h1 id="segmentTitle">' +
-              d.data.Type +
-              ': ' +
-              d.data.Amount +
-              '</h1>'
+
+          //! hides the original text
+          //d3.select('.text-container').hide();
+
+          //! updating the Header for text card
+          d3.select('#segmentTitle').html(
+            '<h4 id="segmentTitle">' + d.data.Amount + d.data.Type + '</h4>'
           );
-          d3.select('#');
-          d3.select('#segmentText').replaceWith(
+
+          //d3.select('#');
+
+          //! replacing the description
+          d3.select('#segmentText').html(
             '<p id="segmentText">' + d.data.Description + '</p>'
           );
+
+          //! write out our own logic to clean up the original CopyBlock and render new CopyBlock
+
           d3.select('.text-container').fadeIn(400);
         });
 
-      document.querySelector('style').textContent +=
-        '@media(max-width:767px) {#pieChart { transform: rotate(90deg); transform-origin: 50% 50%; transition: 1s; max-width: 50%; } .text-container { width: 100%; min-height: 0; }} @media(min-width:768px) {#pieChart { transition: 1s;}}';
+      //! eventually move to stylesheet
+      // document.querySelector('style').textContent +=
+      //   '@media(max-width:767px) {#pieChart { transform: rotate(90deg); transform-origin: 50% 50%; transition: 1s; max-width: 50%; } .text-container { width: 100%; min-height: 0; }} @media(min-width:768px) {#pieChart { transition: 1s;}}';
     }
   }, [adviceState.advice]);
 
@@ -123,7 +147,7 @@ export default function adviceGraph() {
         <div id="pieText" className="col-sm-6 text-container">
           <h1 id="segmentTitle">Advice Console</h1>
           <p id="segmentText">
-            Here's the breakdown of your database and GraphQL
+            Here is the breakdown of your database and GraphQL
           </p>
         </div>
       </div>

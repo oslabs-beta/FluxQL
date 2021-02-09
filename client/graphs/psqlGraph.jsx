@@ -17,6 +17,8 @@ export default function psqlGraph() {
     diameter: 800,
   };
 
+  //const graphContainerHeight = document.getElementById('')
+
   useEffect(() => {
     // if there is PSQL data, render data
     if (psqlState.d3Tables.name) {
@@ -27,20 +29,28 @@ export default function psqlGraph() {
         .select(psqlGraphRef.current)
         .attr('preserveAspectRatio', 'xMinYMin meet')
         .attr('viewBox', '0 0 960 1000'); // width 960, height 1000
+      //.attr('transform', 'translate(' + diameter/2 + ',' + diameter/2 +')');
 
-      const g = svg
-        .append('g')
-        .attr(
-          'transform',
-          'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')'
-        );
+      const g = svg.append('g').attr(
+        'transform',
+        'translate(' + width / 2 + ',' + height / 2 + ')'
+        //! the code below shifted the starting coordinates of our root...
+        //'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')'
+      );
 
       //defining where the actual area of the tree is
-      const treemap = d3.tree().size([360, 250]);
+      const treemap = d3
+        .tree()
+        //.size([360, 250]); // ! not sure what our original did. codepen inspo below
+        .size([360, diameter / 2 - 80])
+        .separation((a, b) => {
+          // ! sets the space between non-related children
+          return (a.parent == b.parent ? 1 : 5) / a.depth;
+        });
 
       // defining the parent root & it's coordinates
       const root = d3.hierarchy(psqlState.d3Tables, (d) => d.children);
-      root.x0 = height / 2;
+      root.x0 = svg.style.height / 2; // ! trying to find the middle of the svg graph to root the tree
       root.y0 = 0;
 
       // assigning each node properties and an id
@@ -79,21 +89,29 @@ export default function psqlGraph() {
           .append('g')
           .attr('class', 'node')
           .attr('id', (d) => d.id)
-          .attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')')
           .on('click', click);
 
-        startingPoint // ref: line 128
+        startingPoint
           .append('circle')
           .attr('class', 'node')
           .attr('id', (d) => d.id)
-          .attr('r', 1e-6) // ! original radius was 5 but we want it to start off as "invisible"
-          .style('fill', (d) => (d._children ? '#972625' : '#D7E2E7)'));
+          .attr('r', 1e-6)
+          .style('fill', (d) =>
+            d._children || d.children ? '#f1fa8c' : '#D7E2E7)'
+          ) //! diff color for parent / child
+          .style('stroke', (d) =>
+            d._children || d.children ? '#f1fa8c' : '#f6f3e4'
+          ) //! diff outline for parent / child
+          //.style('stroke-width', (d) => (d._children && d.children ? '2.5px' : '1.5px' )); //! diff outline thickness for parent / child
+          .attr('cursor', (d) => {
+            if (d._children || d.children) return 'pointer';
+          }); //! to remove the cursor pointer if a child
 
         // adding text label to each node
         startingPoint
           .append('text')
           .attr('dy', '.35em')
-          .attr('x', 10) // ! (d) => (d.children || d._children ? -13 : 13)) was putting the text on top of the <g> so it threw off the clicking
+          .attr('x', 10)
           .attr('text-anchor', 'start')
           .text((d) => d.data.name)
           .style('fill-opacity', 1e-6);
@@ -109,35 +127,36 @@ export default function psqlGraph() {
             'transform',
             (d) => 'rotate(' + (d.x - 90) + ')translate(' + d.y + ')'
           );
-        // ! our original below.. the above changees the text to be on angle
-        //.attr('transform', (d) => 'translate(' + project(d.x, d.y) + ')');
 
         // style the child node at its correct location
         childPoint
-          .select('circle.node')
+          .select('circle')
           .attr('r', 6.5)
-          .attr('fill', (d) => (d._children ? '#972625' : '#D7E2E7'))
-          .attr('cursor', 'pointer');
+          .attr('fill', (d) => (d._children ? '#f1fa8c' : '#D7E2E7')) //! diff circle fill for parent / child after child moves
+          .attr('cursor', (d) => {
+            if (d._children || d.children) return 'pointer';
+          }); //! to remove the cursor pointer if a child
 
         childPoint
           .select('text')
+          .style('fill', (d) =>
+            d._children || d.children ? '#f1fa8c' : '#a4bac2'
+          ) // ! change color of text if parent
+          .style('font-weight', (d) =>
+            d._children || d.children ? 'bolder' : 'normal'
+          ) // ! to make parent text bold
           .style('fill-opacity', 1)
           .attr('transform', (d) => {
-            d.x < 180
+            return d.x < 180
               ? 'translate(0)'
               : 'rotate(180)translate(-' + (d.name.length + 50) + ')';
-          }); //! to get the text to rotate on an angle
+          }) //! to get the text to rotate on an angle
+          .attr('text-anchor', (d) => {
+            return d.x < 180 ? 'start' : 'middle';
+          }); // ! to change the starting point of the text to avoid writing over the node
 
         // defining the "disappearance" of the children nodes of the collapsed parent node
         const childExit = node.exit().transition().duration(duration);
-        // .remove(); // ! this was removing the entire circle tag
-        /* 
-            ! we don't want this b/c it does the weird transition off the page 
-            // .attr(  
-            //   'transform',
-            //   (d) => 'translate(' + source.y + ',' + source.x + ')'
-            // ) 
-            */
 
         // styling the invisibility of the collapsed child
         childExit.select('circle').attr('r', 1e-6);
@@ -158,13 +177,22 @@ export default function psqlGraph() {
           return id;
         });
 
-        // starts the links at
+        // starts the links at the parent's previous position
         const linkEnter = link
           .enter()
           .insert('path', 'g')
           .attr('class', 'link')
           .attr('d', (d) => {
-            diagonal(d);
+            //! to get the link to grow out of the parent's position
+            const o = {
+              parent: {
+                x: source.x0,
+                y: source.y0,
+              },
+              x: source.x0,
+              y: source.y0,
+            };
+            return diagonal(o);
           });
 
         // defining the correct spots of the links
@@ -175,9 +203,28 @@ export default function psqlGraph() {
           .duration(duration)
           .attr('d', (d) => diagonal(d));
 
-        const linkExit = link.exit().transition().duration(duration).remove();
+        // to have links disappear into the parent node
+        const linkExit = link
+          .exit()
+          .transition()
+          .duration(duration)
+          .attr('d', function (d) {
+            //! to get the link to disappear into the parent's position
+            const o = {
+              parent: {
+                x: source.x0,
+                y: source.y0,
+              },
+              x: source.x0,
+              y: source.y0,
+            };
+            return diagonal(o);
+          })
+          .remove();
 
         function click(event, d) {
+          console.log(d);
+
           if (d.children) {
             d._children = d.children;
             d.children = null;

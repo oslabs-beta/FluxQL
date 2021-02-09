@@ -1,7 +1,7 @@
-@import './psqlGraph.scss';
-@import './codeMirror.scss';
 @import './_fonts.scss';
 @import './_colors.scss';
+@import './psqlGraph.scss';
+@import './codeMirror.scss';
 @import './navbar.scss';
 @import './modals.scss';
 @import './adviceGraph.scss';
@@ -37,9 +37,9 @@ h1 {
     grid-template-rows: repeat(3, 1fr);
     gap: 0px 0px;
     grid-template-areas:
+      'Advice Graph Graph'
       'Code Graph Graph'
-      'Code Graph Graph'
-      'Advice Graph Graph';
+      'Code Graph Graph';
 
     .GraphContainer {
       border: 1px solid black;

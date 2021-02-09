@@ -2,7 +2,7 @@
 import SampleSchema from '../sampleData/schemaString';
 import SampleResolver from '../sampleData/resolverString';
 import treeData from '../sampleData/treeData';
-// ! need to import sample data for advice console & mongo graph (this is a stretch)
+import adviceSample from '../sampleData/adviceSample';
 
 export const initialGeneralState = {
   onHomePage: true,
@@ -28,40 +28,38 @@ export const initialAdviceState = {
   advice: [],
 };
 
-
-
 export const generalReducer = (state, action) => {
   switch (action.type) {
     case 'ON_HOME_PAGE':
       return {
         ...state,
         onHomePage: true,
-      }
+      };
     case 'NOT_HOME_PAGE':
       return {
         ...state,
         onHomePage: false,
-      }
+      };
     case 'OPEN_URI_MODAL':
       return {
         ...state,
         URImodal: true,
-      }
+      };
     case 'CLOSE_URI_MODAL':
       return {
         ...state,
         URImodal: false,
-      }
+      };
     case 'OPEN_HELP_MODAL':
       return {
         ...state,
         helpModal: true,
-      }
+      };
     case 'CLOSE_HELP_MODAL':
       return {
         ...state,
         helpModal: false,
-      }
+      };
   }
 };
 
@@ -79,59 +77,60 @@ export const codeReducer = (state, action) => {
         schema: SampleSchema,
         resolver: SampleResolver,
       };
-    case 'SHOW_SCHEMA': 
+    case 'SHOW_SCHEMA':
       return {
         ...state,
-        showSchema: true
+        showSchema: true,
       };
-    case 'SHOW_RESOLVER': 
+    case 'SHOW_RESOLVER':
       return {
         ...state,
-        showSchema: false
+        showSchema: false,
       };
   }
 };
 
 export const psqlReducer = (state, action) => {
   switch (action.type) {
-    case 'UPDATE_D3TABLES': 
+    case 'UPDATE_D3TABLES':
       return {
         ...state,
         d3Tables: action.payload,
-      }
-    case 'USE_SAMPLE': 
+      };
+    case 'USE_SAMPLE':
       return {
         ...state,
-        d3Tables: treeData
-      }
-    };
-  };
-    
+        d3Tables: treeData,
+      };
+  }
+};
+
 export const mongoReducer = (state, action) => {
-    switch (action.type) {
-    case 'UPDATE_D3TABLES': 
+  switch (action.type) {
+    case 'UPDATE_D3TABLES':
       return {
         ...state,
         d3Tables: action.payload,
-      }
-    case 'USE_SAMPLE': 
+      };
+    case 'USE_SAMPLE':
       return {
         ...state,
         //d3Tables: treeData
-      }
-  };
+      };
+  }
 };
 
 export const adviceReducer = (state, action) => {
   switch (action.type) {
-    case 'UPDATE_ADVICE': 
+    case 'UPDATE_ADVICE':
       return {
         ...state,
         advice: action.payload,
-      }
-    case 'USE_SAMPLE': 
+      };
+    case 'USE_SAMPLE':
       return {
         ...state,
-      }
-  };
+        advice: adviceSample,
+      };
+  }
 };
