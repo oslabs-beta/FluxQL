@@ -36,7 +36,8 @@ pgController.generateSchema = (req, res, next) => {
     const resolvers  = schemaGenerator.assembleResolvers(tables);
 
     res.locals.schema = { types, resolvers };
-    res.locals.advice = { queryTypeCount, mutationTypeCount, queryExample, mutationExample };
+    res.locals.advice = [{ Title: 'Queries', Amount: queryTypeCount, Description: queryExample }, 
+                          {Title: 'Mutations', Amount: mutationTypeCount, Description: mutationExample }];
     
     // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc
     return next();
@@ -88,5 +89,21 @@ pgController.generateGraphData = (req, res, next) => {
     return next(errObj);
   }
 };
+
+
+pgController.writeSchemaToFile = (req, res, next) => {
+  try {
+    return next();
+  }
+  catch (err) {
+    const errObj = {
+      log: `Error in writeSchemaToFile: ${err}`,
+      status: 400,
+      message: { err: '' },
+    };
+    return next(errObj);
+  }
+};
+
 
 module.exports = pgController;
