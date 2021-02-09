@@ -11,7 +11,8 @@ pgController.SQLTableData = (req, res, next) => {
   const { psqlURI } = req.body;
   console.log(psqlURI);
   
-  const db = new Pool({ connectionString: URI }); // ! change to request body uri in future
+  //const db = new Pool({ connectionString: URI }); // ! change to request body uri in future
+  const db = new Pool({ connectionString: psqlURI });
 
   db.query(pgQuery)
   .then(data => {
@@ -71,7 +72,7 @@ pgController.generateGraphData = (req, res, next) => {
         const tableData = {};
         tableData['pointsTo'] = pointsTo;
         tableData['referencedBy'] = referencedBy ? Object.keys(referencedBy) : [];
-        tableData['columns'] = columns;
+        tableData['children'] = columns;
         
         graphData[tableName] = tableData;
       }

@@ -1,16 +1,31 @@
-import React from 'react';
-import RadialTree from '../graphs/radialTree'
-import HelpButton from '../components/helpButton'
-import UndoButton from '../components/undoButton'
+import React, { useContext } from 'react';
+import HelpButton from '../components/helpButton';
+import UndoButton from '../components/undoButton';
+import PSQLGraph from '../graphs/psqlGraph';
 
+// import Context Obj
+import {  PSQLContext, MongoContext } from '../state/contexts'
 
-export default function graphContainer({ handleHelpModal }) {
+export default function graphContainer() {
+  const { psqlState } = useContext(PSQLContext);
+ // const { mongoState } = useContext(MongoContext);
+
+  // ! to toggle between the different graphs
+  let graph;
+
+  if (Object.keys(psqlState.d3Tables)) {
+    graph = <PSQLGraph />
+  } else {
+    console.log(' *** WE STILL NEED TO CREATE A MONGO GRAPH ***')
+    //graph = <mongoGraph />
+  }
+
   return (
     <div className='GraphContainer'>
-      <RadialTree />
+      {graph}
       <div className="graphBtns">
         <UndoButton/>
-        <HelpButton handleHelpModal={handleHelpModal} />
+        <HelpButton />
       </div>
 
       

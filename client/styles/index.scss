@@ -32,7 +32,6 @@ h1 {
 
   #AppPage {
     display: grid;
-    //grid-template-columns: repeat(auto-fill, minmax(3fr));
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 0px 0px;
@@ -44,6 +43,7 @@ h1 {
     .GraphContainer {
       border: 1px solid black;
       grid-area: Graph;
+      background-color: $currentline;
     }
 
     .CodeContainer {
