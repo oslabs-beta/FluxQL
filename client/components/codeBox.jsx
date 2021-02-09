@@ -8,11 +8,12 @@ import '../../node_modules/codemirror/theme/dracula.css';
 import { CodeContext } from '../state/contexts';
 
 export default function codeBox() {
-
   const { codeState } = useContext(CodeContext);
 
   let code;
-  codeState.showSchema ? code = codeState.schema : code = codeState.resolver;
+  codeState.showSchema
+    ? (code = codeState.schema)
+    : (code = codeState.resolver);
 
   return (
     <>

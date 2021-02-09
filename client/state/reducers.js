@@ -132,5 +132,10 @@ export const adviceReducer = (state, action) => {
         ...state,
         advice: adviceSample,
       };
+    case 'SHOW_EXAMPLE':
+      return {
+        ...state,
+        displayExample: action.payload,
+      };
   }
 };

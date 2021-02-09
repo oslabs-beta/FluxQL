@@ -1,12 +1,13 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import adviceSample from '../sampleData/adviceSample';
+//import adviceSample from '../sampleData/adviceSample';
+import AdviceCodeBlock from '../components/adviceCodeBlock';
 
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
 
 export default function adviceGraph() {
-  const { adviceState } = useContext(AdviceContext);
+  const { adviceState, adviceDispatch } = useContext(AdviceContext);
 
   const adviceGraphContainer = useRef(null);
 
@@ -132,6 +133,11 @@ export default function adviceGraph() {
 
           //! write out our own logic to clean up the original CopyBlock and render new CopyBlock
 
+          adviceDispatch({
+            type: 'SHOW_EXAMPLE',
+            payload: d.data.Example,
+          });
+
           d3.select('.text-container').fadeIn(400);
         });
 
@@ -152,10 +158,12 @@ export default function adviceGraph() {
         <div id="pieText" className="col-sm-6 text-container">
           <h1 id="segmentTitle">Advice Console</h1>
           <p id="segmentText">
-            Here is the breakdown of your database and GraphQL
+            Here is the breakdown of your database and GraphQL. <br />
+            Click on any part of the pie chart to see your breakdown.
           </p>
         </div>
       </div>
+      {adviceState.displayExample && <AdviceCodeBlock />}
     </div>
   );
 }

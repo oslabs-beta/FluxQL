@@ -5,6 +5,7 @@
 @import './navbar.scss';
 @import './modals.scss';
 @import './adviceGraph.scss';
+@import './adviceCodeBlock.scss';
 
 @import 'codemirror/lib/codemirror.css';
 @import 'codemirror/theme/dracula.css';
@@ -29,12 +30,14 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
+
   height: 100%; // come back to check on the scroll...
 
   #AppPage {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    height: calc(100vh - 10px);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
       'Advice Graph Graph'
