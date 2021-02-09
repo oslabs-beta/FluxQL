@@ -14,6 +14,10 @@
   outline: none;
 }
 
+svg:hover {
+  cursor: pointer;
+}
+
 body {
   background-color: #282a36;
   color: white;
@@ -38,7 +42,8 @@ h1 {
     height: calc(100vh - 10px);
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 0px 0px;
+    gap: 5px 5px;
+    border-radius: 15px;
     grid-template-areas:
       'Advice Graph Graph'
       'Code Graph Graph'
@@ -60,6 +65,12 @@ h1 {
     .AdviceContainer {
       border: 1px solid black;
       grid-area: Advice;
+      background-color: $currentline;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 15px;
+      text-align: center;
     }
   }
 }

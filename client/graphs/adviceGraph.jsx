@@ -37,7 +37,7 @@ export default function adviceGraph() {
       const color = d3
         .scaleOrdinal()
         .domain(type(adviceState.advice))
-        .range(['#ff79c6', '#bd93f9']);
+        .range(['#50fa7b', '#8be9fd']);
 
       //! creating the outer arc of the graph
       const arcOver = d3 //.svg
@@ -84,8 +84,8 @@ export default function adviceGraph() {
       const svg = d3
         .select(adviceGraphContainer.current)
         .append('svg')
-        .attr('width', '50%') // originally 100%
-        .attr('height', '50%') // originally 100%
+        .attr('width', '20%') // originally 100%
+        .attr('height', '20%') // originally 100%
         .attr(
           'viewBox',
           '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height)

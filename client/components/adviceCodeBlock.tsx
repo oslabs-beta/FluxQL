@@ -3,6 +3,8 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/mode/javascript/javascript';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/dracula.css';
+import '../../node_modules/codemirror/theme/material.css';
+import '../../node_modules/codemirror/theme/material-palenight.css';
 
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
@@ -17,10 +19,10 @@ export default function adviceCodeBlock() {
         value={adviceState.displayExample}
         options={{
           mode: 'javascript',
-          theme: 'dracula',
-          lineNumbers: 'false',
+          theme: 'material-palenight',
+          lineNumbers: false,
           readOnly: 'nocursor',
-          lineWrapping: 'true',
+          lineWrapping: true,
         }}
       />
     </div>
