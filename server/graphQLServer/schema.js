@@ -1,16 +1,18 @@
 const { makeExecutableSchema } = require('graphql-tools');
-    const {Pool} = require('pg');
-    const PG_URI = 'postgres://sugmjzbp:wvcZ6SvHu61w8qdmDYBb1uvdnqtLZ_82@suleiman.db.elephantsql.com:5432/sugmjzbp';
-    
-    const pool = new Pool({
-        connectionString: PG_URI
-    });
+const { Pool } = require('pg');
+const PG_URI = 'postgres://sugmjzbp:wvcZ6SvHu61w8qdmDYBb1uvdnqtLZ_82@suleiman.db.elephantsql.com:5432/sugmjzbp';
 
-    const db = {}
-    db.query = (text,params, callback) => {
-              console.log('executed query:', text)
-              return pool.query(text, params, callback)
-          }
+const pool = new Pool({
+  connectionString: PG_URI
+});
+
+const db = {};
+db.query = (text,params, callback) => {
+  console.log('executed query:', text)
+  return pool.query(text, params, callback) 
+};
+
+
 const typeDefs = `
   type Query {
     people: [Person!]!
@@ -523,6 +525,20 @@ const typeDefs = `
             .then(data => data.rows)
             .catch(err => new Error(err));
         }, 
+        species: (people) => {
+          const query = 'SELECT species.* FROM species LEFT OUTER JOIN people ON species._id = people._id WHERE people._id = $1';
+          const values = [people._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        planets: (people) => {
+          const query = 'SELECT planets.* FROM planets LEFT OUTER JOIN people ON planets._id = people._id WHERE people._id = $1';
+          const values = [people._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
         vessels: (people) => {
           const query = 'SELECT * FROM vessels LEFT OUTER JOIN pilots ON vessels._id = pilots.vessel_id WHERE pilots.person_id = $1';
           const values = [people._id];
@@ -600,6 +616,13 @@ const typeDefs = `
         },
         films: (species) => {
           const query = 'SELECT * FROM films LEFT OUTER JOIN species_in_films ON films._id = species_in_films.film_id WHERE species_in_films.species_id = $1';
+          const values = [species._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        planets: (species) => {
+          const query = 'SELECT planets.* FROM planets LEFT OUTER JOIN species ON planets._id = species._id WHERE species._id = $1';
           const values = [species._id];
           return db.query(query, values)
             .then(data => data.rows)
