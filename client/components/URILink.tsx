@@ -36,7 +36,7 @@ export default function URILink ({ databaseName }){
         .then(data => data.json())
         .then((data) => {
           console.log('successfully sent to server');
-          //console.log(data);
+          console.log('data: ', data);
 
           // update all Context Objects accordingly
 
@@ -56,6 +56,8 @@ export default function URILink ({ databaseName }){
 
           // update either DB states depending on what server sends back
           if (data.dbName === 'psql') {
+            console.log('inside data.dbName on line 59');
+
             psqlDispatch({
               type: 'UPDATE_D3TABLES',
               payload: data.d3Data
