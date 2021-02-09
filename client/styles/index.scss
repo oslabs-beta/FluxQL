@@ -34,7 +34,7 @@ h1 {
   #AppPage {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 0px 0px;
     grid-template-areas:
       'Advice Graph Graph'

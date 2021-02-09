@@ -12,7 +12,8 @@ export default function adviceGraph() {
 
   useEffect(() => {
     // if there is advice data, render data
-    if (adviceState.advice) {
+
+    if (adviceState.advice.length > 0) {
       //let width = parseInt(d3.select('#pieChart').style('width'), 10);
       const width = parseInt(
         d3.select(adviceGraphContainer.current).style('width'),
@@ -82,8 +83,8 @@ export default function adviceGraph() {
       const svg = d3
         .select(adviceGraphContainer.current)
         .append('svg')
-        .attr('width', '100%')
-        .attr('height', '100%')
+        .attr('width', '50%') // originally 100%
+        .attr('height', '50%') // originally 100%
         .attr(
           'viewBox',
           '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height)
