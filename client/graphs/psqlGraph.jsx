@@ -6,7 +6,6 @@ import { project, diagonal } from './helperFunctions';
 import { PSQLContext } from '../state/contexts';
 
 export default function psqlGraph() {
-
   const psqlGraphRef = useRef(null);
 
   const { psqlState, psqlDispatch } = useContext(PSQLContext);
@@ -15,9 +14,9 @@ export default function psqlGraph() {
     width: 960,
     height: 1000,
     duration: 350,
-    diameter: 800
+    diameter: 800,
   };
-  
+
   useEffect(() => {
     // if there is PSQL data, render data
     if (psqlState.d3Tables.name) {
@@ -54,6 +53,7 @@ export default function psqlGraph() {
       // to actually open up the tree graph
       update(root);
 
+      // eslint-disable-next-line no-inner-declarations
       function update(source) {
         // treeData basically is our "root" variable from TestGraph
         const treeData = treemap(root);
@@ -189,11 +189,11 @@ export default function psqlGraph() {
         }
       }
     }
-  }, [psqlState.d3Tables])
+  }, [psqlState.d3Tables]);
 
   return (
     <div>
       <svg ref={psqlGraphRef}></svg>
     </div>
-  )
+  );
 }
