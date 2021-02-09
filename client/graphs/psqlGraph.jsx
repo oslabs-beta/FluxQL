@@ -87,7 +87,9 @@ export default function psqlGraph() {
           .attr('class', 'node')
           .attr('id', (d) => d.id)
           .attr('r', 1e-6) // ! original radius was 5 but we want it to start off as "invisible"
-          .style('fill', (d) => (d._children ? '#972625' : '#D7E2E7)'));
+          .style('fill', (d) => (d._children ? '#972625' : '#D7E2E7)'))
+          .style('stroke', (d) => (!d._children && d.children ? '#972625' : '#f6f3e4' ))
+          .style('stroke-width', (d) => (!d._children && d.children ? '2.5px' : '1.5px' ));
 
         // adding text label to each node
         startingPoint
@@ -96,6 +98,7 @@ export default function psqlGraph() {
           .attr('x', 10) // ! (d) => (d.children || d._children ? -13 : 13)) was putting the text on top of the <g> so it threw off the clicking
           .attr('text-anchor', 'start')
           .text((d) => d.data.name)
+          .style('fill', '#a4bac2')
           .style('fill-opacity', 1e-6);
 
         // we are merging the original spot to the child point (overrwriting the objects)
@@ -178,6 +181,9 @@ export default function psqlGraph() {
         const linkExit = link.exit().transition().duration(duration).remove();
 
         function click(event, d) {
+          console.log(d);
+
+
           if (d.children) {
             d._children = d.children;
             d.children = null;
