@@ -25,10 +25,7 @@ export const initialMongoState = {
 };
 
 export const initialAdviceState = {
-  queryTypeCount: 0,
-  mutationTypeCount: 0,
-  queryExample: '',
-  mutationExample: '',
+  advice: [],
 };
 
 
@@ -100,7 +97,7 @@ export const psqlReducer = (state, action) => {
     case 'UPDATE_D3TABLES': 
       return {
         ...state,
-        d3Tables: action.payload.d3Tables,
+        d3Tables: action.payload,
       }
     case 'USE_SAMPLE': 
       return {
@@ -115,7 +112,7 @@ export const mongoReducer = (state, action) => {
     case 'UPDATE_D3TABLES': 
       return {
         ...state,
-        d3Tables: action.payload.d3Tables,
+        d3Tables: action.payload,
       }
     case 'USE_SAMPLE': 
       return {
@@ -130,10 +127,7 @@ export const adviceReducer = (state, action) => {
     case 'UPDATE_ADVICE': 
       return {
         ...state,
-        queryTypeCount: action.payload.queryTypeCount,
-        mutationTypeCount: action.payload.mutationTypeCount,
-        queryExample: action.payload.queryExample,
-        mutationExample: action.payload.queryExample,
+        advice: action.payload,
       }
     case 'USE_SAMPLE': 
       return {

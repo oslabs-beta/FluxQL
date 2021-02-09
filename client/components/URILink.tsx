@@ -51,24 +51,19 @@ export default function URILink ({ databaseName }){
           // update Advice
           adviceDispatch({
             type: 'UPDATE_ADVICE',
-            payload: {
-              queryTypeCount: data.advice.queryTypeCount, 
-              mutationTypeCount: data.advice.mutationTypeCount,
-              queryExample: data.advice.queryExample,
-              mutationExample: data.advice.mutationExample,
-            }
+            payload: data.advice
           })
 
           // update either DB states depending on what server sends back
           if (data.dbName === 'psql') {
             psqlDispatch({
               type: 'UPDATE_D3TABLES',
-              payload: data.d3tables
+              payload: data.d3Data
             })
           } else {
             mongoDispatch({
               type: 'UPDATE_D3TABLES',
-              payload: data.d3tables
+              payload: data.d3Data
             })
           }
         })
