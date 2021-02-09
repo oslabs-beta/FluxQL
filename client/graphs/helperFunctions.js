@@ -1,5 +1,4 @@
 export function diagonal(d) {
-  console.log('d in diagonal: ', d);
   return (
     'M' +
     project(d.x, d.y) +

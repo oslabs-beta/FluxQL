@@ -10,13 +10,13 @@
 
 svg {
   background-color: #44475a;
-  width: 100%;
-  height: 100%;
+  //width: 100%;
+  //height: 100%;
 }
 
-.node {
-  cursor: pointer;
-}
+// .node {
+//   cursor: pointer;
+// }
 
 .node circle {
   //stroke: #f6f3e4;
@@ -29,6 +29,7 @@ svg {
 
 .link {
   fill: none;
-  stroke: #ffd1ff;
+  //stroke: #ffd1ff;
+  stroke: $cyan;
   stroke-width: 0.7px;
 }
