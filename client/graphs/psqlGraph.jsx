@@ -27,7 +27,8 @@ export default function psqlGraph() {
       const svg = d3
         .select(psqlGraphRef.current)
         .attr('preserveAspectRatio', 'xMinYMin meet')
-        .attr('viewBox', '0 0 960 1000'); // width 960, height 1000
+        .attr('viewBox', '0 0 960 1000') // width 960, height 1000
+        //.attr('transform', 'translate(' + diameter/2 + ',' + diameter/2 +')'); 
 
       const g = svg
         .append('g')
@@ -37,7 +38,12 @@ export default function psqlGraph() {
         );
 
       //defining where the actual area of the tree is
-      const treemap = d3.tree().size([360, 250]);
+      const treemap = d3.tree()
+        //.size([360, 250]); // ! not sure what our original did. codepen inspo below
+        .size([360, diameter/2 -80])
+        .separation((a, b) => { // ! sets the space between non-related children
+          return (a.parent == b.parent ? 1 : 5) / a.depth;
+        });
 
       // defining the parent root & it's coordinates
       const root = d3.hierarchy(psqlState.d3Tables, (d) => d.children);
@@ -86,7 +92,7 @@ export default function psqlGraph() {
           .append('circle')
           .attr('class', 'node')
           .attr('id', (d) => d.id)
-          .attr('r', 1e-6) // ! original radius was 5 but we want it to start off as "invisible"
+          .attr('r', 1e-6)
           .style('fill', (d) => (d._children ? '#972625' : '#D7E2E7)'))
           .style('stroke', (d) => (!d._children && d.children ? '#972625' : '#f6f3e4' ))
           .style('stroke-width', (d) => (!d._children && d.children ? '2.5px' : '1.5px' ));
@@ -95,7 +101,7 @@ export default function psqlGraph() {
         startingPoint
           .append('text')
           .attr('dy', '.35em')
-          .attr('x', 10) // ! (d) => (d.children || d._children ? -13 : 13)) was putting the text on top of the <g> so it threw off the clicking
+          .attr('x', 10)
           .attr('text-anchor', 'start')
           .text((d) => d.data.name)
           .style('fill', '#a4bac2')
@@ -133,14 +139,6 @@ export default function psqlGraph() {
 
         // defining the "disappearance" of the children nodes of the collapsed parent node
         const childExit = node.exit().transition().duration(duration);
-        // .remove(); // ! this was removing the entire circle tag
-        /* 
-            ! we don't want this b/c it does the weird transition off the page 
-            // .attr(  
-            //   'transform',
-            //   (d) => 'translate(' + source.y + ',' + source.x + ')'
-            // ) 
-            */
 
         // styling the invisibility of the collapsed child
         childExit.select('circle').attr('r', 1e-6);
@@ -161,13 +159,21 @@ export default function psqlGraph() {
           return id;
         });
 
-        // starts the links at
+        // starts the links at the parent's previous position
         const linkEnter = link
           .enter()
           .insert('path', 'g')
           .attr('class', 'link')
-          .attr('d', (d) => {
-            diagonal(d);
+          .attr('d', (d) => { 
+            const o = {
+              parent: {
+                x: source.x0,
+                y: source.y0,
+              },
+              x: source.x0,
+              y: source.y0,
+            }
+            return diagonal(o);
           });
 
         // defining the correct spots of the links
@@ -178,7 +184,22 @@ export default function psqlGraph() {
           .duration(duration)
           .attr('d', (d) => diagonal(d));
 
-        const linkExit = link.exit().transition().duration(duration).remove();
+        // to have links disappear into the parent node
+        const linkExit = link.exit()
+          .transition()
+          .duration(duration)
+          .attr('d', function(d) { 
+            const o = {
+              parent: {
+                x: source.x0,
+                y: source.y0,
+              },
+              x: source.x0,
+              y: source.y0,
+            }
+            return diagonal(o);
+          })
+          .remove();
 
         function click(event, d) {
           console.log(d);
