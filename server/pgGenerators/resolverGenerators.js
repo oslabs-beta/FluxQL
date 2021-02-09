@@ -139,7 +139,7 @@ resolverGenerator.deleteMutation = (currentTable, primaryKey) => {
 };
 
 resolverGenerator.determineRelationships = (currentTable, tables) => {
-  const { primaryKey, referencedBy } = tables[currentTable];
+  const { primaryKey, referencedBy, foreignKeys } = tables[currentTable];
   let relationships = '';
 
   Object.keys(referencedBy).forEach(refTable => {
@@ -192,7 +192,23 @@ resolverGenerator.determineRelationships = (currentTable, tables) => {
           );
         }
       });
-
+      // confirm all relationships from foreign keys are captured
+      if (foreignKeys) {
+        Object.keys(foreignKeys).forEach(fk => {
+          const refTable = tables[currentTable].foreignKeys[fk].referenceTable;
+          const refTablePk = tables[refTable].primaryKey;
+          const refKey = tables[currentTable].foreignKeys[fk].referenceKey;
+          const checkQuery = resolverGenerator.foreignKeyCheck(
+            currentTable, 
+            primaryKey, 
+            refKey,
+            fk,
+            refTable,
+            refTablePk
+          );
+          if (!relationships.includes(checkQuery)) relationships += checkQuery;
+        })
+      }
     }
   });
   return relationships;
@@ -238,6 +254,17 @@ resolverGenerator.manyToMany = (
             .then(data => data.rows)
             .catch(err => new Error(err));
         }, `;
+};
+
+resolverGenerator.foreignKeyCheck = (currentTable, primaryKey, refKey, fk, refTable, refTablePK) => {
+  return `
+        ${camelCase(refTable)}: (${camelCase(currentTable)}) => {
+          const query = 'SELECT ${refTable}.* FROM ${refTable} LEFT OUTER JOIN ${currentTable} ON ${refTable}.${refTablePK} = ${currentTable}.${refKey} WHERE ${currentTable}.${primaryKey} = $1';
+          const values = [${currentTable}.${primaryKey}];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, `
 };
 
 
