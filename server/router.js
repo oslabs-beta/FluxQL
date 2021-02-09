@@ -12,6 +12,15 @@ router.post('/psql',
     res.status(200).json({ dbName: 'psql', schema: res.locals.schema, advice: res.locals.advice, d3Data: res.locals.d3Data });
 });
 
+router.put('/psql', 
+  // ---- UPDATE SCHEMA MIDDLWARE ----,
+  // pgController.generateSchema,
+  // pgController.generateGraphData,
+  // pgController.writeSchemaToFile,
+  (req, res) => {
+    res.send('update data');
+});
+
 router.post('/mongo', (req, res) => {
   res.status(200).send('mongo')
 });

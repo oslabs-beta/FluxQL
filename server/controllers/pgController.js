@@ -126,7 +126,7 @@ pgController.writeSchemaToFile = (req, res, next) => {
     const errObj = {
       log: `Error in writeSchemaToFile: ${err}`,
       status: 400,
-      message: { err: '' },
+      message: { err: 'Unable to generate graphQL playground server' },
     };
     return next(errObj);
   }
