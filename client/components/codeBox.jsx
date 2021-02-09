@@ -13,7 +13,6 @@ export default function codeBox() {
 
   let code;
   codeState.showSchema ? code = codeState.schema : code = codeState.resolver;
-  console.log(code);
 
   return (
     <>

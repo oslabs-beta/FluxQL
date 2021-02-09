@@ -43,6 +43,7 @@ h1 {
     .GraphContainer {
       border: 1px solid black;
       grid-area: Graph;
+      background-color: $currentline;
     }
 
     .CodeContainer {
