@@ -27,8 +27,7 @@ schemaGenerator.assembleTypes = (tables) => {
     }
     
   }
-  console.log(queryExample)
-  console.log(mutationExample)
+
   const types = 
     `${'const typeDefs = `\n' + 
     '  type Query {\n'}${queryType}  }\n\n` +
