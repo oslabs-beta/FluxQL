@@ -12,37 +12,37 @@ export default function adviceGraph() {
   useEffect(() => {
     // if there is advice data, render data
     if (adviceState.advice) {
-      //var width = parseInt(d3.select('#pieChart').style('width'), 10);
-      var width = parseInt(d3.select(adviceGraphContainer).style('width'), 10);
-      var height = width;
-      var radius = (Math.min(width, height) - 15) / 2;
+      //let width = parseInt(d3.select('#pieChart').style('width'), 10);
+      let width = parseInt(d3.select(adviceGraphContainer).style('width'), 10);
+      let height = width;
+      let radius = (Math.min(width, height) - 15) / 2;
 
-      var type = function getObject(obj) {
+      let type = function getObject(obj) {
         const types = [];
-        for (var i = 0; i < obj.length; i++) {
+        for (let i = 0; i < obj.length; i++) {
           types.push(obj[i].Type);
         }
         return types;
       };
-      var arcOver = d3.svg
+      let arcOver = d3.svg
         .arc()
         .outerRadius(radius + 10)
         .innerRadius(150);
 
-      var color = d3.scale
+      let color = d3.scale
         .ordinal()
         .domain(type(data_V1))
         .range(['#8A76A6', '#54B5BF', '#8EA65B', '#F27B35']);
 
-      /*var color = d3.scale.category20();
+      /*let color = d3.scale.category20();
     color.domain(type(data))*/
 
-      var arc = d3.svg
+      let arc = d3.svg
         .arc()
         .outerRadius(radius - 10)
         .innerRadius(150);
 
-      var pie = d3.layout
+      let pie = d3.layout
         .pie()
         .sort(null)
         .value(function (d) {
@@ -50,7 +50,7 @@ export default function adviceGraph() {
         });
 
       change = function (d, i) {
-        var angle =
+        let angle =
           90 -
           (d.startAngle * (180 / Math.PI) +
             ((d.endAngle - d.startAngle) * (180 / Math.PI)) / 2);
@@ -65,7 +65,7 @@ export default function adviceGraph() {
         d3.select(i).transition().duration(1000).attr('d', arcOver);
       };
 
-      var svg = d3
+      let svg = d3
         .select('#pieChart')
         .append('svg')
         .attr('width', '100%')
@@ -78,7 +78,7 @@ export default function adviceGraph() {
         .append('g')
         .attr('transform', 'translate(' + radius + ',' + height / 2 + ')');
 
-      var g = svg
+      let g = svg
         .selectAll('path')
         .data(pie(data_V1))
         .enter()
