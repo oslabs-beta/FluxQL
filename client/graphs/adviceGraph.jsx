@@ -115,7 +115,11 @@ export default function adviceGraph() {
 
           //! updating the Header for text card
           d3.select('#segmentTitle').html(
-            '<h4 id="segmentTitle">' + d.data.Amount + d.data.Type + '</h4>'
+            '<h4 id="segmentTitle">' +
+              d.data.Amount +
+              ' ' +
+              d.data.Type +
+              '</h4>'
           );
 
           //d3.select('#');
