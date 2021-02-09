@@ -6,7 +6,6 @@ import { project, diagonal } from './helperFunctions';
 import { PSQLContext } from '../state/contexts';
 
 export default function psqlGraph() {
-
   const psqlGraphRef = useRef(null);
 
   const { psqlState, psqlDispatch } = useContext(PSQLContext);
@@ -15,9 +14,9 @@ export default function psqlGraph() {
     width: 960,
     height: 1000,
     duration: 350,
-    diameter: 800
+    diameter: 800,
   };
-  
+
   //const graphContainerHeight = document.getElementById('')
 
   useEffect(() => {
@@ -29,23 +28,23 @@ export default function psqlGraph() {
       const svg = d3
         .select(psqlGraphRef.current)
         .attr('preserveAspectRatio', 'xMinYMin meet')
-        .attr('viewBox', '0 0 960 1000') // width 960, height 1000
-        //.attr('transform', 'translate(' + diameter/2 + ',' + diameter/2 +')'); 
+        .attr('viewBox', '0 0 960 1000'); // width 960, height 1000
+      //.attr('transform', 'translate(' + diameter/2 + ',' + diameter/2 +')');
 
-      const g = svg
-        .append('g')
-        .attr(
-          'transform',
-          'translate(' + (width / 2) + ',' + (height / 2) + ')'
-          //! the code below shifted the starting coordinates of our root...
-          //'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')' 
-        );
+      const g = svg.append('g').attr(
+        'transform',
+        'translate(' + width / 2 + ',' + height / 2 + ')'
+        //! the code below shifted the starting coordinates of our root...
+        //'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')'
+      );
 
       //defining where the actual area of the tree is
-      const treemap = d3.tree()
+      const treemap = d3
+        .tree()
         //.size([360, 250]); // ! not sure what our original did. codepen inspo below
-        .size([360, diameter/2 -80])
-        .separation((a, b) => { // ! sets the space between non-related children
+        .size([360, diameter / 2 - 80])
+        .separation((a, b) => {
+          // ! sets the space between non-related children
           return (a.parent == b.parent ? 1 : 5) / a.depth;
         });
 
@@ -64,6 +63,7 @@ export default function psqlGraph() {
       // to actually open up the tree graph
       update(root);
 
+      // eslint-disable-next-line no-inner-declarations
       function update(source) {
         // treeData basically is our "root" variable from TestGraph
         const treeData = treemap(root);
@@ -96,10 +96,16 @@ export default function psqlGraph() {
           .attr('class', 'node')
           .attr('id', (d) => d.id)
           .attr('r', 1e-6)
-          .style('fill', (d) => (d._children || d.children ? '#f1fa8c' : '#D7E2E7)')) //! diff color for parent / child
-          .style('stroke', (d) => (d._children || d.children ? '#f1fa8c' : '#f6f3e4' )) //! diff outline for parent / child
+          .style('fill', (d) =>
+            d._children || d.children ? '#f1fa8c' : '#D7E2E7)'
+          ) //! diff color for parent / child
+          .style('stroke', (d) =>
+            d._children || d.children ? '#f1fa8c' : '#f6f3e4'
+          ) //! diff outline for parent / child
           //.style('stroke-width', (d) => (d._children && d.children ? '2.5px' : '1.5px' )); //! diff outline thickness for parent / child
-          .attr('cursor', (d) => {if (d._children || d.children) return 'pointer' }); //! to remove the cursor pointer if a child
+          .attr('cursor', (d) => {
+            if (d._children || d.children) return 'pointer';
+          }); //! to remove the cursor pointer if a child
 
         // adding text label to each node
         startingPoint
@@ -127,15 +133,23 @@ export default function psqlGraph() {
           .select('circle')
           .attr('r', 6.5)
           .attr('fill', (d) => (d._children ? '#f1fa8c' : '#D7E2E7')) //! diff circle fill for parent / child after child moves
-          .attr('cursor', (d) => {if (d._children || d.children) return 'pointer' }); //! to remove the cursor pointer if a child
+          .attr('cursor', (d) => {
+            if (d._children || d.children) return 'pointer';
+          }); //! to remove the cursor pointer if a child
 
         childPoint
           .select('text')
-          .style('fill', (d) => (d._children || d.children ? '#f1fa8c' : '#a4bac2' )) // ! change color of text if parent
-          .style('font-weight', (d) => (d._children || d.children ? 'bolder' : 'normal' )) // ! to make parent text bold
+          .style('fill', (d) =>
+            d._children || d.children ? '#f1fa8c' : '#a4bac2'
+          ) // ! change color of text if parent
+          .style('font-weight', (d) =>
+            d._children || d.children ? 'bolder' : 'normal'
+          ) // ! to make parent text bold
           .style('fill-opacity', 1)
           .attr('transform', (d) => {
-            return d.x < 180 ? 'translate(0)' : 'rotate(180)translate(-' + (d.name.length + 50) + ')';
+            return d.x < 180
+              ? 'translate(0)'
+              : 'rotate(180)translate(-' + (d.name.length + 50) + ')';
           }) //! to get the text to rotate on an angle
           .attr('text-anchor', (d) => {
             return d.x < 180 ? 'start' : 'middle';
@@ -168,7 +182,8 @@ export default function psqlGraph() {
           .enter()
           .insert('path', 'g')
           .attr('class', 'link')
-          .attr('d', (d) => { //! to get the link to grow out of the parent's position
+          .attr('d', (d) => {
+            //! to get the link to grow out of the parent's position
             const o = {
               parent: {
                 x: source.x0,
@@ -176,7 +191,7 @@ export default function psqlGraph() {
               },
               x: source.x0,
               y: source.y0,
-            }
+            };
             return diagonal(o);
           });
 
@@ -189,10 +204,12 @@ export default function psqlGraph() {
           .attr('d', (d) => diagonal(d));
 
         // to have links disappear into the parent node
-        const linkExit = link.exit()
+        const linkExit = link
+          .exit()
           .transition()
           .duration(duration)
-          .attr('d', function(d) { //! to get the link to disappear into the parent's position
+          .attr('d', function (d) {
+            //! to get the link to disappear into the parent's position
             const o = {
               parent: {
                 x: source.x0,
@@ -200,14 +217,13 @@ export default function psqlGraph() {
               },
               x: source.x0,
               y: source.y0,
-            }
+            };
             return diagonal(o);
           })
           .remove();
 
         function click(event, d) {
-  
-          console.log(d)
+          console.log(d);
 
           if (d.children) {
             d._children = d.children;
@@ -220,11 +236,11 @@ export default function psqlGraph() {
         }
       }
     }
-  }, [psqlState.d3Tables])
+  }, [psqlState.d3Tables]);
 
   return (
     <div>
       <svg ref={psqlGraphRef}></svg>
     </div>
-  )
+  );
 }
