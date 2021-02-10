@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-//import adviceSample from '../sampleData/adviceSample';
 import AdviceCodeBlock from '../components/adviceCodeBlock';
 import {adviceBreakdown1, adviceBreakdown2} from './helperFunctions';
 
@@ -20,11 +19,13 @@ export default function adviceGraph() {
      
 
   useEffect(() => {
-    // if there is advice data, render data
-
+    // if there is an exisiting graph, clear out the graph before rendering the new one
+    if (adviceGraphContainer.current){
+      d3.select(adviceGraphContainer.current).html('')
+    }
+    
+    // if there is an update in advice state, render new graph
     if (adviceState.advice.length > 0) {
-      console.log('inside if, line 20');
-      //let width = parseInt(d3.select('#pieChart').style('width'), 10);
       const width = parseInt(
         d3.select(adviceGraphContainer.current).style('width'),
         10
@@ -36,7 +37,7 @@ export default function adviceGraph() {
       const type = function getObject(arr) {
         const types = [];
         for (let i = 0; i < arr.length; i++) {
-          const obj = arr[i]; // [{Type: 1}, {Type: 2}]
+          const obj = arr[i]; 
           types.push(obj.Type);
         }
         return types;
@@ -46,22 +47,22 @@ export default function adviceGraph() {
       const color = d3
         .scaleOrdinal()
         .domain(type(adviceState.advice))
-        .range(['#50fa7b', '#8be9fd']);
+        .range(["#E24161", "#EE6617", "#FFBF00", '#423E6E']);
 
       //! creating the outer arc of the graph
-      const arcOver = d3 //.svg
+      const arcOver = d3
         .arc()
         .outerRadius(radius + 10)
         .innerRadius(150);
 
       //! creating inner arc?
-      const arc = d3 //.svg
+      const arc = d3
         .arc()
         .outerRadius(radius - 10)
         .innerRadius(150);
 
       //! creates an object for each piece of data, prepping for the pie graph
-      const pie = d3 //.layout
+      const pie = d3 
         .pie()
         .sort(null)
         .value(function (d) {
@@ -70,7 +71,7 @@ export default function adviceGraph() {
         });
 
       // ! creates the transition of the onClick
-      // eslint-disable-next-line no-inner-declarations
+    
       function change(d, i) {
         const angle =
           90 -
@@ -153,10 +154,6 @@ export default function adviceGraph() {
 
           d3.select('.text-container').fadeIn(400);
         });
-
-      //! eventually move to stylesheet
-      // document.querySelector('style').textContent +=
-      //   '@media(max-width:767px) {#pieChart { transform: rotate(90deg); transform-origin: 50% 50%; transition: 1s; max-width: 50%; } .text-container { width: 100%; min-height: 0; }} @media(min-width:768px) {#pieChart { transition: 1s;}}';
     }
   }, [adviceState.advice]);
 

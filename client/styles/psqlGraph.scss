@@ -3,7 +3,7 @@
 .graphBtns {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 // PSQL Graph Styling
@@ -28,3 +28,7 @@ svg {
   stroke: $cyan;
   stroke-width: 0.7px;
 }
+
+// ! eventually move to stylesheet
+// document.querySelector('style').textContent +=
+// '@media(max-width:767px) {#pieChart { transform: rotate(90deg); transform-origin: 50% 50%; transition: 1s; max-width: 50%; } .text-container { width: 100%; min-height: 0; }} @media(min-width:768px) {#pieChart { transition: 1s;}}';
