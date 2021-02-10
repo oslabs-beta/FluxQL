@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import AdviceCodeBlock from '../components/adviceCodeBlock';
-import {adviceBreakdown1, adviceBreakdown2} from './helperFunctions';
 
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
@@ -10,22 +9,30 @@ export default function adviceGraph() {
   const { adviceState, adviceDispatch } = useContext(AdviceContext);
 
   const adviceGraphContainer = useRef(null);
+  const pieText = useRef(null);
   const displayPieText =
-        <div>
-          <h1 id="segmentTitle">Advice Console</h1>
-          <p id="segmentText">{adviceBreakdown1(adviceState.advice)}</p>
-          <p id="startingText">{adviceBreakdown2}</p>
-        </div>;
-     
+    <div>
+      <h1 id="segmentTitle"></h1>
+      <p id="segmentText"></p>
+      <p id="staticText"></p>
+    </div>;
+
 
   useEffect(() => {
-    // if there is an exisiting graph, clear out the graph before rendering the new one
-    if (adviceGraphContainer.current){
-      d3.select(adviceGraphContainer.current).html('')
-    }
-    
     // if there is an update in advice state, render new graph
     if (adviceState.advice.length > 0) {
+
+      //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
+      if (adviceGraphContainer.current && pieText.current) {
+        d3.select(adviceGraphContainer.current).html('');
+        // clear out the title
+        d3.select('#segmentTitle').html('');
+        d3.select('#segmentText').html('');
+        d3.select('#segmentTitle').html('Advice Console');
+        d3.select('#segmentText').html(adviceState.dynamicText);
+        d3.select('#staticText').html(adviceState.staticText);
+      }
+      
       const width = parseInt(
         d3.select(adviceGraphContainer.current).style('width'),
         10
@@ -137,8 +144,8 @@ export default function adviceGraph() {
           //d3.select('#');
 
           //! removing starting description
-          const startingText = d3.select('#startingText');
-          if (startingText) startingText.remove();
+          const staticText = d3.select('#staticText');
+          staticText.html('');
 
           //! replacing the description
           d3.select('#segmentText').html(
@@ -155,7 +162,7 @@ export default function adviceGraph() {
           d3.select('.text-container').fadeIn(400);
         });
     }
-  }, [adviceState.advice]);
+  }, [adviceState.dynamicText]);
 
   return (
     <div className="container">
@@ -165,8 +172,8 @@ export default function adviceGraph() {
           id="pieChart"
           ref={adviceGraphContainer}
         ></div>
-        <div id="pieText">
-          {adviceState.advice.length > 0 && displayPieText}
+        <div id="pieText"ref={pieText} >
+          {adviceState.dynamicText && displayPieText}
         </div>
       </div>
       {adviceState.displayExample && <AdviceCodeBlock />}
