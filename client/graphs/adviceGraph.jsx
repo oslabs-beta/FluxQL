@@ -9,7 +9,7 @@ export default function adviceGraph() {
   const { adviceState, adviceDispatch } = useContext(AdviceContext);
 
   const adviceGraphContainer = useRef(null);
-  const pieText = useRef(null);
+  const pieTextContainer = useRef(null);
   const displayPieText =
     <div>
       <h1 id="segmentTitle"></h1>
@@ -23,16 +23,30 @@ export default function adviceGraph() {
     if (adviceState.advice.length > 0) {
 
       //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
-      if (adviceGraphContainer.current && pieText.current) {
-        d3.select(adviceGraphContainer.current).html('');
-        // clear out the title
-        d3.select('#segmentTitle').html('');
-        d3.select('#segmentText').html('');
-        d3.select('#segmentTitle').html('Advice Console');
-        d3.select('#segmentText').html(adviceState.dynamicText);
-        d3.select('#staticText').html(adviceState.staticText);
-      }
-      
+    //   if (adviceGraphContainer.current && pieText.current) {
+    //     //d3.select(adviceGraphContainer.current).html('');
+    //     // clear out the title
+    //     d3.select('#segmentTitle').html('');
+    //     d3.select('#segmentText').html('');
+    //     d3.select('#segmentTitle').html('Advice Console');
+    //     d3.select('#segmentText').html(adviceState.dynamicText);
+    //     d3.select('#staticText').html(adviceState.staticText);
+    //  }
+
+      //const pieText = d3.select(pieTextContainer.current)
+      d3.select('#segmentTitle')
+        //.append('h1')
+        //.attr('id', 'segmentTitle')
+        .text('Advice Console');
+
+      d3.select('#segmentText')
+        // .append('p')
+        .text(adviceState.dynamicText);
+
+      d3.select('#staticText')
+        // .append('p')
+        .text(adviceState.staticText);
+
       const width = parseInt(
         d3.select(adviceGraphContainer.current).style('width'),
         10
@@ -54,7 +68,7 @@ export default function adviceGraph() {
       const color = d3
         .scaleOrdinal()
         .domain(type(adviceState.advice))
-        .range(["#E24161", "#EE6617", "#FFBF00", '#423E6E']);
+        .range(["#E24161",'#423E6E', "#EE6617", "#FFBF00"]);
 
       //! creating the outer arc of the graph
       const arcOver = d3
@@ -160,6 +174,16 @@ export default function adviceGraph() {
           d3.select('.text-container').fadeIn(400);
         });
     }
+    return function cleanUpAdvice() {
+    
+        console.log('goodbye, cleaning up advicegraph')
+        d3.select(adviceGraphContainer.current).html('');
+        // clear out the title
+        d3.select('#segmentTitle').html('');
+        d3.select('#segmentText').html('');
+        // d3.select('#segmentTitle').html('Advice Console');
+        // d3.select('#segmentText').html(adviceState.dynamicText);
+    }
   }, [adviceState.dynamicText]);
 
   return (
@@ -170,13 +194,11 @@ export default function adviceGraph() {
           id="pieChart"
           ref={adviceGraphContainer}
         ></div>
-        <div id="pieText"ref={pieText} >
-          {adviceState.dynamicText && displayPieText}
+        <div id="pieText" ref={pieTextContainer} >
+          {displayPieText}
         </div>
       </div>
       {adviceState.displayExample && <AdviceCodeBlock />}
     </div>
   );
 }
-
-// line 161: <div id="pieText" className="col-sm-6 text-container">
