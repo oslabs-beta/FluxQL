@@ -1,10 +1,14 @@
 const { pascalCase } = require('pascal-case');
 const toCamelCase = require('camelcase');
 const { singular } = require('pluralize');
-const { typeSet } = require('./helperFunctions');
-const { mutationHelper } = require('./helperFunctions');
-const { isJoinTable } = require('./helperFunctions.js');
-const { customHelper } = require('./helperFunctions.js');
+const { 
+  typeSet,
+  mutationHelper,
+  isJoinTable,
+  customHelper,
+  queryDescription,
+  mutationDescription,
+} = require('./helperFunctions');
 
 /* 
 todo helper functions/imports include:
@@ -53,42 +57,52 @@ TypeGenerator.custom = (tableName, tables) => {
 TypeGenerator.exampleQuery = (tableName, tables) => {
   const { primaryKey, foreignKeys, columns } = tables[tableName];
   const queryColumns = [];
+  const queryTextColumns = [];
   Object.keys(columns).forEach((columnName) => {
     if (
       !(foreignKeys && foreignKeys[columnName]) &&
       columnName !== primaryKey
     ) {
       queryColumns.push(`      ${columnName},`);
+      queryTextColumns.push(columnName);
     }
   });
 
-  return `  query: {
+  const query =  `  query: {
     ${tableName} {\n${queryColumns.join('\n')}
      // <insert column names>
     }
   }`;
+
+  const queryText = queryDescription(tableName, queryTextColumns);
+  console.log(queryText)
+  return [query, queryText];
 };
 
 TypeGenerator.exampleMutation = (tableName, tables) => {
   const { primaryKey, foreignKeys, columns } = tables[tableName];
   const mutationName = toCamelCase('delete_' + singular(tableName));
-  const queryColumns = [];
+  const mutationColumns = [];
+  const mutationTextColumns = [];
   Object.keys(columns).forEach((columnName) => {
     if (
       !(foreignKeys && foreignKeys[columnName]) &&
       columnName !== primaryKey
     ) {
-      queryColumns.push(`      ${columnName},`);
+      mutationColumns.push(`      ${columnName},`);
+      mutationTextColumns.push(columnName);
     }
   });
 
-  return `  mutation: {
-    ${mutationName} (${primaryKey}: <insert value> ) {\n${queryColumns.join(
+  const mutation = `  mutation: {
+    ${mutationName} (${primaryKey}: <insert value> ) {\n${mutationColumns.join(
     '\n'
   )}
      // <insert column names>
     }
   }`;
+  const mutationText = mutationDescription(tableName, mutationName, primaryKey, mutationTextColumns);
+  return [mutation, mutationText];
 };
 
 module.exports = TypeGenerator;

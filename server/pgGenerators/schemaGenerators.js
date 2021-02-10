@@ -9,8 +9,8 @@ schemaGenerator.assembleTypes = (tables) => {
   let queryType = '';
   let mutationType = '';
   let customType = '';
-  let queryExample = '';
-  let mutationExample = '';
+  let queryExample;
+  let mutationExample;
   let queryTypeCount = 0;
   let mutationTypeCount = 0;
   for (const tableName in tables) {
@@ -18,12 +18,12 @@ schemaGenerator.assembleTypes = (tables) => {
     const { foreignKeys, columns } = tableData;
     if (!foreignKeys || !isJoinTable(foreignKeys, columns)) {
       queryType += TypeGenerator.queries(tableName, tableData);
-      if (!queryExample.length)
-        queryExample += TypeGenerator.exampleQuery(tableName, tables);
+      if (!queryExample)
+        queryExample = TypeGenerator.exampleQuery(tableName, tables);
       queryTypeCount += 2;
       mutationType += TypeGenerator.mutations(tableName, tableData);
-      if (!mutationExample.length)
-        mutationExample += TypeGenerator.exampleMutation(tableName, tables);
+      if (!mutationExample)
+        mutationExample = TypeGenerator.exampleMutation(tableName, tables);
       mutationTypeCount += 3;
       customType += TypeGenerator.custom(tableName, tables);
     }

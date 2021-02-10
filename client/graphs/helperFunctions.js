@@ -16,3 +16,9 @@ export function project(x, y) {
   const radius = y;
   return [radius * Math.cos(angle), radius * Math.sin(angle)];
 }
+
+export const adviceBreakdown = `Here is the breakdown of your database, in preparation for GraphQL. 
+
+We generated 12 Queries and 18 Mutations for you. Click on the pie chart to view further information on each.
+
+The graph on the right is a diagram of your PSQL Relational database. Currently, all tables of your database can be queried via the generated schema/resolvers below.`
