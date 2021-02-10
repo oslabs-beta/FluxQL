@@ -4,8 +4,6 @@ const {
   isJoinTable,
   schemaImport,
   schemaExport,
-  queryDescription,
-  mutationDescription,
 } = require('../pgGenerators/helperFunctions.js');
 const fs = require('fs');
 const path = require('path');
@@ -61,14 +59,14 @@ pgController.generateSchema = (req, res, next) => {
       {
         Type: 'Queries',
         Amount: queryTypeCount,
-        Description: queryDescription,
-        Example: queryExample,
+        Description: queryExample[1],
+        Example: queryExample[0],
       },
       {
         Type: 'Mutations',
         Amount: mutationTypeCount,
-        Description: mutationDescription,
-        Example: mutationExample,
+        Description: mutationExample[1],
+        Example: mutationExample[0],
       },
     ];
 

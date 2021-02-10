@@ -2,6 +2,7 @@ import React, { useContext, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 //import adviceSample from '../sampleData/adviceSample';
 import AdviceCodeBlock from '../components/adviceCodeBlock';
+import {adviceBreakdown} from './helperFunctions';
 
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
@@ -157,10 +158,7 @@ export default function adviceGraph() {
         ></div>
         <div id="pieText" className="col-sm-6 text-container">
           <h1 id="segmentTitle">Advice Console</h1>
-          <p id="segmentText">
-            Here is the breakdown of your database and GraphQL. <br />
-            Click on any part of the pie chart to see your breakdown.
-          </p>
+          <p id="segmentText">{adviceBreakdown}</p>
         </div>
       </div>
       {adviceState.displayExample && <AdviceCodeBlock />}
