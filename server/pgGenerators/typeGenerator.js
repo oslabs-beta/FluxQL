@@ -59,7 +59,7 @@ TypeGenerator.exampleQuery = (tableName, tables) => {
   return (
 `  query: {
     ${tableName} {\n${queryColumns.join('\n')}
-     <insert additional column names here>
+     // <insert column names>
     }
   }`
   );
@@ -78,8 +78,8 @@ TypeGenerator.exampleMutation = (tableName, tables) => {
   
   return (
 `  mutation: {
-    ${mutationName} (${primaryKey}: <insert value here> ) {\n${queryColumns.join('\n')}
-     <insert additional column names here>
+    ${mutationName} (${primaryKey}: <insert value> ) {\n${queryColumns.join('\n')}
+     // <insert column names>
     }
   }`
   );
