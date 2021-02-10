@@ -4,15 +4,15 @@ import FileSaver from 'file-saver';
 import fileGenerator from '../zipFiles/zipFileHelpers';
 
 // import schema & resolver context from state
-import { codeContext } from '../state/contexts';
+//import { codeContext } from '../state/contexts';
 
 export default function exportButton() {
   // ! need to pass down state for finalized schema & resolvers
-  const { codeState } = useContext(codeContext);
+  //const { codeState } = useContext(codeContext);
 
   const handleExport = () => {
     console.log('export clicked');
-    console.log(codeState);
+    //console.log(codeState);
     const zip = new JSZip();
 
     // creating a new zip folder, called 'DraQLa'
