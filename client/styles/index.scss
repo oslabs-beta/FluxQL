@@ -5,12 +5,17 @@
 @import './navbar.scss';
 @import './modals.scss';
 @import './adviceGraph.scss';
+@import './adviceCodeBlock.scss';
 
 @import 'codemirror/lib/codemirror.css';
 @import 'codemirror/theme/dracula.css';
 
 * {
   outline: none;
+}
+
+svg:hover {
+  cursor: pointer;
 }
 
 body {
@@ -29,13 +34,16 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
+
   height: 100%; // come back to check on the scroll...
 
   #AppPage {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 0px 0px;
+    height: calc(100vh - 10px);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px 5px;
+    border-radius: 15px;
     grid-template-areas:
       'Advice Graph Graph'
       'Code Graph Graph'
@@ -57,6 +65,12 @@ h1 {
     .AdviceContainer {
       border: 1px solid black;
       grid-area: Advice;
+      background-color: $currentline;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 15px;
+      text-align: center;
     }
   }
 }

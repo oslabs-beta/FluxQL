@@ -1,18 +1,20 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import adviceSample from '../sampleData/adviceSample';
+//import adviceSample from '../sampleData/adviceSample';
+import AdviceCodeBlock from '../components/adviceCodeBlock';
 
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
 
 export default function adviceGraph() {
-  const { adviceState } = useContext(AdviceContext);
+  const { adviceState, adviceDispatch } = useContext(AdviceContext);
 
   const adviceGraphContainer = useRef(null);
 
   useEffect(() => {
     // if there is advice data, render data
-    if (adviceState.advice) {
+
+    if (adviceState.advice.length > 0) {
       //let width = parseInt(d3.select('#pieChart').style('width'), 10);
       const width = parseInt(
         d3.select(adviceGraphContainer.current).style('width'),
@@ -35,7 +37,7 @@ export default function adviceGraph() {
       const color = d3
         .scaleOrdinal()
         .domain(type(adviceState.advice))
-        .range(['#ff79c6', '#bd93f9']);
+        .range(['#50fa7b', '#8be9fd']);
 
       //! creating the outer arc of the graph
       const arcOver = d3 //.svg
@@ -82,8 +84,8 @@ export default function adviceGraph() {
       const svg = d3
         .select(adviceGraphContainer.current)
         .append('svg')
-        .attr('width', '100%')
-        .attr('height', '100%')
+        .attr('width', '20%') // originally 100%
+        .attr('height', '20%') // originally 100%
         .attr(
           'viewBox',
           '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height)
@@ -131,6 +133,11 @@ export default function adviceGraph() {
 
           //! write out our own logic to clean up the original CopyBlock and render new CopyBlock
 
+          adviceDispatch({
+            type: 'SHOW_EXAMPLE',
+            payload: d.data.Example,
+          });
+
           d3.select('.text-container').fadeIn(400);
         });
 
@@ -151,10 +158,12 @@ export default function adviceGraph() {
         <div id="pieText" className="col-sm-6 text-container">
           <h1 id="segmentTitle">Advice Console</h1>
           <p id="segmentText">
-            Here is the breakdown of your database and GraphQL
+            Here is the breakdown of your database and GraphQL. <br />
+            Click on any part of the pie chart to see your breakdown.
           </p>
         </div>
       </div>
+      {adviceState.displayExample && <AdviceCodeBlock />}
     </div>
   );
 }
