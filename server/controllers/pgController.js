@@ -1,4 +1,4 @@
-const URI = require('./testPSQL.js');
+const sampleURI = require('./testPSQL.js');
 const schemaGenerator = require('../pgGenerators/schemaGenerators.js');
 const { isJoinTable, schemaImport, schemaExport } = require('../pgGenerators/helperFunctions.js');
 const fs = require ('fs');
@@ -9,7 +9,12 @@ const { Pool } = require('pg');
 const pgController = {};
 
 pgController.SQLTableData = (req, res, next) => {
-  const { psqlURI } = req.body;
+  let psqlURI;
+  
+  //checking if sample URI is needed
+  req.body.sample ? psqlURI = sampleURI : psqlURI = req.body.psqlURI;
+  
+  //const { psqlURI } = req.body;
   res.locals.dbURI = psqlURI;
   
   //const db = new Pool({ connectionString: URI }); // ! change to request body uri in future
@@ -38,8 +43,8 @@ pgController.generateSchema = (req, res, next) => {
     const resolvers  = schemaGenerator.assembleResolvers(tables);
 
     res.locals.schema = { types, resolvers };
-    res.locals.advice = [{ Title: 'Queries', Amount: queryTypeCount, Description: queryExample }, 
-                          {Title: 'Mutations', Amount: mutationTypeCount, Description: mutationExample }];
+    res.locals.advice = [{ Type: 'Queries', Amount: queryTypeCount, Example: queryExample }, 
+                          {Type: 'Mutations', Amount: mutationTypeCount, Example: mutationExample }];
     
     // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc
     return next();
