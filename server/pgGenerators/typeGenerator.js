@@ -11,7 +11,6 @@ todo helper functions/imports include:
     typeset, getPrimaryKeyType
 */
 
-
 const TypeGenerator = {};
 
 TypeGenerator.queries = (tableName, tableData) => {
@@ -22,8 +21,10 @@ TypeGenerator.queries = (tableName, tableData) => {
   if (nameSingular === tableName) byID += 'ByID';
   return (
     `    ${toCamelCase(tableName)}: [${pascalCase(nameSingular)}!]!\n` +
-    `    ${byID}(${primaryKey}: ${primaryKeyType}!): ${pascalCase(nameSingular)}!\n`
-    );
+    `    ${byID}(${primaryKey}: ${primaryKeyType}!): ${pascalCase(
+      nameSingular
+    )}!\n`
+  );
 };
 
 TypeGenerator.mutations = (tableName, tableData) => {
@@ -34,13 +35,15 @@ TypeGenerator.mutations = (tableName, tableData) => {
     mutationHelper.update(tableName, primaryKey, foreignKeys, columns) +
     mutationHelper.destroy(tableName, primaryKey)
   );
-  
 };
 
 TypeGenerator.custom = (tableName, tables) => {
   const { primaryKey, foreignKeys, columns } = tables[tableName];
   const primaryKeyType = typeSet(columns[primaryKey].dataType);
-  return `${`  type ${pascalCase(singular(tableName))} {\n` + `    ${primaryKey}: ${primaryKeyType}!`}${customHelper.getColumns(
+  return `${
+    `  type ${pascalCase(singular(tableName))} {\n` +
+    `    ${primaryKey}: ${primaryKeyType}!`
+  }${customHelper.getColumns(
     primaryKey,
     foreignKeys,
     columns
@@ -48,44 +51,44 @@ TypeGenerator.custom = (tableName, tables) => {
 };
 
 TypeGenerator.exampleQuery = (tableName, tables) => {
-  const { primaryKey, foreignKeys, columns } = tables[tableName];  
+  const { primaryKey, foreignKeys, columns } = tables[tableName];
   const queryColumns = [];
-  Object.keys(columns).forEach(columnName => {
-    if (!(foreignKeys && foreignKeys[columnName]) && columnName !== primaryKey) {
+  Object.keys(columns).forEach((columnName) => {
+    if (
+      !(foreignKeys && foreignKeys[columnName]) &&
+      columnName !== primaryKey
+    ) {
       queryColumns.push(`      ${columnName},`);
     }
   });
-  
-  return (
-`  query: {
+
+  return `  query: {
     ${tableName} {\n${queryColumns.join('\n')}
-     <insert additional column names here>
+     // <insert column names>
     }
-  }`
-  );
- 
+  }`;
 };
 
 TypeGenerator.exampleMutation = (tableName, tables) => {
   const { primaryKey, foreignKeys, columns } = tables[tableName];
   const mutationName = toCamelCase('delete_' + singular(tableName));
   const queryColumns = [];
-  Object.keys(columns).forEach(columnName => {
-    if (!(foreignKeys && foreignKeys[columnName]) && columnName !== primaryKey) {
+  Object.keys(columns).forEach((columnName) => {
+    if (
+      !(foreignKeys && foreignKeys[columnName]) &&
+      columnName !== primaryKey
+    ) {
       queryColumns.push(`      ${columnName},`);
     }
   });
-  
-  return (
-`  mutation: {
-    ${mutationName} (${primaryKey}: <insert value here> ) {\n${queryColumns.join('\n')}
-     <insert additional column names here>
+
+  return `  mutation: {
+    ${mutationName} (${primaryKey}: <insert value> ) {\n${queryColumns.join(
+    '\n'
+  )}
+     // <insert column names>
     }
-  }`
-  );
+  }`;
 };
-
-
-
 
 module.exports = TypeGenerator;

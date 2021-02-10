@@ -6,7 +6,7 @@ import {GeneralContext, URIContext } from '../state/contexts';
 
 export default function URILink ({ databaseName }){
   const { generalDispatch } = useContext(GeneralContext);
-  // make sure to extract adviceDispatch below v
+  
   const { codeDispatch, psqlDispatch, mongoDispatch, adviceDispatch } = useContext(URIContext);
 
   return (
@@ -20,9 +20,8 @@ export default function URILink ({ databaseName }){
 
       <button onClick={() => {
         
-        // send POST request to server
+        // send inputted URL to server
         const url = document.getElementById(`${databaseName}Input`).value;
-        console.log('url', url);
         
         fetch(`/${databaseName.toLowerCase()}`, {
           method: 'POST',
@@ -56,7 +55,6 @@ export default function URILink ({ databaseName }){
 
           // update either DB states depending on what server sends back
           if (data.dbName === 'psql') {
-            console.log('inside data.dbName on line 59');
 
             psqlDispatch({
               type: 'UPDATE_D3TABLES',
