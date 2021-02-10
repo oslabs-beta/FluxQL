@@ -193,6 +193,11 @@ const schemaExport = () => {
 };
 
 const queryDescription = `A GraphQL query is composed of fields and is used to read or fetch values . In the example query below, we are querying for the field "people" and within that, querying for the fields: "gender, height, mass, etc". You can test out this query by copying the code and clicking "Playground."`;
+// const queryDescription = (tableName, columns) => {
+//   return `A GraphQL query is composed of fields and is used to read or fetch values . In the example query below, we are querying for the field "${tableName}" and within that, querying for the fields: "${columns.join(
+//     ', '
+//   )}, etc". You can test out this query by copying the code and clicking "Playground.`;
+// };
 const mutationDescription = `A GraphQL mutation is used to write/post, update, or delete values . `;
 
 module.exports = {
