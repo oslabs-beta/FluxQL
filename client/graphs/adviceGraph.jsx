@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 //import adviceSample from '../sampleData/adviceSample';
 import AdviceCodeBlock from '../components/adviceCodeBlock';
-import {adviceBreakdown} from './helperFunctions';
+import {adviceBreakdown1, adviceBreakdown2} from './helperFunctions';
 
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
@@ -11,11 +11,19 @@ export default function adviceGraph() {
   const { adviceState, adviceDispatch } = useContext(AdviceContext);
 
   const adviceGraphContainer = useRef(null);
+  const displayPieText =
+        <div>
+          <h1 id="segmentTitle">Advice Console</h1>
+          <p id="segmentText">{adviceBreakdown1(adviceState.advice)}</p>
+          <p id="startingText">{adviceBreakdown2}</p>
+        </div>;
+     
 
   useEffect(() => {
     // if there is advice data, render data
 
     if (adviceState.advice.length > 0) {
+      console.log('inside if, line 20');
       //let width = parseInt(d3.select('#pieChart').style('width'), 10);
       const width = parseInt(
         d3.select(adviceGraphContainer.current).style('width'),
@@ -127,6 +135,10 @@ export default function adviceGraph() {
 
           //d3.select('#');
 
+          //! removing starting description
+          const startingText = d3.select('#startingText');
+          if (startingText) startingText.remove();
+
           //! replacing the description
           d3.select('#segmentText').html(
             '<p id="segmentText">' + d.data.Description + '</p>'
@@ -156,12 +168,13 @@ export default function adviceGraph() {
           id="pieChart"
           ref={adviceGraphContainer}
         ></div>
-        <div id="pieText" className="col-sm-6 text-container">
-          <h1 id="segmentTitle">Advice Console</h1>
-          <p id="segmentText">{adviceBreakdown}</p>
+        <div id="pieText">
+          {adviceState.advice.length > 0 && displayPieText}
         </div>
       </div>
       {adviceState.displayExample && <AdviceCodeBlock />}
     </div>
   );
 }
+
+// line 161: <div id="pieText" className="col-sm-6 text-container">
