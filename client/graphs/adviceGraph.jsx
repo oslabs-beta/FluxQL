@@ -141,8 +141,6 @@ export default function adviceGraph() {
               '</h4>'
           );
 
-          //d3.select('#');
-
           //! removing starting description
           const staticText = d3.select('#staticText');
           staticText.html('');
