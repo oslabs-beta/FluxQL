@@ -25,14 +25,13 @@ const typeSet = (str) => {
 
 const typeConversion = {
   'character varying': 'String',
-  'character': 'String',
-  'integer': 'Int',
-  'text': 'String',
-  'date': 'String',
-  'boolean': 'Boolean',
-  'numeric' : 'Int'
-} // return 'Int' if undefined; 
-
+  character: 'String',
+  integer: 'Int',
+  text: 'String',
+  date: 'String',
+  boolean: 'Boolean',
+  numeric: 'Int',
+}; // return 'Int' if undefined;
 
 mutationHelper.create = (tableName, primaryKey, foreignKeys, columns) => {
   return `\n    ${toCamelCase(
@@ -71,9 +70,13 @@ mutationHelper.paramType = (primaryKey, foreignKeys, columns, isRequired) => {
     }
 
     if (isRequired && columnName === primaryKey) {
-      typeDef += `      ${columnName}: ${typeConversion[dataType] ? typeConversion[dataType] : 'Int' }!,\n`; //see if this breaks it
+      typeDef += `      ${columnName}: ${
+        typeConversion[dataType] ? typeConversion[dataType] : 'Int'
+      }!,\n`; //see if this breaks it
     } else {
-      typeDef += `      ${columnName}: ${typeConversion[dataType] ? typeConversion[dataType] : 'Int' }`; // SEE IF THIS BREAKS TOO
+      typeDef += `      ${columnName}: ${
+        typeConversion[dataType] ? typeConversion[dataType] : 'Int'
+      }`; // SEE IF THIS BREAKS TOO
       if (isNullable !== 'YES') typeDef += '!';
       typeDef += ',\n';
     }
@@ -86,14 +89,17 @@ const isJoinTable = (foreignKeys, columns) => {
   return Object.keys(columns).length === Object.keys(foreignKeys).length + 1;
 };
 
-
-
 customHelper.getColumns = (primaryKey, foreignKeys, columns) => {
   let columnsStr = '';
   for (const columnName in columns) {
-    if (!(foreignKeys && foreignKeys[columnName]) && columnName !== primaryKey) {
+    if (
+      !(foreignKeys && foreignKeys[columnName]) &&
+      columnName !== primaryKey
+    ) {
       const { dataType, isNullable, columnDefault } = columns[columnName];
-      columnsStr += `\n    ${columnName}: ${typeConversion[dataType] ? typeConversion[dataType] : 'Int'}`;
+      columnsStr += `\n    ${columnName}: ${
+        typeConversion[dataType] ? typeConversion[dataType] : 'Int'
+      }`;
       if (isNullable === 'NO' && columnDefault === null) columnsStr += '!';
     }
   }
@@ -101,49 +107,53 @@ customHelper.getColumns = (primaryKey, foreignKeys, columns) => {
   return columnsStr;
 };
 
-
 //modularize get relationship to return a type of relationship, route of that response
 customHelper.getRelationships = (tableName, tables) => {
   let relationships = '';
   const alreadyAddedType = [];
   for (const refTableName in tables[tableName].referencedBy) {
-
-    const { referencedBy: foreignRefBy, 
-      foreignKeys: foreignFKeys, 
-      columns: foreignColumns } = tables[refTableName];
+    const {
+      referencedBy: foreignRefBy,
+      foreignKeys: foreignFKeys,
+      columns: foreignColumns,
+    } = tables[refTableName];
 
     if (foreignRefBy && foreignRefBy[tableName]) {
-
       if (!alreadyAddedType.includes(refTableName)) {
-
         alreadyAddedType.push(refTableName);
         const refTableType = pascalCase(singular(refTableName));
-        relationships += `\n    ${toCamelCase(singular(refTableName))}: ${refTableType}`;
+        relationships += `\n    ${toCamelCase(
+          singular(refTableName)
+        )}: ${refTableType}`;
       }
-    }
-
-
-    else if (Object.keys(foreignColumns).length !== Object.keys(foreignFKeys).length + 1) {
+    } else if (
+      Object.keys(foreignColumns).length !==
+      Object.keys(foreignFKeys).length + 1
+    ) {
       if (!alreadyAddedType.includes(refTableName)) {
         alreadyAddedType.push(refTableName);
         const refTableType = pascalCase(singular(refTableName));
 
-        relationships += `\n    ${toCamelCase(refTableName)}: [${refTableType}]`;
+        relationships += `\n    ${toCamelCase(
+          refTableName
+        )}: [${refTableType}]`;
       }
     }
 
     for (const foreignFKey in foreignFKeys) {
-
       if (tableName !== foreignFKeys[foreignFKey].referenceTable) {
         if (!alreadyAddedType.includes(refTableName)) {
           alreadyAddedType.push(refTableName);
-          const manyToManyTable = toCamelCase(foreignFKeys[foreignFKey].referenceTable);
-          relationships += `\n    ${manyToManyTable}: [${pascalCase(singular(manyToManyTable))}]`;
+          const manyToManyTable = toCamelCase(
+            foreignFKeys[foreignFKey].referenceTable
+          );
+          relationships += `\n    ${manyToManyTable}: [${pascalCase(
+            singular(manyToManyTable)
+          )}]`;
         }
       }
     }
   }
-
 
   // ---------------- CHECK LOGIC--------------------------- //
   for (const FKTableName in tables[tableName].foreignKeys) {
@@ -158,33 +168,32 @@ customHelper.getRelationships = (tableName, tables) => {
   return relationships;
 };
 
-
 const schemaImport = (uri) => {
-
-  return ( 
-  `const { makeExecutableSchema } = require('graphql-tools');\n` + 
-  `const { Pool } = require('pg');\n` +
-  `const PG_URI = '${uri}';\n\n` +
-  `const pool = new Pool({\n` +
-  `  connectionString: PG_URI\n` +
-  `});\n\n` +
-  `const db = {};\n` +
-  `db.query = (text,params, callback) => {
+  return (
+    `const { makeExecutableSchema } = require('graphql-tools');\n` +
+    `const { Pool } = require('pg');\n` +
+    `const PG_URI = '${uri}';\n\n` +
+    `const pool = new Pool({\n` +
+    `  connectionString: PG_URI\n` +
+    `});\n\n` +
+    `const db = {};\n` +
+    `db.query = (text,params, callback) => {
   console.log('executed query:', text)
-  return pool.query(text, params, callback) \n};\n\n`);
+  return pool.query(text, params, callback) \n};\n\n`
+  );
 };
 
 const schemaExport = () => {
-  return (
-    `  const schema = makeExecutableSchema({    
+  return `  const schema = makeExecutableSchema({    
     typeDefs,    
     resolvers,
     });
 
-    module.exports = schema;`
-  )
+    module.exports = schema;`;
 };
 
+const queryDescription = `A GraphQL query is composed of fields and is used to read or fetch values . In the example query below, we are querying for the field "people" and within that, querying for the fields: "gender, height, mass, etc". You can test out this query by copying the code and clicking "Playground."`;
+const mutationDescription = `A GraphQL mutation is used to write/post, update, or delete values . `;
 
 module.exports = {
   customHelper,
@@ -192,5 +201,7 @@ module.exports = {
   mutationHelper,
   isJoinTable,
   schemaImport,
-  schemaExport
+  schemaExport,
+  queryDescription,
+  mutationDescription,
 };

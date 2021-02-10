@@ -18,28 +18,28 @@ schemaGenerator.assembleTypes = (tables) => {
     const { foreignKeys, columns } = tableData;
     if (!foreignKeys || !isJoinTable(foreignKeys, columns)) {
       queryType += TypeGenerator.queries(tableName, tableData);
-      if (!queryExample.length) queryExample += TypeGenerator.exampleQuery(tableName, tables);
-      queryTypeCount += 2
+      if (!queryExample.length)
+        queryExample += TypeGenerator.exampleQuery(tableName, tables);
+      queryTypeCount += 2;
       mutationType += TypeGenerator.mutations(tableName, tableData);
-      if (!mutationExample.length) mutationExample += TypeGenerator.exampleMutation(tableName, tables);
-      mutationTypeCount += 3
+      if (!mutationExample.length)
+        mutationExample += TypeGenerator.exampleMutation(tableName, tables);
+      mutationTypeCount += 3;
       customType += TypeGenerator.custom(tableName, tables);
     }
-    
   }
 
-  const types = 
-    `${'const typeDefs = `\n' + 
-    '  type Query {\n'}${queryType}  }\n\n` +
+  const types =
+    `${'const typeDefs = `\n' + '  type Query {\n'}${queryType}  }\n\n` +
     `  type Mutation {${mutationType}  }\n\n` +
-    `${customType}\`;\n\n`
-  
+    `${customType}\`;\n\n`;
+
   return {
     types,
     queryTypeCount,
     mutationTypeCount,
     queryExample,
-    mutationExample
+    mutationExample,
   };
 };
 
@@ -61,7 +61,7 @@ schemaGenerator.assembleResolvers = (tables) => {
         tableData
       );
       customRelationshipResolvers += resolverGenerator.assembleCustomRelationships(
-        currentTable, 
+        currentTable,
         tables
       );
     }
