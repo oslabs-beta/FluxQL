@@ -196,10 +196,14 @@ const schemaExport = () => {
 const queryDescription = (tableName, columns) => {
   return `A GraphQL query is composed of fields and is used to read or fetch values. In the example query below, we are querying for the field "${tableName}" and within that, querying for the fields: "${columns.join(
     ', '
-  )}, etc". You can test out this query by copying the code and clicking "Playground".`;
+  )}, etc". 
+  
+  You can test out this query by copying the code and clicking "Playground".`;
 };
 const mutationDescription = (tableName, mutationName, primaryKey, columns) => {
-  return `A GraphQL mutation is used to write/post, update, or delete values. In the example mutation below, we are deleting a value from ${tableName}, using our defined mutation, ${mutationName}, and we are passing in an argument of the primary key, ${primaryKey}. The columns specified beneath the mutation call (${columns.join(', ')}, etc.) are the columns we would like to return from this mutation. You can test out this mutation by copying the code and clicking "Playground". `;
+  return `A GraphQL mutation is used to write/post, update, or delete values. In the example mutation below, we are deleting a value from ${tableName}, using our defined mutation, ${mutationName}, and we are passing in an argument of the primary key, ${primaryKey}. The columns specified beneath the mutation (${columns.join(', ')}, etc.) are the columns we would like to return from this mutation. 
+  
+  You can test out this mutation by copying the code and clicking "Playground". `;
 }
 
 module.exports = {
