@@ -14,16 +14,17 @@ export default function adviceCodeBlock() {
 
   let copyButton;
 
-  if (adviceState.displayExample.includes('mutation') || adviceState.displayExample.includes('query')) {
+  if (adviceState.displayExample.includes('type') || adviceState.displayExample.includes('values')) {
+    copyButton = null;
+  } else {
     copyButton =
     <div className="buttonClass" id="testMeOutBtn" onClick={() => { 
       navigator.clipboard.writeText(adviceState.displayExample) 
+      alert('Text Copied!')
       }}> 
         <span className="noselect">Test Me Out</span>
         <div id="circle"></div>
     </div>;
-  } else {
-    copyButton = null;
   }
 
   return (
