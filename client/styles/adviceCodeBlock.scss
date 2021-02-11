@@ -1,11 +1,12 @@
 .adviceCodeContainer {
   .CodeMirror {
-    width: 75%;
+    width: 85%;
     height: 100%;
     margin: 20px auto;
     padding: 3px;
     border-radius: 15px;
     text-align: left !important;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, .25);
   }
 }
 
