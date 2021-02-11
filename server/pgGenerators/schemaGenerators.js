@@ -50,7 +50,7 @@ schemaGenerator.assembleResolvers = (tables) => {
   let queryResolvers = '';
   let mutationResolvers = '';
   let customRelationshipResolvers = '';
-  let resolverExample = '';
+  let resolverExample ='';
 
   for (const currentTable in tables) {
     const tableData = tables[currentTable];
@@ -60,7 +60,8 @@ schemaGenerator.assembleResolvers = (tables) => {
         currentTable,
         tableData
       );
-      if (!resolverExample) resolverExample += queryResolvers.split('},')[0] + '}';
+      if (!resolverExample) resolverExample += (queryResolvers.split('},')[0] + '}').trim();
+    
       mutationResolvers += resolverGenerator.assembleMutations(
         currentTable,
         tableData
@@ -91,28 +92,3 @@ schemaGenerator.assembleResolvers = (tables) => {
 module.exports = schemaGenerator;
 
 
-
-
-/*
-
-[
-  '\n' +
-    '\n' +
-    '      book: (parent, args) => {\n' +
-    "        const query = 'SELECT * FROM books WHERE id = $1';\n" +
-    '        const values = [args.id];\n' +
-    '        return db.query(query, values)\n' +
-    '          .then(data => data.rows[0])\n' +
-    '          .catch(err => new Error(err));\n' +
-    '      ',
-  '\n' +
-    '\n' +
-    '      books: () => {\n' +
-    "        const query = 'SELECT * FROM books';\n" +
-    '        return db.query(query)\n' +
-    '          .then(data => data.rows)\n' +
-    '          .catch(err => new Error(err));\n' +
-    '      ',
-  ''
-]
-*/
