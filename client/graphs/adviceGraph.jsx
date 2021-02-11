@@ -17,11 +17,14 @@ export default function adviceGraph() {
       <p id="staticText"></p>
     </div>;
 
+  console.log('Advice State: ', adviceState);
 
   useEffect(() => {
     // if there is an update in advice state, render new graph
-    if (adviceState.advice.length > 0) {
+    console.log('AdviceState in useEffect: ', adviceState)
 
+    if (adviceState.advice.length > 0) {
+      console.log('AdviceState in if: ', adviceState)
       //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
     //   if (adviceGraphContainer.current && pieText.current) {
     //     //d3.select(adviceGraphContainer.current).html('');
@@ -87,7 +90,6 @@ export default function adviceGraph() {
         .pie()
         .sort(null)
         .value(function (d) {
-          console.log(d);
           return +d.Amount;
         });
 
@@ -176,7 +178,6 @@ export default function adviceGraph() {
     }
     return function cleanUpAdvice() {
     
-        console.log('goodbye, cleaning up advicegraph')
         d3.select(adviceGraphContainer.current).html('');
         // clear out the title
         d3.select('#segmentTitle').html('');

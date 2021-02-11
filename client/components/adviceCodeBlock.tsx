@@ -15,7 +15,6 @@ export default function adviceCodeBlock() {
 
   return (
     <div className='adviceCodeContainer'>
-      <button onClick={() => console.log('clicked copy button')}> Copy </button>
       <CodeMirror
         value={adviceState.displayExample}
         options={{
@@ -26,6 +25,7 @@ export default function adviceCodeBlock() {
           lineWrapping: true,
         }}
       />
+      <button id='copyButton' onClick={() => { navigator.clipboard.writeText(adviceState.displayExample) }}> Copy Code </button>
     </div>
   )
 }
