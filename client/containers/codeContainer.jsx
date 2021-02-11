@@ -6,21 +6,24 @@ import ExportButton from '../components/exportButton';
 import { CodeContext } from '../state/contexts';
 
 const codeContainer = () => {
-  const { codeDispatch } = useContext(CodeContext);
+  const { codeState, codeDispatch } = useContext(CodeContext);
+
+  const displayCodeBtns = 
+    <div className="codeButtons">
+      <div className="fileTab buttonClass" onClick={() => codeDispatch({type: 'SHOW_SCHEMA'})}>
+        <span className="noselect">schema.js</span>
+        <div id="circle"></div>
+      </div>
+      <div className="fileTab buttonClass" onClick={() => codeDispatch({type: 'SHOW_RESOLVER'})}>
+        <span className="noselect">resolver.js</span>
+        <div id="circle"></div>
+      </div>
+      <ExportButton />
+    </div>
 
   return (
     <div className="CodeContainer">
-      <div className="codeButtons">
-        <div className="fileTab buttonClass" onClick={() => codeDispatch({type: 'SHOW_SCHEMA'})}>
-          <span className="noselect">schema.js</span>
-          <div id="circle"></div>
-        </div>
-        <div className="fileTab buttonClass" onClick={() => codeDispatch({type: 'SHOW_RESOLVER'})}>
-          <span className="noselect">resolver.js</span>
-          <div id="circle"></div>
-        </div>
-        <ExportButton />
-      </div>
+      {codeState.schema && displayCodeBtns}
       <CodeBox/>
     </div>
   );

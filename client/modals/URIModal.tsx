@@ -13,7 +13,7 @@ export default function URIModal() {
   return (
     <div className='modal' id='uriModalContainer'>
       <p id="uriBanner">Get started by entering your database URI or test out DraQLa with our sample database!</p>
-      <button id='sampleDBbtn' onClick={() => {
+      <button className= 'buttonClass' id='sampleBtn' onClick={() => {
 
         // send server the ok for sample data
         fetch('/psql', {
@@ -65,7 +65,10 @@ export default function URIModal() {
         // close the URI modal
         generalDispatch({ type: 'CLOSE_URI_MODAL' });
 
-      }}>Sample Database</button>
+      }}>
+        <span className="noselect">Sample Database</span>
+        <div id="circle"></div>
+      </button>
 
       <div className='URILinks'>
         <URILink databaseName={'PSQL'} />

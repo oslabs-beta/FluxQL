@@ -97,3 +97,15 @@
     }
   }
 }
+
+#sampleBtn {
+  width: 60%;
+  text-transform: uppercase;
+  font-size: 18px;
+  height: 40px;
+
+  #circle:hover {
+    height: 30px;
+    width: 180px;
+  }
+}
