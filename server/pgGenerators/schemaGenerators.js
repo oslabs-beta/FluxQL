@@ -11,6 +11,7 @@ schemaGenerator.assembleTypes = (tables) => {
   let customType = '';
   let queryExample;
   let mutationExample;
+  let typeExample ='';
   let queryTypeCount = 0;
   let mutationTypeCount = 0;
   for (const tableName in tables) {
@@ -26,6 +27,7 @@ schemaGenerator.assembleTypes = (tables) => {
         mutationExample = TypeGenerator.exampleMutation(tableName, tables);
       mutationTypeCount += 3;
       customType += TypeGenerator.custom(tableName, tables);
+      if (!typeExample) typeExample += customType;
     }
   }
 
@@ -40,6 +42,7 @@ schemaGenerator.assembleTypes = (tables) => {
     mutationTypeCount,
     queryExample,
     mutationExample,
+    typeExample,
   };
 };
 
@@ -47,6 +50,7 @@ schemaGenerator.assembleResolvers = (tables) => {
   let queryResolvers = '';
   let mutationResolvers = '';
   let customRelationshipResolvers = '';
+  let resolverExample;
 
   for (const currentTable in tables) {
     const tableData = tables[currentTable];
@@ -56,6 +60,10 @@ schemaGenerator.assembleResolvers = (tables) => {
         currentTable,
         tableData
       );
+      if (!resolverExample) {
+        resolverExample += 'test'
+        console.log(queryResolvers.split('},'))
+      }
       mutationResolvers += resolverGenerator.assembleMutations(
         currentTable,
         tableData

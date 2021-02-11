@@ -23,6 +23,10 @@ body {
 
 h1 {
   color: $foreground;
+  font-weight: lighter;
+  font-family: 'Righteous';
+  // -webkit-text-stroke: 1px white;
+  text-shadow: -1px 0 rgba(0,0,0,.3), 0 1px rgba(255,255,255,.3), 1px 0 rgba(255,255,255,.3), 0 -1px rgba(255,255,255,.3);
 }
 
 // for App Page
@@ -102,8 +106,6 @@ h1 {
     height: 5px;
     border-radius: 50%;
     position: absolute;
-    // top: 0;
-    // left: 50%;
     overflow: hidden;
     transition: 500ms;
   }
@@ -114,4 +116,9 @@ h1 {
     width: 50px;
     border-radius: 0;
     border-bottom: 2px solid #eee;
+  }
+//#circle
+  .buttonClass:active  {
+    background: #a1c4fd;
+    color: black;
   }

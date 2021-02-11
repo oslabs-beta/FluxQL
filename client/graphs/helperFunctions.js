@@ -26,7 +26,7 @@ export const staticText = `The graph on the right is a diagram of your PSQL Rela
 export const extraDescriptions = [
   {
     Type: 'Types',
-    Amount: 5,
+    Amount: 10,
     Description: `The GraphQL schema defines the server's API, allowing clients to know which operations can be performed by the server. With it, you can define object types and fields to represent data that can be retrieved from the API as well as root types that define the group of operations that the API allows.
     While we can define custom types in the schema, the GraphQL specification also defines a set of built-in scalar types. They are Int, Float, Boolean, String, and ID.`,
     Example: `   type Person {
@@ -47,7 +47,7 @@ export const extraDescriptions = [
   },
   {
     Type: 'Resolvers',
-    Amount: 5,
+    Amount: 10,
     Description: `A resolver is GraphQL's execution algorithm. It is this algorithm that transforms the query from the client into the actual result. The resolver moves through every field in the schema and executes its logic to determine its result.`,
     Example: `  const resolver = {
       Query: {

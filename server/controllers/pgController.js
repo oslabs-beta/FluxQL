@@ -68,6 +68,18 @@ pgController.generateSchema = (req, res, next) => {
         Description: mutationExample[1],
         Example: mutationExample[0],
       },
+      {
+        Type: 'Types',
+        Amount: 10,
+        Description: '',
+        Example: '' ,
+      },
+      {
+        Type: 'Resolvers',
+        Amount: 10,
+        Description: '' ,
+        Example: '' ,
+      }
     ];
 
     // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc

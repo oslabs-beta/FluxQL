@@ -53,6 +53,7 @@ export default function adviceGraph() {
       const height = width;
       const radius = (Math.min(width, height) - 15) / 2;
 
+
       //! an array of the "Type" strings -> ['Queries','Mutations'] for the color scheme
       const type = function getObject(arr) {
         const types = [];
@@ -69,6 +70,7 @@ export default function adviceGraph() {
         .domain(type(adviceState.advice))
         // .range(["#E24161",'#8be9fd', "#EE6617", "#FFBF00"]);
         .range(["#0f4c75",'#c3bef0', "#c06c84", "#f67280"]);
+        // #0f4c75
 
       //! creating the outer arc of the graph
       const arcOver = d3
@@ -131,6 +133,8 @@ export default function adviceGraph() {
         .enter()
         .append('path')
         .attr('class', 'piepath')
+        .attr('id', function(d) {
+          return d.data.Type})
         .style('fill', function (d) {
           return color(d.data.Type);
         })
@@ -161,6 +165,10 @@ export default function adviceGraph() {
                 '</h4>'
             );
           }
+          //! to change the color of the title text to match the pie chart
+          const pieceOfPieColor = d3.select(`#${d.data.Type}`).style('fill');
+          d3.select('#segmentTitle').style('color', pieceOfPieColor);
+
         
           //! removing starting description
           const staticText = d3.select('#staticText');

@@ -18,11 +18,18 @@
 
 #segmentTitle {
   margin-top: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 #segmentText {
-  width: 100%;
+  width: 95%;
   padding-left: 10px;
   padding-right: 15px;
+  margin: auto;
+  line-height: 22px;
+}
+
+#helpbtn {
+  margin-left: 5px;
+  margin-right: 5px;
 }
