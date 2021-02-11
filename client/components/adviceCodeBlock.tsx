@@ -18,13 +18,20 @@ export default function adviceCodeBlock() {
     copyButton = null;
   } else {
     copyButton =
-    <div className="buttonClass" id="testMeOutBtn" onClick={() => { 
+    // <div className="buttonClass" id="testMeOutBtn" onClick={() => { 
+    //   navigator.clipboard.writeText(adviceState.displayExample) 
+    //   alert('Text Copied!')
+    //   }}> 
+    //     <span className="noselect">Test Me Out</span>
+    //     <div id="circle"></div>
+    // </div>;
+
+    <button className="buttonClass" id="testMeOutBtn" onClick={() => { 
       navigator.clipboard.writeText(adviceState.displayExample) 
-      alert('Text Copied!')
+      //alert('Text Copied!')
       }}> 
-        <span className="noselect">Test Me Out</span>
-        <div id="circle"></div>
-    </div>;
+        Test Me Out
+    </button>;
   }
 
   return (
