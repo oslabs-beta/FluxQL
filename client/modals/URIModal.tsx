@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import URILink from '../components/URILink';
-import { dynamicText, staticText } from '../graphs/helperFunctions'
+import { dynamicText, staticText, extraDescriptions } from '../graphs/helperFunctions'
 
 // import Context Objects
 import { GeneralContext, URIContext } from '../state/contexts';
@@ -37,11 +37,14 @@ export default function URIModal() {
               }
             })
 
-            // update Advice
+            // include the extra descriptions in advice console
+            const finalAdvice = [...data.advice, ...extraDescriptions];
+
+            // update Advice state
             adviceDispatch({
               type: 'UPDATE_ADVICE',
               payload: {
-                advice: data.advice,
+                advice: finalAdvice,
                 dynamicText: dynamicText(data.advice),
                 staticText: staticText,
               }

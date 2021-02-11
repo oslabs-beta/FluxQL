@@ -11,17 +11,17 @@ const codeContainer = () => {
   return (
     <div className="CodeContainer">
       <div className="codeButtons">
-        <button className="fileTab" onClick={() => codeDispatch({type: 'SHOW_SCHEMA'})}>
-          schema.js
-        </button>
-        <button className="fileTab" onClick={() => codeDispatch({type: 'SHOW_RESOLVER'})}>
-          resolver.js
-        </button>
-      </div>
-      <CodeBox/>
-      <div className="exportBtnDiv">
+        <div className="fileTab" id="btn" onClick={() => codeDispatch({type: 'SHOW_SCHEMA'})}>
+          <span className="noselect buttonClass">schema.js</span>
+          <div id="circle"></div>
+        </div>
+        <div className="fileTab" id="btn" onClick={() => codeDispatch({type: 'SHOW_RESOLVER'})}>
+          <span className="noselect buttonClass">resolver.js</span>
+          <div id="circle"></div>
+        </div>
         <ExportButton />
       </div>
+      <CodeBox/>
     </div>
   );
 };

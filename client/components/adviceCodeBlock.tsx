@@ -9,9 +9,22 @@ import '../../node_modules/codemirror/theme/material-palenight.css';
 // import Context Obj
 import { AdviceContext } from '../state/contexts';
 
-
 export default function adviceCodeBlock() {
   const { adviceState } = useContext(AdviceContext);
+
+  let copyButton;
+
+  if (adviceState.displayExample.includes('mutation') || adviceState.displayExample.includes('query')) {
+    copyButton =
+    <div className="buttonClass" id="testMeOutBtn" onClick={() => { 
+      navigator.clipboard.writeText(adviceState.displayExample) 
+      }}> 
+        <span className="noselect">Test Me Out</span>
+        <div id="circle"></div>
+    </div>;
+  } else {
+    copyButton = null;
+  }
 
   return (
     <div className='adviceCodeContainer'>
@@ -25,7 +38,7 @@ export default function adviceCodeBlock() {
           lineWrapping: true,
         }}
       />
-      <button id='copyButton' onClick={() => { navigator.clipboard.writeText(adviceState.displayExample) }}> Copy Code </button>
+      {copyButton}
     </div>
   )
 }
