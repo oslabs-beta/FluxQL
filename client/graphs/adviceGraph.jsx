@@ -70,7 +70,7 @@ export default function adviceGraph() {
         .domain(type(adviceState.advice))
         // .range(["#E24161",'#8be9fd', "#EE6617", "#FFBF00"]);
         .range(["#0f4c75",'#c3bef0', "#c06c84", "#f67280"]);
-        // #0f4c75
+
 
       //! creating the outer arc of the graph
       const arcOver = d3
