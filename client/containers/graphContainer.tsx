@@ -4,11 +4,11 @@ import UndoButton from '../components/undoButton';
 import PSQLGraph from '../graphs/psqlGraph';
 
 // import Context Obj
-import {  PSQLContext, MongoContext } from '../state/contexts'
+import { PSQLContext, MongoContext } from '../state/contexts'
 
 export default function graphContainer() {
   const { psqlState } = useContext(PSQLContext);
- // const { mongoState } = useContext(MongoContext);
+  // const { mongoState } = useContext(MongoContext);
 
   // ! to toggle between the different graphs
   let graph;
@@ -22,13 +22,11 @@ export default function graphContainer() {
 
   return (
     <div className='GraphContainer'>
-      {graph}
       <div className="graphBtns">
-        <UndoButton/>
+        <UndoButton />
         <HelpButton />
       </div>
-
-      
+      {graph}
     </div>
   )
 };

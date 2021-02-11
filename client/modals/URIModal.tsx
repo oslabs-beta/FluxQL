@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import URILink from '../components/URILink';
+import { dynamicText, staticText } from '../graphs/helperFunctions'
 
 // import Context Objects
 import { GeneralContext, URIContext } from '../state/contexts';
@@ -39,7 +40,11 @@ export default function URIModal() {
             // update Advice
             adviceDispatch({
               type: 'UPDATE_ADVICE',
-              payload: data.advice
+              payload: {
+                advice: data.advice,
+                dynamicText: dynamicText(data.advice),
+                staticText: staticText,
+              }
             })
 
             // update either DB states depending on what server sends back
