@@ -1,6 +1,6 @@
 const { makeExecutableSchema } = require('graphql-tools');
 const { Pool } = require('pg');
-const PG_URI = 'postgres://wwgaebae:B8vdUnTJzmByQxgvvqITbuxbIOvafGQJ@ziggy.db.elephantsql.com:5432/wwgaebae';
+const PG_URI = 'postgres://sugmjzbp:wvcZ6SvHu61w8qdmDYBb1uvdnqtLZ_82@suleiman.db.elephantsql.com:5432/sugmjzbp';
 
 const pool = new Pool({
   connectionString: PG_URI
@@ -15,78 +15,259 @@ db.query = (text,params, callback) => {
 
 const typeDefs = `
   type Query {
-    users: [User!]!
-    user(user_id: Int!): User!
-    message: [Message!]!
-    messageByID(message_id: Int!): Message!
-    tasks: [Task!]!
-    task(task_id: Int!): Task!
+    people: [Person!]!
+    person(_id: Int!): Person!
+    films: [Film!]!
+    film(_id: Int!): Film!
+    planets: [Planet!]!
+    planet(_id: Int!): Planet!
+    species: [Species!]!
+    speciesByID(_id: Int!): Species!
+    vessels: [Vessel!]!
+    vessel(_id: Int!): Vessel!
+    starshipSpecs: [StarshipSpec!]!
+    starshipSpec(_id: Int!): StarshipSpec!
   }
 
   type Mutation {
-    createUser(
-      password: String!,
-      username: String!,
-      first_name: String!,
-    ): User!
+    createPerson(
+      gender: String,
+      species_id: Int,
+      homeworld_id: Int,
+      height: Int,
+      mass: String,
+      hair_color: String,
+      skin_color: String,
+      eye_color: String,
+      name: String!,
+      birth_year: String,
+    ): Person!
 
-    updateUser(
-      password: String!,
-      username: String!,
-      user_id: Int!,
-      first_name: String!,
-    ): User!
+    updatePerson(
+      gender: String,
+      species_id: Int,
+      homeworld_id: Int,
+      height: Int,
+      _id: Int!,
+      mass: String,
+      hair_color: String,
+      skin_color: String,
+      eye_color: String,
+      name: String!,
+      birth_year: String,
+    ): Person!
 
-    deleteUser(user_id: ID!): User!
+    deletePerson(_id: ID!): Person!
 
-    createMessage(
-      message: String!,
-      created_at: Int,
-      password: String!,
-    ): Message!
+    createFilm(
+      director: String!,
+      opening_crawl: String!,
+      episode_id: Int!,
+      title: String!,
+      release_date: String!,
+      producer: String!,
+    ): Film!
 
-    updateMessage(
-      message: String!,
-      message_id: Int!,
-      created_at: Int,
-      password: String!,
-    ): Message!
+    updateFilm(
+      director: String!,
+      opening_crawl: String!,
+      episode_id: Int!,
+      _id: Int!,
+      title: String!,
+      release_date: String!,
+      producer: String!,
+    ): Film!
 
-    deleteMessage(message_id: ID!): Message!
+    deleteFilm(_id: ID!): Film!
 
-    createTask(
-      task: String!,
-      user_id: Int,
-    ): Task!
+    createPlanet(
+      orbital_period: Int,
+      climate: String,
+      gravity: String,
+      terrain: String,
+      surface_water: String,
+      population: Int,
+      name: String,
+      rotation_period: Int,
+      diameter: Int,
+    ): Planet!
 
-    updateTask(
-      task_id: Int!,
-      task: String!,
-      user_id: Int,
-    ): Task!
+    updatePlanet(
+      orbital_period: Int,
+      climate: String,
+      gravity: String,
+      terrain: String,
+      surface_water: String,
+      population: Int,
+      _id: Int!,
+      name: String,
+      rotation_period: Int,
+      diameter: Int,
+    ): Planet!
 
-    deleteTask(task_id: ID!): Task!
+    deletePlanet(_id: ID!): Planet!
+
+    createSpecies(
+      hair_colors: String,
+      name: String!,
+      classification: String,
+      average_height: String,
+      average_lifespan: String,
+      skin_colors: String,
+      eye_colors: String,
+      language: String,
+      homeworld_id: Int,
+    ): Species!
+
+    updateSpecies(
+      hair_colors: String,
+      name: String!,
+      classification: String,
+      average_height: String,
+      average_lifespan: String,
+      skin_colors: String,
+      eye_colors: String,
+      language: String,
+      homeworld_id: Int,
+      _id: Int!,
+    ): Species!
+
+    deleteSpecies(_id: ID!): Species!
+
+    createVessel(
+      cost_in_credits: Int,
+      length: String,
+      vessel_type: String!,
+      model: String,
+      manufacturer: String,
+      name: String!,
+      vessel_class: String!,
+      max_atmosphering_speed: String,
+      crew: Int,
+      passengers: Int,
+      cargo_capacity: String,
+      consumables: String,
+    ): Vessel!
+
+    updateVessel(
+      cost_in_credits: Int,
+      length: String,
+      vessel_type: String!,
+      model: String,
+      manufacturer: String,
+      name: String!,
+      vessel_class: String!,
+      max_atmosphering_speed: String,
+      crew: Int,
+      passengers: Int,
+      cargo_capacity: String,
+      consumables: String,
+      _id: Int!,
+    ): Vessel!
+
+    deleteVessel(_id: ID!): Vessel!
+
+    createStarshipSpec(
+      vessel_id: Int!,
+      MGLT: String,
+      hyperdrive_rating: String,
+    ): StarshipSpec!
+
+    updateStarshipSpec(
+      _id: Int!,
+      vessel_id: Int!,
+      MGLT: String,
+      hyperdrive_rating: String,
+    ): StarshipSpec!
+
+    deleteStarshipSpec(_id: ID!): StarshipSpec!
   }
 
-  type User {
-    user_id: Int!
-    password: String!
-    username: String!
-    first_name: String!
-    tasks: [Task]
+  type Person {
+    _id: Int!
+    gender: String
+    height: Int
+    mass: String
+    hair_color: String
+    skin_color: String
+    eye_color: String
+    name: String!
+    birth_year: String
+    films: [Film]
+    vessels: [Vessel]
+    species: [Species]
+    planets: [Planet]
   }
 
-  type Message {
-    message_id: Int!
-    message: String!
-    created_at: Int
-    password: String!
+  type Film {
+    _id: Int!
+    director: String!
+    opening_crawl: String!
+    episode_id: Int!
+    title: String!
+    release_date: String!
+    producer: String!
+    planets: [Planet]
+    people: [Person]
+    vessels: [Vessel]
+    species: [Species]
   }
 
-  type Task {
-    task_id: Int!
-    task: String!
-    users: [User]
+  type Planet {
+    _id: Int!
+    orbital_period: Int
+    climate: String
+    gravity: String
+    terrain: String
+    surface_water: String
+    population: Int
+    name: String
+    rotation_period: Int
+    diameter: Int
+    films: [Film]
+    species: [Species]
+    people: [Person]
+  }
+
+  type Species {
+    _id: Int!
+    hair_colors: String
+    name: String!
+    classification: String
+    average_height: String
+    average_lifespan: String
+    skin_colors: String
+    eye_colors: String
+    language: String
+    people: [Person]
+    films: [Film]
+    planets: [Planet]
+  }
+
+  type Vessel {
+    _id: Int!
+    cost_in_credits: Int
+    length: String
+    vessel_type: String!
+    model: String
+    manufacturer: String
+    name: String!
+    vessel_class: String!
+    max_atmosphering_speed: String
+    crew: Int
+    passengers: Int
+    cargo_capacity: String
+    consumables: String
+    films: [Film]
+    people: [Person]
+    starshipSpecs: [StarshipSpec]
+  }
+
+  type StarshipSpec {
+    _id: Int!
+    MGLT: String
+    hyperdrive_rating: String
+    vessels: [Vessel]
   }
 
 `;
@@ -96,46 +277,91 @@ const typeDefs = `
   const resolvers = {
     Query: {      
 
-      user: (parent, args) => {
-        const query = 'SELECT * FROM users WHERE user_id = $1';
-        const values = [args.user_id];
+      person: (parent, args) => {
+        const query = 'SELECT * FROM people WHERE _id = $1';
+        const values = [args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      users: () => {
-        const query = 'SELECT * FROM users';
+      people: () => {
+        const query = 'SELECT * FROM people';
         return db.query(query)
           .then(data => data.rows)
           .catch(err => new Error(err));
       },
 
-      messageByID: (parent, args) => {
-        const query = 'SELECT * FROM message WHERE message_id = $1';
-        const values = [args.message_id];
+      film: (parent, args) => {
+        const query = 'SELECT * FROM films WHERE _id = $1';
+        const values = [args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      message: () => {
-        const query = 'SELECT * FROM message';
+      films: () => {
+        const query = 'SELECT * FROM films';
         return db.query(query)
           .then(data => data.rows)
           .catch(err => new Error(err));
       },
 
-      task: (parent, args) => {
-        const query = 'SELECT * FROM tasks WHERE task_id = $1';
-        const values = [args.task_id];
+      planet: (parent, args) => {
+        const query = 'SELECT * FROM planets WHERE _id = $1';
+        const values = [args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      tasks: () => {
-        const query = 'SELECT * FROM tasks';
+      planets: () => {
+        const query = 'SELECT * FROM planets';
+        return db.query(query)
+          .then(data => data.rows)
+          .catch(err => new Error(err));
+      },
+
+      speciesByID: (parent, args) => {
+        const query = 'SELECT * FROM species WHERE _id = $1';
+        const values = [args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      species: () => {
+        const query = 'SELECT * FROM species';
+        return db.query(query)
+          .then(data => data.rows)
+          .catch(err => new Error(err));
+      },
+
+      vessel: (parent, args) => {
+        const query = 'SELECT * FROM vessels WHERE _id = $1';
+        const values = [args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      vessels: () => {
+        const query = 'SELECT * FROM vessels';
+        return db.query(query)
+          .then(data => data.rows)
+          .catch(err => new Error(err));
+      },
+
+      starshipSpec: (parent, args) => {
+        const query = 'SELECT * FROM starship_specs WHERE _id = $1';
+        const values = [args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      starshipSpecs: () => {
+        const query = 'SELECT * FROM starship_specs';
         return db.query(query)
           .then(data => data.rows)
           .catch(err => new Error(err));
@@ -144,73 +370,145 @@ const typeDefs = `
 
     Mutation: {
       
-      createUser: (parent, args) => {
-        const query = 'INSERT INTO users(password, username, first_name) VALUES($1, $2, $3) RETURNING *';
-        const values = [args.password, args.username, args.first_name];
+      createPerson: (parent, args) => {
+        const query = 'INSERT INTO people(gender, species_id, homeworld_id, height, mass, hair_color, skin_color, eye_color, name, birth_year) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
+        const values = [args.gender, args.species_id, args.homeworld_id, args.height, args.mass, args.hair_color, args.skin_color, args.eye_color, args.name, args.birth_year];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      updateUser: (parent, args) => {
-        const query = 'UPDATE users SET password=$1, username=$2, first_name=$3 WHERE user_id = $4 RETURNING *';
-        const values = [args.password, args.username, args.first_name, args.user_id];
+      updatePerson: (parent, args) => {
+        const query = 'UPDATE people SET gender=$1, species_id=$2, homeworld_id=$3, height=$4, mass=$5, hair_color=$6, skin_color=$7, eye_color=$8, name=$9, birth_year=$10 WHERE _id = $11 RETURNING *';
+        const values = [args.gender, args.species_id, args.homeworld_id, args.height, args.mass, args.hair_color, args.skin_color, args.eye_color, args.name, args.birth_year, args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      deleteUser: (parent, args) => {
-        const query = 'DELETE FROM users WHERE user_id = $1 RETURNING *';
-        const values = [args.user_id];
+      deletePerson: (parent, args) => {
+        const query = 'DELETE FROM people WHERE _id = $1 RETURNING *';
+        const values = [args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      createMessage: (parent, args) => {
-        const query = 'INSERT INTO message(message, created_at, password) VALUES($1, $2, $3) RETURNING *';
-        const values = [args.message, args.created_at, args.password];
+      createFilm: (parent, args) => {
+        const query = 'INSERT INTO films(director, opening_crawl, episode_id, title, release_date, producer) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
+        const values = [args.director, args.opening_crawl, args.episode_id, args.title, args.release_date, args.producer];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      updateMessage: (parent, args) => {
-        const query = 'UPDATE message SET message=$1, created_at=$2, password=$3 WHERE message_id = $4 RETURNING *';
-        const values = [args.message, args.created_at, args.password, args.message_id];
+      updateFilm: (parent, args) => {
+        const query = 'UPDATE films SET director=$1, opening_crawl=$2, episode_id=$3, title=$4, release_date=$5, producer=$6 WHERE _id = $7 RETURNING *';
+        const values = [args.director, args.opening_crawl, args.episode_id, args.title, args.release_date, args.producer, args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      deleteMessage: (parent, args) => {
-        const query = 'DELETE FROM message WHERE message_id = $1 RETURNING *';
-        const values = [args.message_id];
+      deleteFilm: (parent, args) => {
+        const query = 'DELETE FROM films WHERE _id = $1 RETURNING *';
+        const values = [args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      createTask: (parent, args) => {
-        const query = 'INSERT INTO tasks(task, user_id) VALUES($1, $2) RETURNING *';
-        const values = [args.task, args.user_id];
+      createPlanet: (parent, args) => {
+        const query = 'INSERT INTO planets(orbital_period, climate, gravity, terrain, surface_water, population, name, rotation_period, diameter) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+        const values = [args.orbital_period, args.climate, args.gravity, args.terrain, args.surface_water, args.population, args.name, args.rotation_period, args.diameter];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      updateTask: (parent, args) => {
-        const query = 'UPDATE tasks SET task=$1, user_id=$2 WHERE task_id = $3 RETURNING *';
-        const values = [args.task, args.user_id, args.task_id];
+      updatePlanet: (parent, args) => {
+        const query = 'UPDATE planets SET orbital_period=$1, climate=$2, gravity=$3, terrain=$4, surface_water=$5, population=$6, name=$7, rotation_period=$8, diameter=$9 WHERE _id = $10 RETURNING *';
+        const values = [args.orbital_period, args.climate, args.gravity, args.terrain, args.surface_water, args.population, args.name, args.rotation_period, args.diameter, args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      deleteTask: (parent, args) => {
-        const query = 'DELETE FROM tasks WHERE task_id = $1 RETURNING *';
-        const values = [args.task_id];
+      deletePlanet: (parent, args) => {
+        const query = 'DELETE FROM planets WHERE _id = $1 RETURNING *';
+        const values = [args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      createSpecies: (parent, args) => {
+        const query = 'INSERT INTO species(hair_colors, name, classification, average_height, average_lifespan, skin_colors, eye_colors, language, homeworld_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+        const values = [args.hair_colors, args.name, args.classification, args.average_height, args.average_lifespan, args.skin_colors, args.eye_colors, args.language, args.homeworld_id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      updateSpecies: (parent, args) => {
+        const query = 'UPDATE species SET hair_colors=$1, name=$2, classification=$3, average_height=$4, average_lifespan=$5, skin_colors=$6, eye_colors=$7, language=$8, homeworld_id=$9 WHERE _id = $10 RETURNING *';
+        const values = [args.hair_colors, args.name, args.classification, args.average_height, args.average_lifespan, args.skin_colors, args.eye_colors, args.language, args.homeworld_id, args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      deleteSpecies: (parent, args) => {
+        const query = 'DELETE FROM species WHERE _id = $1 RETURNING *';
+        const values = [args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      createVessel: (parent, args) => {
+        const query = 'INSERT INTO vessels(cost_in_credits, length, vessel_type, model, manufacturer, name, vessel_class, max_atmosphering_speed, crew, passengers, cargo_capacity, consumables) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *';
+        const values = [args.cost_in_credits, args.length, args.vessel_type, args.model, args.manufacturer, args.name, args.vessel_class, args.max_atmosphering_speed, args.crew, args.passengers, args.cargo_capacity, args.consumables];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      updateVessel: (parent, args) => {
+        const query = 'UPDATE vessels SET cost_in_credits=$1, length=$2, vessel_type=$3, model=$4, manufacturer=$5, name=$6, vessel_class=$7, max_atmosphering_speed=$8, crew=$9, passengers=$10, cargo_capacity=$11, consumables=$12 WHERE _id = $13 RETURNING *';
+        const values = [args.cost_in_credits, args.length, args.vessel_type, args.model, args.manufacturer, args.name, args.vessel_class, args.max_atmosphering_speed, args.crew, args.passengers, args.cargo_capacity, args.consumables, args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      deleteVessel: (parent, args) => {
+        const query = 'DELETE FROM vessels WHERE _id = $1 RETURNING *';
+        const values = [args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      createStarshipSpec: (parent, args) => {
+        const query = 'INSERT INTO starship_specs(vessel_id, MGLT, hyperdrive_rating) VALUES($1, $2, $3) RETURNING *';
+        const values = [args.vessel_id, args.MGLT, args.hyperdrive_rating];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      updateStarshipSpec: (parent, args) => {
+        const query = 'UPDATE starship_specs SET vessel_id=$1, MGLT=$2, hyperdrive_rating=$3 WHERE _id = $4 RETURNING *';
+        const values = [args.vessel_id, args.MGLT, args.hyperdrive_rating, args._id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      deleteStarshipSpec: (parent, args) => {
+        const query = 'DELETE FROM starship_specs WHERE _id = $1 RETURNING *';
+        const values = [args._id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
@@ -218,11 +516,139 @@ const typeDefs = `
 
     },
       
-    User: {
+    Person: {
       
-        tasks: (users) => {
-          const query = 'SELECT * FROM tasks WHERE user_id $1';
-          const values = [users.user_id];
+        films: (people) => {
+          const query = 'SELECT * FROM films LEFT OUTER JOIN people_in_films ON films._id = people_in_films.film_id WHERE people_in_films.person_id = $1';
+          const values = [people._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        species: (people) => {
+          const query = 'SELECT species.* FROM species LEFT OUTER JOIN people ON species._id = people._id WHERE people._id = $1';
+          const values = [people._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        planets: (people) => {
+          const query = 'SELECT planets.* FROM planets LEFT OUTER JOIN people ON planets._id = people._id WHERE people._id = $1';
+          const values = [people._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        vessels: (people) => {
+          const query = 'SELECT * FROM vessels LEFT OUTER JOIN pilots ON vessels._id = pilots.vessel_id WHERE pilots.person_id = $1';
+          const values = [people._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+    },
+
+    Film: {
+      
+        planets: (films) => {
+          const query = 'SELECT * FROM planets LEFT OUTER JOIN planets_in_films ON planets._id = planets_in_films.planet_id WHERE planets_in_films.film_id = $1';
+          const values = [films._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        people: (films) => {
+          const query = 'SELECT * FROM people LEFT OUTER JOIN people_in_films ON people._id = people_in_films.person_id WHERE people_in_films.film_id = $1';
+          const values = [films._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        vessels: (films) => {
+          const query = 'SELECT * FROM vessels LEFT OUTER JOIN vessels_in_films ON vessels._id = vessels_in_films.vessel_id WHERE vessels_in_films.film_id = $1';
+          const values = [films._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        species: (films) => {
+          const query = 'SELECT * FROM species LEFT OUTER JOIN species_in_films ON species._id = species_in_films.species_id WHERE species_in_films.film_id = $1';
+          const values = [films._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+    },
+
+    Planet: {
+      
+        films: (planets) => {
+          const query = 'SELECT * FROM films LEFT OUTER JOIN planets_in_films ON films._id = planets_in_films.film_id WHERE planets_in_films.planet_id = $1';
+          const values = [planets._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        species: (planets) => {
+          const query = 'SELECT * FROM species WHERE homeworld_id $1';
+          const values = [planets._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        },
+        people: (planets) => {
+          const query = 'SELECT * FROM people WHERE homeworld_id $1';
+          const values = [planets._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        },
+    },
+
+    Species: {
+      
+        people: (species) => {
+          const query = 'SELECT * FROM people WHERE species_id $1';
+          const values = [species._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        },
+        films: (species) => {
+          const query = 'SELECT * FROM films LEFT OUTER JOIN species_in_films ON films._id = species_in_films.film_id WHERE species_in_films.species_id = $1';
+          const values = [species._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        planets: (species) => {
+          const query = 'SELECT planets.* FROM planets LEFT OUTER JOIN species ON planets._id = species._id WHERE species._id = $1';
+          const values = [species._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+    },
+
+    Vessel: {
+      
+        films: (vessels) => {
+          const query = 'SELECT * FROM films LEFT OUTER JOIN vessels_in_films ON films._id = vessels_in_films.film_id WHERE vessels_in_films.vessel_id = $1';
+          const values = [vessels._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        people: (vessels) => {
+          const query = 'SELECT * FROM people LEFT OUTER JOIN pilots ON people._id = pilots.person_id WHERE pilots.vessel_id = $1';
+          const values = [vessels._id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+        starshipSpecs: (vessels) => {
+          const query = 'SELECT * FROM starship_specs WHERE vessel_id $1';
+          const values = [vessels._id];
           return db.query(query, values)
             .then(data => data.rows)
             .catch(err => new Error(err));

@@ -17,8 +17,6 @@ export default function psqlGraph() {
     diameter: 800,
   };
 
-  //const graphContainerHeight = document.getElementById('')
-
   useEffect(() => {
     // if there is PSQL data, render data
     if (psqlState.d3Tables.name) {
@@ -223,8 +221,6 @@ export default function psqlGraph() {
           .remove();
 
         function click(event, d) {
-          console.log(d);
-
           if (d.children) {
             d._children = d.children;
             d.children = null;
@@ -236,8 +232,12 @@ export default function psqlGraph() {
         }
       }
     }
-  }, [psqlState.d3Tables]);
 
+    return function cleanUpGraph() {
+      d3.select(psqlGraphRef.current).html('');
+    }
+    
+  }, [psqlState.d3Tables]);
   return (
     <div>
       <svg ref={psqlGraphRef}></svg>

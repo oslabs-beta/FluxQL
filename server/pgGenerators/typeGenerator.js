@@ -68,7 +68,7 @@ TypeGenerator.exampleQuery = (tableName, tables) => {
     }
   });
 
-  const query =  `  query: {
+  const query =  `  query {
     ${tableName} {\n${queryColumns.join('\n')}
      // <insert column names>
     }
@@ -94,7 +94,7 @@ TypeGenerator.exampleMutation = (tableName, tables) => {
     }
   });
 
-  const mutation = `  mutation: {
+  const mutation = `  mutation {
     ${mutationName} (${primaryKey}: <insert value> ) {\n${mutationColumns.join(
     '\n'
   )}

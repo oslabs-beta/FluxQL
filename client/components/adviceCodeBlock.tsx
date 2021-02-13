@@ -25,6 +25,7 @@ export default function adviceCodeBlock() {
           lineWrapping: true,
         }}
       />
+      <button id='copyButton' onClick={() => { navigator.clipboard.writeText(adviceState.displayExample) }}> Copy Code </button>
     </div>
   )
 }

@@ -15,43 +15,43 @@ const App = () => {
   const [generalState, generalDispatch] = useReducer(generalReducer, initialGeneralState);
 
   return (
-    <GeneralContext.Provider 
+    <GeneralContext.Provider
       value={{
         generalState,
-        generalDispatch 
+        generalDispatch
       }}>
       <Router>
-        <div className='appHeader'> 
-          <Link to="/" 
+        <div id='appHeader'>
+          <Link to="/"
             onClick={() => {
-              generalDispatch({type: 'ON_HOME_PAGE'})
+              generalDispatch({ type: 'ON_HOME_PAGE' })
             }}
-          > 
-              <img
-                className='logo'
-                id='logo'
-                src='./assets/bannericon.png'
-                alt='DraQLa Logo'
-                height='75px'
-                width='75px'
-              ></img>
-              <img
-                id='logotext'
-                src='./assets/logotext.png'
-                alt='DraQLa Text'
-                height='65px'
-                width='150px'
-              ></img>
-              
-            </Link>       
+          >
+            <img
+              className='logo'
+              id='logo'
+              src='./assets/bannericon.png'
+              alt='DraQLa Logo'
+              height='75px'
+              width='75px'
+            ></img>
+            <img
+              id='logotext'
+              src='./assets/logotext.png'
+              alt='DraQLa Text'
+              height='65px'
+              width='150px'
+            ></img>
+
+          </Link>
           <NavBar />
         </div>
 
         <Switch>
           <Route path='/app' render={() => (
-            <AppPage />)} 
+            <AppPage />)}
           />
-          <Route path='/' exact component={HomePage}/>
+          <Route path='/' exact component={HomePage} />
         </Switch>
       </Router>
     </GeneralContext.Provider>

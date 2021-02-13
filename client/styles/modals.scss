@@ -1,9 +1,8 @@
 .modal {
   height: 400px;
   width: 800px;
-  //border: 1px solid $pink;
-  border-radius: 3px;
-  background-color: $comment;
+  border-radius: 15px;
+  background-color: $logodarkgray;
   margin-left: auto;
   margin-right: auto;
   z-index: 1000;
@@ -12,49 +11,52 @@
   left: 0;
   right: 0;
   bottom: 0;
-  //filter: none !important;
 
 }
 
-// URI Links Modal Styling
-
+// styling for outer URI container
 #uriModalContainer {
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, .25);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  //filter: none !important;
+
+  #uriBanner {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  #sampleDBbtn {
+    box-shadow: 2px 4px 25px rgba(0, 0, 0, .25);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    width: 65%;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+  
+  #sampleDBbtn:hover {
+    border: 2px solid #a9a9a9;
+    cursor: pointer;
+  }
 }
 
-#uriBanner {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 
-#sampleDBbtn {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: $purple;
-  width: 75%;
-  height: 35px;
-  border: none;
-  border-radius: 8px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-#sampleDBbtn:hover {
-  border: 2px solid #a9a9a9;
-  cursor: pointer;
-}
-
+// styling for inner URI container
 .URILinks {
   display: flex;
   flex-direction: row;
 
   .URILinkBox {
+    background-color: $currentline;
+    box-shadow: 2px 4px 25px rgba(0, 0, 0, .25);
     display: flex;
     flex-direction: column;
     border: 1px solid black;
@@ -63,6 +65,7 @@
     width: 370px;
 
     button {
+      box-shadow: 2px 4px 25px rgba(0, 0, 0, .25);
       border-radius: 8px;
       color: #000;
       font-family: sans-serif;

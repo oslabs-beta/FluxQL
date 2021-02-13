@@ -71,12 +71,6 @@ export const codeReducer = (state, action) => {
         schema: action.payload.schema,
         resolver: action.payload.resolver,
       };
-    // case 'USE_SAMPLE':
-    //   return {
-    //     ...state,
-    //     schema: SampleSchema,
-    //     resolver: SampleResolver,
-    //   };
     case 'SHOW_SCHEMA':
       return {
         ...state,
@@ -97,11 +91,6 @@ export const psqlReducer = (state, action) => {
         ...state,
         d3Tables: action.payload,
       };
-    // case 'USE_SAMPLE':
-    //   return {
-    //     ...state,
-    //     d3Tables: treeData,
-    //   };
   }
 };
 
@@ -112,26 +101,20 @@ export const mongoReducer = (state, action) => {
         ...state,
         d3Tables: action.payload,
       };
-    // case 'USE_SAMPLE':
-    //   return {
-    //     ...state,
-    //     //d3Tables: treeData
-    //   };
   }
 };
 
 export const adviceReducer = (state, action) => {
   switch (action.type) {
     case 'UPDATE_ADVICE':
-      return {
-        ...state,
-        advice: action.payload,
-      };
-    // case 'USE_SAMPLE':
-    //   return {
-    //     ...state,
-    //     advice: adviceSample,
-    //   };
+      const newState = {...state};
+      newState.advice = action.payload.advice;
+      newState.dynamicText = action.payload.dynamicText;
+      newState.staticText = action.payload.staticText;
+
+      delete newState.displayExample;
+
+      return newState;
     case 'SHOW_EXAMPLE':
       return {
         ...state,
