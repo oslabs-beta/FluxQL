@@ -17,15 +17,11 @@ export default function adviceGraph() {
       <p id="staticText"></p>
     </div>;
 
-  console.log('Advice State: ', adviceState);
-
   useEffect(() => {
     // if there is an update in advice state, render new graph
-    console.log('AdviceState in useEffect: ', adviceState)
 
     if (adviceState.advice.length > 0) {
-      console.log('AdviceState in if: ', adviceState)
-      //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
+    //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
     //   if (adviceGraphContainer.current && pieText.current) {
     //     //d3.select(adviceGraphContainer.current).html('');
     //     // clear out the title
@@ -57,6 +53,7 @@ export default function adviceGraph() {
       const height = width;
       const radius = (Math.min(width, height) - 15) / 2;
 
+
       //! an array of the "Type" strings -> ['Queries','Mutations'] for the color scheme
       const type = function getObject(arr) {
         const types = [];
@@ -71,7 +68,9 @@ export default function adviceGraph() {
       const color = d3
         .scaleOrdinal()
         .domain(type(adviceState.advice))
-        .range(["#E24161",'#423E6E', "#EE6617", "#FFBF00"]);
+        // .range(["#E24161",'#8be9fd', "#EE6617", "#FFBF00"]);
+        .range(["#0f4c75",'#c3bef0', "#c06c84", "#f67280"]);
+
 
       //! creating the outer arc of the graph
       const arcOver = d3
@@ -134,6 +133,8 @@ export default function adviceGraph() {
         .enter()
         .append('path')
         .attr('class', 'piepath')
+        .attr('id', function(d) {
+          return d.data.Type})
         .style('fill', function (d) {
           return color(d.data.Type);
         })
@@ -149,14 +150,26 @@ export default function adviceGraph() {
           //d3.select('.text-container').hide();
 
           //! updating the Header for text card
-          d3.select('#segmentTitle').html(
-            '<h4 id="segmentTitle">' +
-              d.data.Amount +
-              ' ' +
-              d.data.Type +
-              '</h4>'
-          );
+          if (d.data.Type === 'Types' || d.data.Type === 'Resolvers') {
+            d3.select('#segmentTitle').html(
+              '<h4 id="segmentTitle">' +
+                d.data.Type +
+                '</h4>'
+            );
+          } else {
+            d3.select('#segmentTitle').html(
+              '<h4 id="segmentTitle">' +
+                d.data.Amount +
+                ' ' +
+                d.data.Type +
+                '</h4>'
+            );
+          }
+          //! to change the color of the title text to match the pie chart
+          const pieceOfPieColor = d3.select(`#${d.data.Type}`).style('fill');
+          d3.select('#segmentTitle').style('color', pieceOfPieColor);
 
+        
           //! removing starting description
           const staticText = d3.select('#staticText');
           staticText.html('');
@@ -173,7 +186,7 @@ export default function adviceGraph() {
             payload: d.data.Example,
           });
 
-          d3.select('.text-container').fadeIn(400);
+          //d3.select('.text-container').fadeIn(400);
         });
     }
     return function cleanUpAdvice() {

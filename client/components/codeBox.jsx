@@ -3,8 +3,6 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/mode/javascript/javascript';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/dracula.css';
-import '../../node_modules/codemirror/theme/material-palenight.css';
-import '../../node_modules/codemirror/theme/material.css';
 
 // import context object
 import { CodeContext } from '../state/contexts';

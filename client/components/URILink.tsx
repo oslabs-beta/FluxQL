@@ -19,7 +19,7 @@ export default function URILink({ databaseName }) {
         id={`${databaseName}Input`}
         placeholder="paste your database link"></input>
 
-      <button onClick={() => {
+      <button className='buttonClass' id='submitbtn' onClick={() => {
 
         // send inputted URL to server
         const url = document.getElementById(`${databaseName}Input`).value;
@@ -48,7 +48,8 @@ export default function URILink({ databaseName }) {
                 resolver: data.schema.resolvers,
               }
             })
-            // update Advice
+
+            // update Advice state
             adviceDispatch({
               type: 'UPDATE_ADVICE',
               payload: {
@@ -77,7 +78,10 @@ export default function URILink({ databaseName }) {
         // to close out URI Modal
         generalDispatch({ type: 'CLOSE_URI_MODAL' })
 
-      }}>Submit</button>
+      }}>
+        <span className="noselect">Submit</span>
+        <div id="circle"></div>
+      </button>
     </div>
   )
 };

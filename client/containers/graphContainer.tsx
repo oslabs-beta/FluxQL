@@ -13,7 +13,7 @@ export default function graphContainer() {
   // ! to toggle between the different graphs
   let graph;
 
-  if (Object.keys(psqlState.d3Tables)) {
+  if (psqlState.d3Tables.name) {
     graph = <PSQLGraph />
   } else {
     console.log(' *** WE STILL NEED TO CREATE A MONGO GRAPH ***')
@@ -22,10 +22,12 @@ export default function graphContainer() {
 
   return (
     <div className='GraphContainer'>
+    {psqlState.d3Tables.name &&     
       <div className="graphBtns">
         <UndoButton />
         <HelpButton />
       </div>
+      }
       {graph}
     </div>
   )

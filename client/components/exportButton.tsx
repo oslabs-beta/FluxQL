@@ -11,7 +11,6 @@ export default function exportButton() {
   const { codeState } = useContext(CodeContext);
 
   const handleExport = () => {
-    console.log('export clicked');
 
     const zip = new JSZip();
 
@@ -30,6 +29,9 @@ export default function exportButton() {
   };
 
   return (
-    <button id='exportButton' onClick={handleExport}>Export</button>
+    <div className="exportButton buttonClass" onClick={handleExport}>          
+    <span className="noselect">Export</span>
+      <div id="circle"></div>
+    </div>
   )
 };
