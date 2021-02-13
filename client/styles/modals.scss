@@ -2,7 +2,9 @@
   height: 400px;
   width: 800px;
   border-radius: 15px;
-  background-color: $logodarkgray;
+  background-color: rgba(255, 255, 255, .87);//$comment;
+  color: black;
+  border: 1px solid black;
   margin-left: auto;
   margin-right: auto;
   z-index: 1000;
@@ -11,7 +13,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-
 }
 
 // styling for outer URI container
@@ -22,29 +23,31 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+  font-family: 'Roboto';
+
+  #x {
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 20px;
+    align-self: flex-end;
+    margin-right: 15px;
+    margin-top: 0px;
+    transition: ease .3s;
+    color: $currentline;
+  }
+
+  #x:hover {
+    color: tomato;
+    transform: rotate(30deg);
+  }
 
   #uriBanner {
     text-align: center;
+    width: 70%;
     margin-top: 20px;
     margin-bottom: 20px;
-  }
-  
-  #sampleDBbtn {
-    box-shadow: 2px 4px 25px rgba(0, 0, 0, .25);
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: white;
-    width: 65%;
-    height: 35px;
-    border: none;
-    border-radius: 8px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-  }
-  
-  #sampleDBbtn:hover {
-    border: 2px solid #a9a9a9;
-    cursor: pointer;
+    font-family: Roboto;
+    font-size: 20px;
   }
 }
 
@@ -55,7 +58,8 @@
   flex-direction: row;
 
   .URILinkBox {
-    background-color: $currentline;
+    background-color: #c3bef0;//$logogray;//rgba(0, 0, 0, .25);
+    border-radius: 15px;
     box-shadow: 2px 4px 25px rgba(0, 0, 0, .25);
     display: flex;
     flex-direction: column;
@@ -64,36 +68,61 @@
     padding: 5%;
     width: 370px;
 
-    button {
-      box-shadow: 2px 4px 25px rgba(0, 0, 0, .25);
-      border-radius: 8px;
-      color: #000;
-      font-family: sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      padding: 5px 15px;
-      border: 2px solid hsla(0, 0%, 66.3%, 0.3);
-      transition: 0.3s ease;
-    }
-
-    button:hover {
-      border: 2px solid #a9a9a9;
-      cursor: pointer;
-    }
-
     p {
       text-align: center;
+      font-family: 'Righteous';
     }
 
     .linkInput {
       display: inline-block;
+      font-size: 12px;
       border: none;
+      border-radius: 10px;
       text-align: center;
       box-shadow: 3px 2px #a9a9a9;
       padding: 10px;
       margin: 10px 0;
       background: white;
       color: #000;
+      transition: ease 1s;
     }
+
+    .linkInput:hover{
+      text-decoration: none;
+      box-shadow: 1px 1px 5px #bbbbbb;
+    }
+
+    .linkInput:focus{
+      text-decoration: none;
+      box-shadow: 1px 1px 5px #bbbbbb;
+      outline: none;
+    }
+  }
+}
+
+#sampleBtn {
+  width: 45%;
+  text-transform: uppercase;
+  font-size: 16px;
+  height: 40px;
+  box-shadow: 2px 4px 25px rgb(0 0 0 / 40%);
+  margin-bottom: 15px;
+
+  #circle:hover {
+    height: 25px;
+    width: 180px;
+  }
+}
+#submitbtn {
+  box-shadow: 2px 4px 25px rgb(0 0 0 / 40%);
+  width: 60%;
+  text-transform: uppercase;
+  font-size: 16px;
+  height: 30px;
+  margin: 3px auto;
+
+  #circle:hover {
+    height: 20px;
+    width: 80px;
   }
 }

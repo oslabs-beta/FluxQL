@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  background-color: $currentline;
+  margin-bottom: 5px;
+  padding-bottom: 8px;
+  // border-bottom: 1px solid black;
 }
 
 // PSQL Graph Styling

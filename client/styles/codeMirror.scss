@@ -6,15 +6,20 @@
 }
 
 .codeButtons {
-  margin-bottom: 5px;
-}
-
-.exportBtnDiv {
   display: flex;
-  flex-direction: row-reverse;
+  margin-bottom: 5px;
+  padding-bottom: 8px;
+  width: 100%;
+  background-color: #222;
+  border-bottom: 1px solid black;
+
+  .exportButton {
+    margin-left: auto;
+    margin-right: 5px;
+  }
 }
 
-#ExportButton {
-  margin-top: 5px;
-  width: 30px;
+.CodeMirror-vscrollbar {
+  display: none !important;
+  // background: #000; 
 }

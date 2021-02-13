@@ -7,9 +7,6 @@
 @import './adviceGraph.scss';
 @import './adviceCodeBlock.scss';
 
-@import 'codemirror/lib/codemirror.css';
-@import 'codemirror/theme/dracula.css';
-
 * {
   outline: none;
 }
@@ -19,13 +16,17 @@ svg:hover {
 }
 
 body {
-  background-color: #282a36;
+  background: $background;
   color: white;
   font-family: 'Roboto';
 }
 
 h1 {
-  color: $purple;
+  color: $foreground;
+  font-weight: lighter;
+  font-family: 'Righteous';
+  // -webkit-text-stroke: 1px white;
+  text-shadow: -1px 0 rgba(0,0,0,.3), 0 1px rgba(255,255,255,.3), 1px 0 rgba(255,255,255,.3), 0 -1px rgba(255,255,255,.3);
 }
 
 // for App Page
@@ -34,7 +35,7 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
-
+  box-shadow: 2px 4px 25px rgb(0 0 0 / 20%);
   height: 100%; // come back to check on the scroll...
 
   #AppPage {
@@ -42,7 +43,7 @@ h1 {
     height: calc(100vh - 10px);
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 5px 5px;
+    gap: 10px 15px;
     border-radius: 15px;
     grid-template-areas:
       'Advice Graph Graph'
@@ -74,3 +75,50 @@ h1 {
     }
   }
 }
+
+/* button styling */
+.buttonClass {
+    box-shadow: 2px 4px 25px rgb(0 0 0 / 20%);
+    background: $comment;
+    height: 30px;
+    min-width: 70px;
+    border: none;
+    border-radius: 5px;
+    color: #eee;
+    font-size: 12px;
+    font-family: Roboto;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 1px;
+    margin-top: 5px;
+  }
+
+  .buttonClass:nth-child(1) {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .buttonClass #circle {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
+    overflow: hidden;
+    transition: 500ms;
+  }
+  
+  .buttonClass:hover #circle {
+    background: transparent;
+    height: 25px;
+    width: 50px;
+    border-radius: 0;
+    border-bottom: 2px solid #eee;
+  }
+//#circle
+  .buttonClass:active  {
+    background: #a1c4fd;
+    color: black;
+  }

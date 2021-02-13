@@ -23,7 +23,7 @@ export default [
   {
     Type: 'Mutations',
     Amount: 18,
-    Description: 'some fake description describing mutations',
+    Description: 'some description describing mutations',
     Example: `    mutation {
       deletePerson (_id: <insert value here> ) {
         gender,
