@@ -4,7 +4,7 @@ const { pascalCase } = require('pascal-case');
 const mutationHelper = {};
 const customHelper = {};
 
-const typeSet = (str) => {
+const typeSet = (str: string): string => {
   switch (str) {
     case 'character varying':
       return 'String';
@@ -32,6 +32,10 @@ const typeConversion = {
   boolean: 'Boolean',
   numeric: 'Int',
 }; // return 'Int' if undefined;
+
+const isJoinTable = (foreignKeys, columns) => {
+  return Object.keys(columns).length === Object.keys(foreignKeys).length + 1;
+};
 
 mutationHelper.create = (tableName, primaryKey, foreignKeys, columns) => {
   return `\n    ${toCamelCase(
@@ -83,10 +87,6 @@ mutationHelper.paramType = (primaryKey, foreignKeys, columns, isRequired) => {
   }
   if (typeDef !== '') typeDef += '    ';
   return typeDef;
-};
-
-const isJoinTable = (foreignKeys, columns) => {
-  return Object.keys(columns).length === Object.keys(foreignKeys).length + 1;
 };
 
 customHelper.getColumns = (primaryKey, foreignKeys, columns) => {
@@ -168,7 +168,7 @@ customHelper.getRelationships = (tableName, tables) => {
   return relationships;
 };
 
-const schemaImport = (uri) => {
+const schemaImport = (uri: string): string => {
   return (
     `const { makeExecutableSchema } = require('graphql-tools');\n` +
     `const { Pool } = require('pg');\n` +
@@ -183,7 +183,7 @@ const schemaImport = (uri) => {
   );
 };
 
-const schemaExport = () => {
+const schemaExport = (): string => {
   return `  const schema = makeExecutableSchema({    
     typeDefs,    
     resolvers,
@@ -192,19 +192,25 @@ const schemaExport = () => {
     module.exports = schema;`;
 };
 
-
-const queryDescription = (tableName, columns) => {
+const queryDescription = (tableName: string, columns: string[]): string => {
   return `A GraphQL query is composed of fields and is used to read or fetch values. In the example query below, we are querying for the field "${tableName}" and within that, querying for the fields: "${columns.join(
     ', '
   )}, etc". 
   
   You can test out this query by copying the code and clicking "Playground".`;
 };
-const mutationDescription = (tableName, mutationName, primaryKey, columns) => {
-  return `A GraphQL mutation is used to write/post, update, or delete values. In the example mutation below, we are deleting a value from ${tableName}, using our defined mutation, ${mutationName}, and we are passing in an argument of the primary key, ${primaryKey}. The columns specified beneath the mutation (${columns.join(', ')}, etc.) are the columns we would like to return from this mutation. 
+const mutationDescription = (
+  tableName: string,
+  mutationName: string,
+  primaryKey: string,
+  columns: string[]
+): string => {
+  return `A GraphQL mutation is used to write/post, update, or delete values. In the example mutation below, we are deleting a value from ${tableName}, using our defined mutation, ${mutationName}, and we are passing in an argument of the primary key, ${primaryKey}. The columns specified beneath the mutation (${columns.join(
+    ', '
+  )}, etc.) are the columns we would like to return from this mutation. 
   
   You can test out this mutation by copying the code and clicking "Playground". `;
-}
+};
 
 const typeDescription = `The GraphQL schema defines the server's API, allowing clients to know which operations can be performed by the server. With it, you can define object types and fields to represent data that can be retrieved from the API as well as root types that define the group of operations that the API allows.
 While we can define custom types in the schema, the GraphQL specification also defines a set of built-in scalar types. They are Int, Float, Boolean, String, and ID.`;
