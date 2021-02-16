@@ -4,7 +4,7 @@ const { pascalCase } = require('pascal-case');
 const mutationHelper = {};
 const customHelper = {};
 
-const typeSet = (str: string): string => {
+const typeSet = (str) => {
   switch (str) {
     case 'character varying':
       return 'String';
@@ -187,7 +187,7 @@ customHelper.getRelationships = (tableName, tables) => {
   return relationships;
 };
 
-const schemaImport = (uri: string): string => {
+const schemaImport = (uri) => {
   return (
     `const { makeExecutableSchema } = require('graphql-tools');\n` +
     `const { Pool } = require('pg');\n` +
@@ -202,7 +202,7 @@ const schemaImport = (uri: string): string => {
   );
 };
 
-const schemaExport = (): string => {
+const schemaExport = () => {
   return `  const schema = makeExecutableSchema({    
     typeDefs,    
     resolvers,
@@ -211,7 +211,7 @@ const schemaExport = (): string => {
     module.exports = schema;`;
 };
 
-const queryDescription = (tableName: string, columns: string[]): string => {
+const queryDescription = (tableName, columns) => {
   return `A GraphQL query is composed of fields and is used to read or fetch values. In the example query below, we are querying for the field "${tableName}" and within that, querying for the fields: "${columns.join(
     ', '
   )}, etc". 
@@ -219,11 +219,11 @@ const queryDescription = (tableName: string, columns: string[]): string => {
   You can test out this query by copying the code and clicking "Playground".`;
 };
 const mutationDescription = (
-  tableName: string,
-  mutationName: string,
-  primaryKey: string,
-  columns: string[]
-): string => {
+  tableName,
+  mutationName,
+  primaryKey,
+  columns
+) => {
   return `A GraphQL mutation is used to write/post, update, or delete values. In the example mutation below, we are deleting a value from ${tableName}, using our defined mutation, ${mutationName}, and we are passing in an argument of the primary key, ${primaryKey}. The columns specified beneath the mutation (${columns.join(
     ', '
   )}, etc.) are the columns we would like to return from this mutation. 
@@ -248,3 +248,4 @@ module.exports = {
   typeDescription,
   resolverDescription,
 };
+ 
