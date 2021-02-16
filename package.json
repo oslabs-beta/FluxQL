@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "fetest": "react-scripts test",
     "start": "NODE_ENV=production nodemon server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "cross-env NODE_ENV=development webpack serve --open --hot & nodemon server/server.js"
@@ -13,6 +14,8 @@
   "author": "Daniel Dolich, Emily Krebs, Heidi Kim, Ross Sarcona, Tommy Liang",
   "license": "MIT",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
     "@types/d3": "^6.3.0",
     "@types/file-saver": "^2.0.1",
     "@types/node": "^14.14.27",
