@@ -23,6 +23,25 @@ const typeSet = (str: string): string => {
   }
 };
 
+// function typeSet (str: string): string {
+//     switch (str) {
+//     case 'character varying':
+//       return 'String';
+//     case 'character':
+//       return 'String';
+//     case 'integer':
+//       return 'Int';
+//     case 'text':
+//       return 'String';
+//     case 'date':
+//       return 'String';
+//     case 'boolean':
+//       return 'Boolean';
+//     default:
+//       return 'Int';
+//   }
+// }
+
 const typeConversion = {
   'character varying': 'String',
   character: 'String',

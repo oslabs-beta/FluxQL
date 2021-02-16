@@ -5,8 +5,8 @@ const {
   schemaImport,
   schemaExport,
   typeDescription,
-  resolverDescription
-} = require('../pgGenerators/helperFunctions.js');
+  resolverDescription,
+} = require('../pgGenerators/helperFunctions.ts');
 const fs = require('fs');
 const path = require('path');
 const pgQuery = fs.readFileSync('server/queries/tables.sql', 'utf8');
@@ -53,9 +53,11 @@ pgController.generateSchema = (req, res, next) => {
       mutationTypeCount,
       queryExample,
       mutationExample,
-      typeExample
+      typeExample,
     } = schemaGenerator.assembleTypes(tables);
-    const { resolvers, resolverExample } = schemaGenerator.assembleResolvers(tables);
+    const { resolvers, resolverExample } = schemaGenerator.assembleResolvers(
+      tables
+    );
 
     res.locals.schema = { types, resolvers };
     res.locals.advice = [
@@ -82,7 +84,7 @@ pgController.generateSchema = (req, res, next) => {
         Amount: 10,
         Description: resolverDescription,
         Example: resolverExample,
-      }
+      },
     ];
     // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc
     return next();

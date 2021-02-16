@@ -1,4 +1,5 @@
 {
+  "parser": "@typescript-eslint/parser",
   "root": true,
   "ignorePatterns": [
     "**/test",
@@ -14,15 +15,18 @@
   ],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
   "rules": {
+    "@typescript-eslint/no-var-requires": 0,
     "indent": [
       "warn",
       2

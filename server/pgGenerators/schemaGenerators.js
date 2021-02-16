@@ -1,5 +1,5 @@
 const resolverGenerator = require('../pgGenerators/resolverGenerators.js');
-const { isJoinTable } = require('./helperFunctions.js');
+const { isJoinTable } = require('./helperFunctions.ts');
 
 const schemaGenerator = {};
 const { mutations } = require('./typeGenerator');
@@ -11,7 +11,7 @@ schemaGenerator.assembleTypes = (tables) => {
   let customType = '';
   let queryExample;
   let mutationExample;
-  let typeExample ='';
+  let typeExample = '';
   let queryTypeCount = 0;
   let mutationTypeCount = 0;
   for (const tableName in tables) {
@@ -50,7 +50,7 @@ schemaGenerator.assembleResolvers = (tables) => {
   let queryResolvers = '';
   let mutationResolvers = '';
   let customRelationshipResolvers = '';
-  let resolverExample ='';
+  let resolverExample = '';
 
   for (const currentTable in tables) {
     const tableData = tables[currentTable];
@@ -60,8 +60,9 @@ schemaGenerator.assembleResolvers = (tables) => {
         currentTable,
         tableData
       );
-      if (!resolverExample) resolverExample += (queryResolvers.split('},')[0] + '}').trim();
-    
+      if (!resolverExample)
+        resolverExample += (queryResolvers.split('},')[0] + '}').trim();
+
       mutationResolvers += resolverGenerator.assembleMutations(
         currentTable,
         tableData
@@ -72,8 +73,8 @@ schemaGenerator.assembleResolvers = (tables) => {
       );
     }
   }
-  console.log(resolverExample)
-  const resolvers = 
+  console.log(resolverExample);
+  const resolvers =
     '\n  const resolvers = {\n' +
     '    Query: {' +
     `      ${queryResolvers}\n` +
@@ -82,13 +83,11 @@ schemaGenerator.assembleResolvers = (tables) => {
     `      ${mutationResolvers}\n` +
     '    },\n' +
     `      ${customRelationshipResolvers}\n  }\n`;
-  
-    return {
-      resolvers,
-      resolverExample
-    }
+
+  return {
+    resolvers,
+    resolverExample,
+  };
 };
 
 module.exports = schemaGenerator;
-
-
