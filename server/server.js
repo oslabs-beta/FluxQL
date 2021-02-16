@@ -36,6 +36,7 @@ app.use('/graphql', graphqlHTTP({
 /* Route for Mongo & PG URI */
 app.use('/', router);
 
+
 // catch all
 app.use('*', (req, res, next) => {
   return res.status(404).send('Sorry, wrong page! Try again! 🤪');
