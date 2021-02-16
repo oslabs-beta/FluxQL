@@ -1,7 +1,7 @@
 const { singular } = require('pluralize');
 const camelCase = require('camelcase');
-const { pascalCase }= require('pascal-case');
-const { isJoinTable } = require('./helperFunctions.js');
+const { pascalCase } = require('pascal-case');
+const { isJoinTable } = require('./helperFunctions.ts');
 const resolverGenerator = {};
 
 /* currentTable: {
@@ -55,7 +55,10 @@ resolverGenerator.assembleCustomRelationships = (currentTable, tables) => {
   const queryName = pascalCase(singular(currentTable));
   let relationshipTypes = '';
 
-  relationshipTypes += resolverGenerator.determineRelationships(currentTable, tables);
+  relationshipTypes += resolverGenerator.determineRelationships(
+    currentTable,
+    tables
+  );
   return `
     ${queryName}: {
       ${relationshipTypes}
@@ -94,8 +97,9 @@ resolverGenerator.createMutation = (currentTable, primaryKey, columns) => {
 
   return `
       ${queryName}: (parent, args) => {
-        const query = 'INSERT INTO ${currentTable}(${queryValues
-          .join(', ')}) VALUES(${queryValues.map((el, i) => `$${++i}`).join(', ')}) RETURNING *';
+        const query = 'INSERT INTO ${currentTable}(${queryValues.join(
+    ', '
+  )}) VALUES(${queryValues.map((el, i) => `$${++i}`).join(', ')}) RETURNING *';
         const values = [${queryValues
           .map((column) => `args.${column}`)
           .join(', ')}];
@@ -142,28 +146,28 @@ resolverGenerator.determineRelationships = (currentTable, tables) => {
   const { primaryKey, referencedBy, foreignKeys } = tables[currentTable];
   let relationships = '';
 
-  Object.keys(referencedBy).forEach(refTable => {
-    const {  
+  Object.keys(referencedBy).forEach((refTable) => {
+    const {
       referencedBy: foreignRefBy,
       foreignKeys: foreignFKeys,
-      columns: foreignColumns
+      columns: foreignColumns,
     } = tables[refTable];
 
     // One-to-One relationship
     if (foreignRefBy && foreignRefBy[currentTable]) {
       relationships += resolverGenerator.oneToOne(
-        currentTable, 
-        primaryKey, 
-        refTable, 
+        currentTable,
+        primaryKey,
+        refTable,
         referencedBy[refTable]
       );
     }
     // One-to-Many relationship
     else if (!isJoinTable(foreignFKeys, foreignColumns)) {
       relationships += resolverGenerator.oneToMany(
-        currentTable, 
-        primaryKey, 
-        refTable, 
+        currentTable,
+        primaryKey,
+        refTable,
         referencedBy[refTable]
       );
     }
@@ -171,14 +175,15 @@ resolverGenerator.determineRelationships = (currentTable, tables) => {
     else {
       // iterate through the foreign keys of the refTable -- refTable is a Join Table
       // locate the foreign key that does not reference our current table (this is the link to the 3rd table)
-      Object.keys(foreignFKeys).forEach(FKey => {
+      Object.keys(foreignFKeys).forEach((FKey) => {
         if (currentTable !== foreignFKeys[FKey].referenceTable) {
           // store the name of the table that the join table links to our current table
           const manyToManyTable = foreignFKeys[FKey].referenceTable; // films
           // store the foreign key from the join table that links to the manyToManyTable
           const manyToManyTableRefKey = FKey; // films_id
           // store the foreign key from the join table that links the currentTable
-          const currentTableRefKey = tables[currentTable].referencedBy[refTable]; // person_id
+          const currentTableRefKey =
+            tables[currentTable].referencedBy[refTable]; // person_id
           // store the primary key name from the manyToManyTable
           const manyToManyTablePKey = tables[manyToManyTable].primaryKey; // primary key of the films table (_id)
           relationships += resolverGenerator.manyToMany(
@@ -194,27 +199,32 @@ resolverGenerator.determineRelationships = (currentTable, tables) => {
       });
       // confirm all relationships from foreign keys are captured
       if (foreignKeys) {
-        Object.keys(foreignKeys).forEach(fk => {
+        Object.keys(foreignKeys).forEach((fk) => {
           const refTable = tables[currentTable].foreignKeys[fk].referenceTable;
           const refTablePk = tables[refTable].primaryKey;
           const refKey = tables[currentTable].foreignKeys[fk].referenceKey;
           const checkQuery = resolverGenerator.foreignKeyCheck(
-            currentTable, 
-            primaryKey, 
+            currentTable,
+            primaryKey,
             refKey,
             fk,
             refTable,
             refTablePk
           );
           if (!relationships.includes(checkQuery)) relationships += checkQuery;
-        })
+        });
       }
     }
   });
   return relationships;
 };
 
-resolverGenerator.oneToOne = (currentTable, primaryKey, refTable, refForeignKey) => {
+resolverGenerator.oneToOne = (
+  currentTable,
+  primaryKey,
+  refTable,
+  refForeignKey
+) => {
   return `
         ${camelCase(refTable)}: (${camelCase(currentTable)}) => {
           const query = 'SELECT * FROM ${refTable} WHERE ${refForeignKey} = $1';
@@ -225,7 +235,12 @@ resolverGenerator.oneToOne = (currentTable, primaryKey, refTable, refForeignKey)
         },`;
 };
 
-resolverGenerator.oneToMany = (currentTable, primaryKey, refTable, refForeignKey) => {
+resolverGenerator.oneToMany = (
+  currentTable,
+  primaryKey,
+  refTable,
+  refForeignKey
+) => {
   return `
         ${camelCase(refTable)}: (${camelCase(currentTable)}) => {
           const query = 'SELECT * FROM ${refTable} WHERE ${refForeignKey} $1';
@@ -237,15 +252,14 @@ resolverGenerator.oneToMany = (currentTable, primaryKey, refTable, refForeignKey
 };
 
 resolverGenerator.manyToMany = (
-  currentTable, 
-  primaryKey, 
-  refTable, 
-  manyToManyTableRefKey, 
-  currentTableRefKey, 
-  manyToManyTable, 
+  currentTable,
+  primaryKey,
+  refTable,
+  manyToManyTableRefKey,
+  currentTableRefKey,
+  manyToManyTable,
   manyToManyTablePKey
-  ) => {
-
+) => {
   return `
         ${camelCase(manyToManyTable)}: (${camelCase(currentTable)}) => {
           const query = 'SELECT * FROM ${manyToManyTable} LEFT OUTER JOIN ${refTable} ON ${manyToManyTable}.${manyToManyTablePKey} = ${refTable}.${manyToManyTableRefKey} WHERE ${refTable}.${currentTableRefKey} = $1';
@@ -256,7 +270,14 @@ resolverGenerator.manyToMany = (
         }, `;
 };
 
-resolverGenerator.foreignKeyCheck = (currentTable, primaryKey, refKey, fk, refTable, refTablePK) => {
+resolverGenerator.foreignKeyCheck = (
+  currentTable,
+  primaryKey,
+  refKey,
+  fk,
+  refTable,
+  refTablePK
+) => {
   return `
         ${camelCase(refTable)}: (${camelCase(currentTable)}) => {
           const query = 'SELECT ${refTable}.* FROM ${refTable} LEFT OUTER JOIN ${currentTable} ON ${refTable}.${refTablePK} = ${currentTable}.${refKey} WHERE ${currentTable}.${primaryKey} = $1';
@@ -264,8 +285,7 @@ resolverGenerator.foreignKeyCheck = (currentTable, primaryKey, refKey, fk, refTa
           return db.query(query, values)
             .then(data => data.rows)
             .catch(err => new Error(err));
-        }, `
+        }, `;
 };
-
 
 module.exports = resolverGenerator;

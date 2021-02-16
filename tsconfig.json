@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     // Target latest version of ECMAScript.
-    "target": "esnext",
+    "target": "es6",
     // path to output directory
     "outDir": "./dist/",
     // enable strict null checks as a best practice
@@ -26,7 +27,6 @@
       "es2017.object",
       "dom"
     ],
-    "module": "es6",
     "removeComments": true,
     "alwaysStrict": true,
     "allowUnreachableCode": false,
