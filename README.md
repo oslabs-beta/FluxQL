@@ -25,18 +25,23 @@ Visit ..site.. to sink your teeth into the tool.
 ## How does DraQLa work? 
 First, start by importing the desired PostgreSQL database that you want to convert into a GraphQL API and enter the URI as prompted. (If you don't have one, feel free to test with our Sample Database!) 
 
-DraQLa will immediately start by extracting all of your database's tables and relationships, and will generate compatible GraphQL schemas, which consists of types and their corresponding resolvers.
-<!-- image here -->
+DraQLa will immediately start by extracting all of your database's tables and relationships, and will generate compatible GraphQL schemas, which consists of types and their corresponding resolvers. <br>
+![graph](./client/assets/modal.gif)
 
-DraQLa also features a user friendly visual representation that depicts the parts of your database that can now be queried and manipulated via GraphQL. 
-<!-- image here -->
+DraQLa also features a user friendly visual representation that depicts the parts of your database that can now be queried and manipulated via GraphQL. <br><br>
+![graph](./client/assets/graphgif.gif)
 
 The Advice Console provides an overview on:
-* GraphQL 
-* how you and your clients can access and manipulate your database
-* a sample query and mutation 
+  * GraphQL 
+  * how you and your clients can access and manipulate your database
+  * a sample query and mutation 
+<br>
+![graph](./client/assets/advice.gif)
 
-In addition to your new schema, DraQLa spins up a temporary GraphQL server to allow you to test out the sample query via GraphQL's Playground.
+
+In addition to your new schema, DraQLa spins up a temporary GraphQL server to allow you to test out the sample query via GraphQL's Playground. <br><br>
+![graph](./client/assets/playground.gif)
+
 
 When you're ready to adopt your schema, click "Export" to receieve the code and further integration instructions.
 
