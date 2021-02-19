@@ -10,7 +10,7 @@ import {
 import GraphContainer from '../containers/graphContainer';
 import CodeContainer from '../containers/codeContainer';
 import AdviceContainer from '../containers/adviceContainer';
-import URIModal from '../modals/URIModal'
+import URIModal from '../modals/URIModal';
 
 
 export default function appPage() {
@@ -35,7 +35,7 @@ export default function appPage() {
       fullApp.style.filter = 'none';
       appHeader.style.filter = 'none';
     }
-  }, [generalState.URImodal])
+  }, [generalState.URImodal]);
 
 
   return (

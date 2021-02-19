@@ -1,0 +1,33 @@
+.demoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .demoOverview {
+    max-width: 40%;
+    overflow-wrap: break-word;
+  }
+
+  .demoRow {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    padding: 20px;
+    
+    .demoDescription {
+      margin: 15px;
+      overflow-wrap: break-word;
+      flex-grow: 1;
+      max-width: 50%;
+      padding-top: 10%;
+    }
+
+    .demoImage {
+      flex-grow: 2;
+      min-width: 25%;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
+}

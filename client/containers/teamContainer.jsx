@@ -13,11 +13,11 @@ export default function teamContainer() {
 
   const cards = humans.map((human, i) => {
     return <TeamCard key={i} name = {human.name} profilePic = {human.profilePic} github = {human.github} linkedin = {human.linkedin}/>
-  })
+  });
 
   return (
     <div className ='teamContainer'>
       {cards}
     </div>
-  )
+  );
 }

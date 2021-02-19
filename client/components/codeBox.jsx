@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/mode/javascript/javascript';
-import '../../node_modules/codemirror/lib/codemirror.css';
-import '../../node_modules/codemirror/theme/dracula.css';
+// import '../../node_modules/codemirror/lib/codemirror.css';
+// import '../../node_modules/codemirror/theme/dracula.css';
 
 // import context object
 import { CodeContext } from '../state/contexts';
