@@ -3,33 +3,49 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    
     max-width: 100%;
 
-   .teamCard {
-     margin: 15px;
-     min-width: 30%;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
+    .teamCard {
+      margin: 15px;
+      min-width: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-     .profilePicture{
-         width: 210px;
-         height: 210px;
-         border-radius: 90px;
-     }
-     .logoContainer {
+      .profilePicture{
+        width: 210px;
+        height: 210px;
+        border-radius: 90px;
+      }
+      .logoContainer {
         display: flex;
         flex-direction: row;
-
-       .logos{
-         width: 50px;
-         height: 50px;
-         filter: invert(100%);
-         padding: 5px;
+        
+        .logos{
+          width: 50px;
+          height: 50px;
+          filter: invert(100%);
+          padding: 5px;
+          // transition: ease .3s;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        
+        .logos:hover {
+          box-shadow: 2px 4px 25px rgb(0 0 0 / 10%);
+          // transform: rotate(10deg);
+          animation: jiggle .4s ease;
         }
       }
-   }
+  }
 }
-  
+
+@keyframes jiggle {
+  0% {
+    transform: rotate(50deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+}

@@ -7,6 +7,12 @@
 @import './adviceGraph.scss';
 @import './adviceCodeBlock.scss';
 @import './team.scss';
+@import './demo.scss';
+@import '../../node_modules/codemirror/lib/codemirror.css';
+@import '../../node_modules/codemirror/theme/dracula.css';
+@import '../../node_modules/codemirror/theme/material.css';
+@import '../../node_modules/codemirror/theme/material-palenight.css';
+
 
 * {
   outline: none;
@@ -129,6 +135,10 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    #teamHeader {
+      margin-top: 10%;
+    }
 
     .teamPage {
       display: flex;

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import HelpButton from '../components/helpButton';
-import UndoButton from '../components/undoButton';
+// import HelpButton from '../components/helpButton';
+// import UndoButton from '../components/undoButton';
 import PSQLGraph from '../graphs/psqlGraph';
 
 // import Context Obj
@@ -21,12 +21,12 @@ export default function graphContainer() {
 
   return (
     <div className='GraphContainer'>
-    {psqlState.d3Tables.name &&     
-      <div className="graphBtns">
-        <UndoButton />
-        <HelpButton />
-      </div>
-      }
+      {/* {psqlState.d3Tables.name &&      */}
+      {/* // <div className="graphBtns"> */}
+      {/* <UndoButton /> */}
+      {/* <HelpButton /> */}
+      {/* </div> */}
+      {/* // } */}
       {graph}
     </div>
   )
