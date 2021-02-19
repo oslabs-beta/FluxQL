@@ -1,7 +1,7 @@
 const { singular } = require('pluralize');
 const camelCase = require('camelcase');
 const { pascalCase } = require('pascal-case');
-const { isJoinTable } = require('./helperFunctions.ts');
+const { isJoinTable } = require('./helperFunctions.js');
 const resolverGenerator = {};
 
 /* currentTable: {

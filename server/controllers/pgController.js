@@ -6,7 +6,7 @@ const {
   schemaExport,
   typeDescription,
   resolverDescription,
-} = require('../pgGenerators/helperFunctions.ts');
+} = require('../pgGenerators/helperFunctions.js');
 const fs = require('fs');
 const path = require('path');
 const pgQuery = fs.readFileSync('server/queries/tables.sql', 'utf8');

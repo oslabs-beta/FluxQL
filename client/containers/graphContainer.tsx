@@ -16,7 +16,6 @@ export default function graphContainer() {
   if (psqlState.d3Tables.name) {
     graph = <PSQLGraph />
   } else {
-    console.log(' *** WE STILL NEED TO CREATE A MONGO GRAPH ***')
     //graph = <mongoGraph />
   }
 
