@@ -10,27 +10,28 @@ export default function adviceGraph() {
 
   const adviceGraphContainer = useRef(null);
   const pieTextContainer = useRef(null);
-  const displayPieText =
+  const displayPieText = (
     <div>
       <h1 id="segmentTitle"></h1>
       <p id="segmentText"></p>
       <p id="staticText"></p>
-    </div>;
+    </div>
+  );
 
   useEffect(() => {
     // if there is an update in advice state, render new graph
 
     if (adviceState.advice.length > 0) {
-    //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
-    //   if (adviceGraphContainer.current && pieText.current) {
-    //     //d3.select(adviceGraphContainer.current).html('');
-    //     // clear out the title
-    //     d3.select('#segmentTitle').html('');
-    //     d3.select('#segmentText').html('');
-    //     d3.select('#segmentTitle').html('Advice Console');
-    //     d3.select('#segmentText').html(adviceState.dynamicText);
-    //     d3.select('#staticText').html(adviceState.staticText);
-    //  }
+      //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
+      //   if (adviceGraphContainer.current && pieText.current) {
+      //     //d3.select(adviceGraphContainer.current).html('');
+      //     // clear out the title
+      //     d3.select('#segmentTitle').html('');
+      //     d3.select('#segmentText').html('');
+      //     d3.select('#segmentTitle').html('Advice Console');
+      //     d3.select('#segmentText').html(adviceState.dynamicText);
+      //     d3.select('#staticText').html(adviceState.staticText);
+      //  }
 
       //const pieText = d3.select(pieTextContainer.current)
       d3.select('#segmentTitle')
@@ -53,12 +54,11 @@ export default function adviceGraph() {
       const height = width;
       const radius = (Math.min(width, height) - 15) / 2;
 
-
       //! an array of the "Type" strings -> ['Queries','Mutations'] for the color scheme
       const type = function getObject(arr) {
         const types = [];
         for (let i = 0; i < arr.length; i++) {
-          const obj = arr[i]; 
+          const obj = arr[i];
           types.push(obj.Type);
         }
         return types;
@@ -69,8 +69,7 @@ export default function adviceGraph() {
         .scaleOrdinal()
         .domain(type(adviceState.advice))
         // .range(["#E24161",'#8be9fd', "#EE6617", "#FFBF00"]);
-        .range(["#0f4c75",'#c3bef0', "#c06c84", "#f67280"]);
-
+        .range(['#0f4c75', '#c3bef0', '#c06c84', '#f67280']);
 
       //! creating the outer arc of the graph
       const arcOver = d3
@@ -85,7 +84,7 @@ export default function adviceGraph() {
         .innerRadius(150);
 
       //! creates an object for each piece of data, prepping for the pie graph
-      const pie = d3 
+      const pie = d3
         .pie()
         .sort(null)
         .value(function (d) {
@@ -93,7 +92,7 @@ export default function adviceGraph() {
         });
 
       // ! creates the transition of the onClick
-    
+
       function change(d, i) {
         const angle =
           90 -
@@ -133,8 +132,9 @@ export default function adviceGraph() {
         .enter()
         .append('path')
         .attr('class', 'piepath')
-        .attr('id', function(d) {
-          return d.data.Type})
+        .attr('id', function (d) {
+          return d.data.Type;
+        })
         .style('fill', function (d) {
           return color(d.data.Type);
         })
@@ -152,9 +152,7 @@ export default function adviceGraph() {
           //! updating the Header for text card
           if (d.data.Type === 'Types' || d.data.Type === 'Resolvers') {
             d3.select('#segmentTitle').html(
-              '<h4 id="segmentTitle">' +
-                d.data.Type +
-                '</h4>'
+              '<h4 id="segmentTitle">' + d.data.Type + '</h4>'
             );
           } else {
             d3.select('#segmentTitle').html(
@@ -169,7 +167,6 @@ export default function adviceGraph() {
           const pieceOfPieColor = d3.select(`#${d.data.Type}`).style('fill');
           d3.select('#segmentTitle').style('color', pieceOfPieColor);
 
-        
           //! removing starting description
           const staticText = d3.select('#staticText');
           staticText.html('');
@@ -190,14 +187,13 @@ export default function adviceGraph() {
         });
     }
     return function cleanUpAdvice() {
-    
-        d3.select(adviceGraphContainer.current).html('');
-        // clear out the title
-        d3.select('#segmentTitle').html('');
-        d3.select('#segmentText').html('');
-        // d3.select('#segmentTitle').html('Advice Console');
-        // d3.select('#segmentText').html(adviceState.dynamicText);
-    }
+      d3.select(adviceGraphContainer.current).html('');
+      // clear out the title
+      d3.select('#segmentTitle').html('');
+      d3.select('#segmentText').html('');
+      // d3.select('#segmentTitle').html('Advice Console');
+      // d3.select('#segmentText').html(adviceState.dynamicText);
+    };
   }, [adviceState.dynamicText]);
 
   return (
@@ -208,7 +204,7 @@ export default function adviceGraph() {
           id="pieChart"
           ref={adviceGraphContainer}
         ></div>
-        <div id="pieText" ref={pieTextContainer} >
+        <div id="pieText" ref={pieTextContainer}>
           {displayPieText}
         </div>
       </div>
