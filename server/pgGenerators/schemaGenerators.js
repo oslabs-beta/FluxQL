@@ -1,5 +1,5 @@
 const resolverGenerator = require('../pgGenerators/resolverGenerators.js');
-const { isJoinTable } = require('./helperFunctions.ts');
+const { isJoinTable } = require('./helperFunctions.js');
 
 const schemaGenerator = {};
 const { mutations } = require('./typeGenerator');
