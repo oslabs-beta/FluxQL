@@ -4,6 +4,11 @@
   align-items: center;
   justify-content: center;
 
+  #overviewText {
+    text-align: center;
+    color: #c3bef0;
+  }
+
   .demoOverview {
     max-width: 40%;
     overflow-wrap: break-word;
@@ -13,14 +18,28 @@
     display: flex;
     flex-direction: row;
     max-width: 50%;
-    padding: 20px;
+    padding: 75px;
     
     .demoDescription {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       margin: 15px;
       overflow-wrap: break-word;
       flex-grow: 1;
       max-width: 50%;
-      padding-top: 10%;
+      padding: 5%;
+      border-radius: 8px;;
+
+      .demoHeader {
+        color: #c3bef0;
+      }
+
+      .demoText {
+        text-align: center;
+        font-family: 'Open sans';
+      }
     }
 
     .demoImage {
