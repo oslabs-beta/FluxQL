@@ -4,7 +4,6 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import ShallowRenderer from 'react-test-renderer/shallow';
 import { server, rest } from '../../__mocks__/mockServer';
 // overall SPA
 import App from '../../client/App';
