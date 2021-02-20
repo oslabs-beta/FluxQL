@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext } from 'react';
 
 export const GeneralContext = createContext();
 export const CodeContext = createContext();
