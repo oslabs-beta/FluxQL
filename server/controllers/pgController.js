@@ -33,7 +33,7 @@ pgController.SQLTableData = (req, res, next) => {
     };
     return next(errObj);
   }
- 
+
   const db = new Pool({ connectionString: psqlURI });
 
   db.query(pgQuery)

@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-// import the ContextObj
-import { GeneralContext } from '../state/contexts';
+// import the custom useContext
+import { useGenContext } from '../state/contexts';
 
 export default function navbar() {
-  const { generalState, generalDispatch } = useContext(GeneralContext);
+  // we invoke the custom useContext
+  const { generalState, generalDispatch } = useGenContext();
 
   let navbarDisplay;
 
