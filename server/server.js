@@ -10,13 +10,13 @@ const PORT = 3000;
 app.use(express.json());
 
 // flow check
-app.use((req, res, next) => {
-  console.log(`
-  👻 👻 👻 FLOW METHOD 👻 👻 👻
-  URL: ${req.url}\n
-  METHOD: ${req.method}\n`);
-  return next();
-});
+// app.use((req, res, next) => {
+//   console.log(`
+//   👻 👻 👻 FLOW METHOD 👻 👻 👻
+//   URL: ${req.url}\n
+//   METHOD: ${req.method}\n`);
+//   return next();
+// });
 
 // static file for webpack dev-server
 app.use(express.static(path.resolve(__dirname, '../dist')));
@@ -58,3 +58,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => console.log(`App is running on 🚀 ${PORT}... 🚀`));
+
+module.exports = app;

@@ -75,7 +75,6 @@ TypeGenerator.exampleQuery = (tableName, tables) => {
   }`;
 
   const queryText = queryDescription(tableName, queryTextColumns);
-  console.log(queryText)
   return [query, queryText];
 };
 

@@ -73,7 +73,6 @@ schemaGenerator.assembleResolvers = (tables) => {
       );
     }
   }
-  console.log(resolverExample);
   const resolvers =
     '\n  const resolvers = {\n' +
     '    Query: {' +
