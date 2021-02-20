@@ -4,6 +4,10 @@ const { pascalCase } = require('pascal-case');
 const mutationHelper = {};
 const customHelper = {};
 
+const validateURIFormat = (uri) => {
+  return uri.slice(0, 12).includes('postgres://');
+};
+
 const typeSet = (str) => {
   switch (str) {
     case 'character varying':
@@ -247,5 +251,6 @@ module.exports = {
   mutationDescription,
   typeDescription,
   resolverDescription,
+  validateURIFormat
 };
  

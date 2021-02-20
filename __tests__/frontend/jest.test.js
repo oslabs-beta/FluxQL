@@ -1,11 +1,11 @@
 import * as React from 'react';
-import '../../testSetup/setupTests';
-import { server, rest } from '../../testSetup/testServer';
+import '../../__mocks__/setupTests';
+import { server, rest } from '../../__mocks__/testServer';
 import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { StateProvider, store as Store } from '../../testSetup/testContexts';
+import { StateProvider, store as Store } from '../../__mocks__/testContexts';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
 // overall SPA
@@ -84,7 +84,7 @@ describe('Renders website', () => {
       expect(element).toBeInTheDocument();
     });
 
-    test('renders Team Container', async () => {
+    test('renders TeamContainer', async () => {
       const { findByText } = render(<TeamContainer />);
       const element = await findByText(/Heidi/i);
       expect(element).toBeInTheDocument();
