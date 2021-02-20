@@ -3,10 +3,10 @@ import * as d3 from 'd3';
 import AdviceCodeBlock from '../components/adviceCodeBlock';
 
 // import Context Obj
-import { AdviceContext } from '../state/contexts';
+import { useAdviceContext } from '../state/contexts';
 
 export default function adviceGraph() {
-  const { adviceState, adviceDispatch } = useContext(AdviceContext);
+  const { adviceState, adviceDispatch } = useAdviceContext();
 
   const adviceGraphContainer = useRef(null);
   const pieTextContainer = useRef(null);

@@ -85,9 +85,25 @@ describe('Rendering graph', () => {
     expect(confirm).toBe(1);
   });
 
-  xit('should render advice graph correctly', () => {
+  it('should render advice graph correctly', () => {
+    const mockState = {
+      adviceState: {
+        advice: [
+          {
+            Type: 'Queries',
+            Amount: 1,
+            Description: 'string',
+            Example: 'string',
+          },
+        ],
+      },
+    };
+    jest
+      .spyOn(MockContexts, 'useAdviceContext')
+      .mockImplementation(() => mockState);
+
     const wrapper = shallow(<AdviceGraph />);
-    wrapper.debug();
-    expect(wrapper.find('svg').length).toEqual(1);
+    const confirm = wrapper.hasClass('container');
+    expect(confirm).toBe(true);
   });
 });
