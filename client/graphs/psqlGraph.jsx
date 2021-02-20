@@ -3,12 +3,12 @@ import * as d3 from 'd3';
 import { project, diagonal } from './helperFunctions';
 
 // import Context Obj
-import { PSQLContext } from '../state/contexts';
+import { usePSQLContext } from '../state/contexts';
 
 export default function psqlGraph() {
   const psqlGraphRef = useRef(null);
 
-  const { psqlState, psqlDispatch } = useContext(PSQLContext);
+  const { psqlState, psqlDispatch } = usePSQLContext();
 
   const dimensions = {
     width: 960,
@@ -235,8 +235,7 @@ export default function psqlGraph() {
 
     return function cleanUpGraph() {
       d3.select(psqlGraphRef.current).html('');
-    }
-    
+    };
   }, [psqlState.d3Tables]);
   return (
     <div>

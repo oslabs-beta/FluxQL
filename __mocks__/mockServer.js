@@ -23,4 +23,4 @@ async function onRoot() {
   return data;
 }
 
-export { server, rest, onRoot };
+export { server, rest };
