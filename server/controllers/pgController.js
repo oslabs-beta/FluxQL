@@ -1,6 +1,7 @@
 const sampleURI = require('./testPSQL.js');
 const schemaGenerator = require('../pgGenerators/schemaGenerators.js');
 const {
+  validateURIFormat,
   isJoinTable,
   schemaImport,
   schemaExport,
@@ -19,11 +20,20 @@ pgController.SQLTableData = (req, res, next) => {
 
   //checking if sample URI is needed
   req.body.sample ? (psqlURI = sampleURI) : (psqlURI = req.body.psqlURI);
-
-  //const { psqlURI } = req.body;
   res.locals.dbURI = psqlURI;
 
-  //const db = new Pool({ connectionString: URI }); // ! change to request body uri in future
+  //checking if manually entered URI is valid format
+  if (!validateURIFormat(psqlURI)) {
+    const errObj = {
+      log: 'Error in SQLTableData: Invalid URI Format',
+      status: 400,
+      message: {
+        err: 'Unable to connect to PG database, please confirm URI',
+      },
+    };
+    return next(errObj);
+  }
+ 
   const db = new Pool({ connectionString: psqlURI });
 
   db.query(pgQuery)

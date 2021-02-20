@@ -22,7 +22,7 @@ router.put('/psql',
 });
 
 router.post('/mongo', (req, res) => {
-  res.status(200).send('mongo')
+  res.status(200).send('mongo');
 });
 
 module.exports = router;
