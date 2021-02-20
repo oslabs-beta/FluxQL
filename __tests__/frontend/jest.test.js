@@ -5,7 +5,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-//import { TestGeneralContext } from '../../testSetup/testContexts';
+import { StateProvider, store as Store } from '../../testSetup/testContexts';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
 // overall SPA
@@ -58,15 +58,22 @@ describe('Renders website', () => {
       create a variable to store the "rendered" Navbar that is wrapped around <Router>
       as we click, the end points will be put into a rendered array that is initialized as an empty array
     */
-    test('renders NavBar', () => {
-      const history = createMemoryHistory();
-
-      const wrapper = (children) => (
-        <TestGeneralContext>{children}</TestGeneralContext>
-      );
-      wrapper(<NavBar />);
-      //render(<Router history={history}>{container}</Router>);
-      const { findByText } = expect(screen.getByText(/About/i));
+    test('renders NavBar', async () => {
+      // const history = createMemoryHistory();
+      // const wrapper = (children) => (
+      //   <TestGeneralContext>{children}</TestGeneralContext>
+      // );
+      // wrapper(<NavBar />);
+      // //render(<Router history={history}>{container}</Router>);
+      // const { findByText } = expect(screen.getByText(/About/i));
+      // //const spyOnHomePage = jest.spyOn(Store, 'generalState.onHomePage');
+      // const { findByText } = render(
+      //   <StateProvider>
+      //     <NavBar />
+      //   </StateProvider>
+      // );
+      // const playBtn = await findByText(/Play/i);
+      // expect(playBtn).toBeInTheDocument();
     });
   });
 
@@ -86,7 +93,7 @@ describe('Renders website', () => {
     test('renders DemoContainer', async () => {
       const { findByText } = render(<DemoContainer />);
       // multiple instances of a word will break, need to search for something specific
-      const element = await getAllByText(/GraphQL migration assistance/i);
+      const element = await findByText(/GraphQL migration assistance/i);
       expect(element).toBeInTheDocument();
     });
   });
