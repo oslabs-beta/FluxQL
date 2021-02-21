@@ -1,4 +1,4 @@
-const sampleURI = require('./testPSQL.js');
+const { URI, secret } = require('./testPSQL.js');
 const schemaGenerator = require('../pgGenerators/schemaGenerators.js');
 const {
   validateURIFormat,
@@ -12,6 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const pgQuery = fs.readFileSync('server/queries/tables.sql', 'utf8');
 const { Pool } = require('pg');
+const CryptoJS = require('crypto-js');
 
 const pgController = {};
 
@@ -19,7 +20,16 @@ pgController.SQLTableData = (req, res, next) => {
   let psqlURI;
 
   //checking if sample URI is needed
-  req.body.sample ? (psqlURI = sampleURI) : (psqlURI = req.body.psqlURI);
+  //req.body.sample ? (psqlURI = URI) : (psqlURI = req.body.psqlURI);
+  if (req.body.sample) {
+    psqlURI = URI;
+  } else {
+    const decrypted = CryptoJS.AES.decrypt(req.body.psqlURI, secret).toString(
+      CryptoJS.enc.Utf8
+    );
+    psqlURI = decrypted;
+  }
+
   res.locals.dbURI = psqlURI;
 
   //checking if manually entered URI is valid format
