@@ -35,10 +35,6 @@ export default function URILink({ databaseName }) {
         })
           .then(data => data.json())
           .then((data) => {
-            console.log('successfully sent to server');
-            console.log('data: ', data);
-
-            // update all Context Objects accordingly
 
             // update Code
             codeDispatch({
