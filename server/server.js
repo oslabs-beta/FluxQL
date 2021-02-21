@@ -9,14 +9,6 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// flow check
-// app.use((req, res, next) => {
-//   console.log(`
-//   👻 👻 👻 FLOW METHOD 👻 👻 👻
-//   URL: ${req.url}\n
-//   METHOD: ${req.method}\n`);
-//   return next();
-// });
 
 // static file for webpack dev-server
 app.use(express.static(path.resolve(__dirname, '../dist')));

@@ -30,12 +30,12 @@ export default function URILink({ databaseName }) {
         className="buttonClass"
         id="submitbtn"
         onClick={() => {
-          // send inputted URL to server
+          // encrypt the inputted URL
           const url = CryptoJS.AES.encrypt(
             document.getElementById(`${databaseName}Input`).value,
             secret
           ).toString();
-          console.log(url, 'THIS IS URL');
+          
           fetch(`/${databaseName.toLowerCase()}`, {
             method: 'POST',
             headers: {
