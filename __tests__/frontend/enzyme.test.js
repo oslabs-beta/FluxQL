@@ -1,8 +1,15 @@
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
-//import { MockContext } from '../../testSetup/testContexts';
+
+// import custom useContext
 import * as MockContexts from '../../client/state/contexts';
+
+// import mock cases
+import { homeGenState, appGenState } from '../../__mocks__/mockCases';
+
+
+// React Components
 import App from '../../client/App';
 import NavBar from '../../client/components/navbar';
 import PSQLGraph from '../../client/graphs/psqlGraph';
@@ -10,54 +17,56 @@ import AdviceGraph from '../../client/graphs/adviceGraph';
 
 configure({ adapter: new Adapter() });
 
-function shallowSetup() {
-  const generalState = {
-    onHomePage: true,
-    URImodal: false,
-    helpModal: false,
-  };
-
-  const enzymeWrapper = shallow(<NavBar />, {
-    context: GeneralContext,
-  });
-
-  return {
-    generalState,
-    enzymeWrapper,
-  };
-}
-
-describe('App', () => {
+describe('<App> renders on the browser', () => {
+  const wrapper = shallow(<App />);
+  
+  /** ! took out this one
   it('renders correctly', () => {
     shallow(<App />);
-  });
+  });*/
 
-  it('contains two images', () => {
-    const wrapper = shallow(<App />);
+  it('App contains Logo and Logotext', () => {
     expect(wrapper.find('img').length).toEqual(2);
   });
 
-  it('should render Home Page NavBar', () => {
-    // set up mockState with real state name as prop, and state properties passed in
-    const mockState = {
-      generalState: {
-        onHomePage: true,
-        URImodal: false,
-        helpModal: false,
-      },
-    };
-    // jest spyOn can only spy on functions, which is why we created our custom useContext (clients/state/context.jsx)
-    // we pass in mockState as context to the spy
-    jest
+  describe('Dynamic NavBar Displays', () => {
+    
+    it('NavBar renders initially', () => {
+      // jest spyOn can only spy on functions, which is why we created our custom useContext (clients/state/context.jsx)
+      // we pass in our mock state as context to the spy
+      jest
       .spyOn(MockContexts, 'useGenContext')
-      .mockImplementation(() => mockState);
+      .mockImplementation(() => homeGenState);
+      
+      const wrapper = shallow(<NavBar />);
+      // create a variable that equal holds the boolean value of whether wrapper has a class of NavBarContainer
+      const confirm = wrapper.hasClass('NavBarContainer');
+      // expects confirm (boolean => true) to be true
+      expect(confirm).toBe(true);
+    });
+    
+    it('Home Page Navbar renders', () => {
+      jest
+        .spyOn(MockContexts, 'useGenContext')
+        .mockImplementation(() => appGenState);
+      const wrapper = shallow(<NavBar/>);
+      const playLink = wrapper.find('Link').childAt(3).text();
+      expect(playLink).toEqual('Play');
+    });
 
-    // wrapper shallow renders navbar
-    const wrapper = shallow(<NavBar />);
-    // create a variable that equal holds the boolean value of whether wrapper has a class of NavBarContainer
-    const confirm = wrapper.hasClass('NavBarContainer');
-    // expects confirm (boolean => true) to be true
-    expect(confirm).toBe(true);
+    it('App Page NavBar renders', () => {
+      jest
+        .spyOn(MockContexts, 'useGenContext')
+        .mockImplementation(() => appGenState);
+
+      const wrapper = shallow(<NavBar />);  
+      const homeLink = wrapper.find('Link').childAt(0).simulate('click');
+      const homeText = homeLink.text();
+      //homeLink.simulate('click');
+      expect(homeText).toEqual('Home');
+      expect(appGenState.generalDispatch).toHaveBeenCalled();
+    })
+
   });
 });
 

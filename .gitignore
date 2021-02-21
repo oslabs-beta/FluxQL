@@ -3,3 +3,4 @@ dist/
 testPSQL.js
 graph
 graphQLServer/
+server/graphQLServer/schema.js
