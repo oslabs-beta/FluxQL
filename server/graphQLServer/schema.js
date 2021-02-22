@@ -1,6 +1,6 @@
 const { makeExecutableSchema } = require('graphql-tools');
 const { Pool } = require('pg');
-const PG_URI = 'postgres://wwgaebae:B8vdUnTJzmByQxgvvqITbuxbIOvafGQJ@ziggy.db.elephantsql.com:5432/wwgaebae';
+const PG_URI = 'postgres://rviqlbrx:EAr3zdbJKfuruitHjFLKg5EItc_1wMfK@ziggy.db.elephantsql.com:5432/rviqlbrx';
 
 const pool = new Pool({
   connectionString: PG_URI
@@ -15,78 +15,142 @@ db.query = (text,params, callback) => {
 
 const typeDefs = `
   type Query {
-    users: [User!]!
-    user(user_id: Int!): User!
-    message: [Message!]!
-    messageByID(message_id: Int!): Message!
-    tasks: [Task!]!
-    task(task_id: Int!): Task!
+    books: [Book!]!
+    book(id: Int!): Book!
+    authors: [Author!]!
+    author(id: Int!): Author!
+    product: [Product!]!
+    productByID(product_id: Int!): Product!
+    bill: [Bill!]!
+    billByID(bill_id: Int!): Bill!
+    person: [Person!]!
+    personByID(id: Int!): Person!
+    orders: [Order!]!
+    order(id: Int!): Order!
   }
 
   type Mutation {
-    createUser(
-      password: String!,
-      username: String!,
-      first_name: String!,
-    ): User!
+    createBook(
+      title: String!,
+      primary_author: String,
+      author_id: Int,
+    ): Book!
 
-    updateUser(
-      password: String!,
-      username: String!,
-      user_id: Int!,
-      first_name: String!,
-    ): User!
+    updateBook(
+      title: String!,
+      primary_author: String,
+      id: Int!,
+      author_id: Int,
+    ): Book!
 
-    deleteUser(user_id: ID!): User!
+    deleteBook(id: ID!): Book!
 
-    createMessage(
-      message: String!,
-      created_at: Int,
-      password: String!,
-    ): Message!
+    createAuthor(
+      name: String!,
+      book_id: Int,
+    ): Author!
 
-    updateMessage(
-      message: String!,
-      message_id: Int!,
-      created_at: Int,
-      password: String!,
-    ): Message!
+    updateAuthor(
+      name: String!,
+      book_id: Int,
+      id: Int!,
+    ): Author!
 
-    deleteMessage(message_id: ID!): Message!
+    deleteAuthor(id: ID!): Author!
 
-    createTask(
-      task: String!,
-      user_id: Int,
-    ): Task!
+    createProduct(
+      product: String!,
+      price: Int!,
+    ): Product!
 
-    updateTask(
-      task_id: Int!,
-      task: String!,
-      user_id: Int,
-    ): Task!
+    updateProduct(
+      product: String!,
+      product_id: Int!,
+      price: Int!,
+    ): Product!
 
-    deleteTask(task_id: ID!): Task!
+    deleteProduct(product_id: ID!): Product!
+
+    createBill(
+      bill: String!,
+      billdate: String!,
+    ): Bill!
+
+    updateBill(
+      bill: String!,
+      bill_id: Int!,
+      billdate: String!,
+    ): Bill!
+
+    deleteBill(bill_id: ID!): Bill!
+
+    createPerson(
+      email: String!,
+      order_id: Int,
+      name: String!,
+    ): Person!
+
+    updatePerson(
+      email: String!,
+      id: Int!,
+      order_id: Int,
+      name: String!,
+    ): Person!
+
+    deletePerson(id: ID!): Person!
+
+    createOrder(
+      items: String!,
+    ): Order!
+
+    updateOrder(
+      items: String!,
+      id: Int!,
+    ): Order!
+
+    deleteOrder(id: ID!): Order!
   }
 
-  type User {
-    user_id: Int!
-    password: String!
-    username: String!
-    first_name: String!
-    tasks: [Task]
+  type Book {
+    id: Int!
+    title: String!
+    primary_author: String
+    author: Author
+    authors: [Author]
   }
 
-  type Message {
-    message_id: Int!
-    message: String!
-    created_at: Int
-    password: String!
+  type Author {
+    id: Int!
+    name: String!
+    book: Book
+    books: [Book]
   }
 
-  type Task {
-    task_id: Int!
-    task: String!
-    users: [User]
+  type Product {
+    product_id: Int!
+    product: String!
+    price: Int
+    bill: [Bill]
+  }
+
+  type Bill {
+    bill_id: Int!
+    bill: String!
+    billdate: String
+    product: [Product]
+  }
+
+  type Person {
+    id: Int!
+    email: String!
+    name: String!
+    orders: [Order]
+  }
+
+  type Order {
+    id: Int!
+    items: String!
+    person: [Person]
   }
 
 `;
@@ -96,46 +160,91 @@ const typeDefs = `
   const resolvers = {
     Query: {      
 
-      user: (parent, args) => {
-        const query = 'SELECT * FROM users WHERE user_id = $1';
-        const values = [args.user_id];
+      book: (parent, args) => {
+        const query = 'SELECT * FROM books WHERE id = $1';
+        const values = [args.id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      users: () => {
-        const query = 'SELECT * FROM users';
+      books: () => {
+        const query = 'SELECT * FROM books';
         return db.query(query)
           .then(data => data.rows)
           .catch(err => new Error(err));
       },
 
-      messageByID: (parent, args) => {
-        const query = 'SELECT * FROM message WHERE message_id = $1';
-        const values = [args.message_id];
+      author: (parent, args) => {
+        const query = 'SELECT * FROM authors WHERE id = $1';
+        const values = [args.id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      message: () => {
-        const query = 'SELECT * FROM message';
+      authors: () => {
+        const query = 'SELECT * FROM authors';
         return db.query(query)
           .then(data => data.rows)
           .catch(err => new Error(err));
       },
 
-      task: (parent, args) => {
-        const query = 'SELECT * FROM tasks WHERE task_id = $1';
-        const values = [args.task_id];
+      productByID: (parent, args) => {
+        const query = 'SELECT * FROM product WHERE product_id = $1';
+        const values = [args.product_id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      tasks: () => {
-        const query = 'SELECT * FROM tasks';
+      product: () => {
+        const query = 'SELECT * FROM product';
+        return db.query(query)
+          .then(data => data.rows)
+          .catch(err => new Error(err));
+      },
+
+      billByID: (parent, args) => {
+        const query = 'SELECT * FROM bill WHERE bill_id = $1';
+        const values = [args.bill_id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      bill: () => {
+        const query = 'SELECT * FROM bill';
+        return db.query(query)
+          .then(data => data.rows)
+          .catch(err => new Error(err));
+      },
+
+      personByID: (parent, args) => {
+        const query = 'SELECT * FROM person WHERE id = $1';
+        const values = [args.id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      person: () => {
+        const query = 'SELECT * FROM person';
+        return db.query(query)
+          .then(data => data.rows)
+          .catch(err => new Error(err));
+      },
+
+      order: (parent, args) => {
+        const query = 'SELECT * FROM orders WHERE id = $1';
+        const values = [args.id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      orders: () => {
+        const query = 'SELECT * FROM orders';
         return db.query(query)
           .then(data => data.rows)
           .catch(err => new Error(err));
@@ -144,73 +253,145 @@ const typeDefs = `
 
     Mutation: {
       
-      createUser: (parent, args) => {
-        const query = 'INSERT INTO users(password, username, first_name) VALUES($1, $2, $3) RETURNING *';
-        const values = [args.password, args.username, args.first_name];
+      createBook: (parent, args) => {
+        const query = 'INSERT INTO books(title, primary_author, author_id) VALUES($1, $2, $3) RETURNING *';
+        const values = [args.title, args.primary_author, args.author_id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      updateUser: (parent, args) => {
-        const query = 'UPDATE users SET password=$1, username=$2, first_name=$3 WHERE user_id = $4 RETURNING *';
-        const values = [args.password, args.username, args.first_name, args.user_id];
+      updateBook: (parent, args) => {
+        const query = 'UPDATE books SET title=$1, primary_author=$2, author_id=$3 WHERE id = $4 RETURNING *';
+        const values = [args.title, args.primary_author, args.author_id, args.id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      deleteUser: (parent, args) => {
-        const query = 'DELETE FROM users WHERE user_id = $1 RETURNING *';
-        const values = [args.user_id];
+      deleteBook: (parent, args) => {
+        const query = 'DELETE FROM books WHERE id = $1 RETURNING *';
+        const values = [args.id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      createMessage: (parent, args) => {
-        const query = 'INSERT INTO message(message, created_at, password) VALUES($1, $2, $3) RETURNING *';
-        const values = [args.message, args.created_at, args.password];
+      createAuthor: (parent, args) => {
+        const query = 'INSERT INTO authors(name, book_id) VALUES($1, $2) RETURNING *';
+        const values = [args.name, args.book_id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      updateMessage: (parent, args) => {
-        const query = 'UPDATE message SET message=$1, created_at=$2, password=$3 WHERE message_id = $4 RETURNING *';
-        const values = [args.message, args.created_at, args.password, args.message_id];
+      updateAuthor: (parent, args) => {
+        const query = 'UPDATE authors SET name=$1, book_id=$2 WHERE id = $3 RETURNING *';
+        const values = [args.name, args.book_id, args.id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      deleteMessage: (parent, args) => {
-        const query = 'DELETE FROM message WHERE message_id = $1 RETURNING *';
-        const values = [args.message_id];
+      deleteAuthor: (parent, args) => {
+        const query = 'DELETE FROM authors WHERE id = $1 RETURNING *';
+        const values = [args.id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      createTask: (parent, args) => {
-        const query = 'INSERT INTO tasks(task, user_id) VALUES($1, $2) RETURNING *';
-        const values = [args.task, args.user_id];
+      createProduct: (parent, args) => {
+        const query = 'INSERT INTO product(product, price) VALUES($1, $2) RETURNING *';
+        const values = [args.product, args.price];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      updateTask: (parent, args) => {
-        const query = 'UPDATE tasks SET task=$1, user_id=$2 WHERE task_id = $3 RETURNING *';
-        const values = [args.task, args.user_id, args.task_id];
+      updateProduct: (parent, args) => {
+        const query = 'UPDATE product SET product=$1, price=$2 WHERE product_id = $3 RETURNING *';
+        const values = [args.product, args.price, args.product_id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
       },
 
-      deleteTask: (parent, args) => {
-        const query = 'DELETE FROM tasks WHERE task_id = $1 RETURNING *';
-        const values = [args.task_id];
+      deleteProduct: (parent, args) => {
+        const query = 'DELETE FROM product WHERE product_id = $1 RETURNING *';
+        const values = [args.product_id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      createBill: (parent, args) => {
+        const query = 'INSERT INTO bill(bill, billdate) VALUES($1, $2) RETURNING *';
+        const values = [args.bill, args.billdate];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      updateBill: (parent, args) => {
+        const query = 'UPDATE bill SET bill=$1, billdate=$2 WHERE bill_id = $3 RETURNING *';
+        const values = [args.bill, args.billdate, args.bill_id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      deleteBill: (parent, args) => {
+        const query = 'DELETE FROM bill WHERE bill_id = $1 RETURNING *';
+        const values = [args.bill_id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      createPerson: (parent, args) => {
+        const query = 'INSERT INTO person(email, order_id, name) VALUES($1, $2, $3) RETURNING *';
+        const values = [args.email, args.order_id, args.name];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      updatePerson: (parent, args) => {
+        const query = 'UPDATE person SET email=$1, order_id=$2, name=$3 WHERE id = $4 RETURNING *';
+        const values = [args.email, args.order_id, args.name, args.id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      deletePerson: (parent, args) => {
+        const query = 'DELETE FROM person WHERE id = $1 RETURNING *';
+        const values = [args.id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      createOrder: (parent, args) => {
+        const query = 'INSERT INTO orders(items) VALUES($1) RETURNING *';
+        const values = [args.items];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      updateOrder: (parent, args) => {
+        const query = 'UPDATE orders SET items=$1 WHERE id = $2 RETURNING *';
+        const values = [args.items, args.id];
+        return db.query(query, values)
+          .then(data => data.rows[0])
+          .catch(err => new Error(err));
+      },
+
+      deleteOrder: (parent, args) => {
+        const query = 'DELETE FROM orders WHERE id = $1 RETURNING *';
+        const values = [args.id];
         return db.query(query, values)
           .then(data => data.rows[0])
           .catch(err => new Error(err));
@@ -218,11 +399,55 @@ const typeDefs = `
 
     },
       
-    User: {
+    Book: {
       
-        tasks: (users) => {
-          const query = 'SELECT * FROM tasks WHERE user_id $1';
-          const values = [users.user_id];
+        authors: (books) => {
+          const query = 'SELECT * FROM authors WHERE book_id = $1';
+          const values = [books.id];
+          return db.query(query, values)
+            .then(data => data.rows[0])
+            .catch(err => new Error(err));
+        },
+    },
+
+    Author: {
+      
+        books: (authors) => {
+          const query = 'SELECT * FROM books WHERE author_id = $1';
+          const values = [authors.id];
+          return db.query(query, values)
+            .then(data => data.rows[0])
+            .catch(err => new Error(err));
+        },
+    },
+
+    Product: {
+      
+        bill: (product) => {
+          const query = 'SELECT * FROM bill LEFT OUTER JOIN bill_product ON bill.bill_id = bill_product.bill_id WHERE bill_product.product_id = $1';
+          const values = [product.product_id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+    },
+
+    Bill: {
+      
+        product: (bill) => {
+          const query = 'SELECT * FROM product LEFT OUTER JOIN bill_product ON product.product_id = bill_product.product_id WHERE bill_product.bill_id = $1';
+          const values = [bill.bill_id];
+          return db.query(query, values)
+            .then(data => data.rows)
+            .catch(err => new Error(err));
+        }, 
+    },
+
+    Order: {
+      
+        person: (orders) => {
+          const query = 'SELECT * FROM person WHERE order_id $1';
+          const values = [orders.id];
           return db.query(query, values)
             .then(data => data.rows)
             .catch(err => new Error(err));

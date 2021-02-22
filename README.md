@@ -1,4 +1,4 @@
-![Splash Image](https://res.cloudinary.com/mrtommyliang/image/upload/v1612532016/bg_i8kjuw.png)
+![Splash Image](https://res.cloudinary.com/mrtommyliang/image/upload/v1614008204/DraQLA/image_1_dsrnmu.png) <br>
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/oslabs-beta/LucidQL/blob/master/LICENSE) ![GitHub package.json version](https://img.shields.io/github/package-json/v/oslabs-beta/LucidQL?color=blue) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/oslabs-beta/LucidQL/issues)
 
 # DraQLa 
