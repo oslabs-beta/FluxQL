@@ -35,9 +35,8 @@
 }
 
 .logo {
-  transition: ease 10s;
+  transition: ease 1s;
 }
-
 .logo:hover {
-  transform: rotate(3600deg);
+  transform: rotate(180deg);
 }
