@@ -8,7 +8,6 @@ import * as MockContexts from '../../client/state/contexts';
 // import mock cases
 import { homeGenState, appGenState } from '../../__mocks__/mockCases';
 
-
 // React Components
 import App from '../../client/App';
 import NavBar from '../../client/components/navbar';
@@ -19,7 +18,7 @@ configure({ adapter: new Adapter() });
 
 describe('<App> renders on the browser', () => {
   const wrapper = shallow(<App />);
-  
+
   /** ! took out this one
   it('renders correctly', () => {
     shallow(<App />);
@@ -30,26 +29,25 @@ describe('<App> renders on the browser', () => {
   });
 
   describe('Dynamic NavBar Displays', () => {
-    
     it('NavBar renders initially', () => {
       // jest spyOn can only spy on functions, which is why we created our custom useContext (clients/state/context.jsx)
       // we pass in our mock state as context to the spy
       jest
-      .spyOn(MockContexts, 'useGenContext')
-      .mockImplementation(() => homeGenState);
-      
+        .spyOn(MockContexts, 'useGenContext')
+        .mockImplementation(() => homeGenState);
+
       const wrapper = shallow(<NavBar />);
       // create a variable that equal holds the boolean value of whether wrapper has a class of NavBarContainer
       const confirm = wrapper.hasClass('NavBarContainer');
       // expects confirm (boolean => true) to be true
       expect(confirm).toBe(true);
     });
-    
+
     it('Home Page Navbar renders', () => {
       jest
         .spyOn(MockContexts, 'useGenContext')
         .mockImplementation(() => appGenState);
-      const wrapper = shallow(<NavBar/>);
+      const wrapper = shallow(<NavBar />);
       const playLink = wrapper.find('Link').childAt(3).text();
       expect(playLink).toEqual('Play');
     });
@@ -59,14 +57,13 @@ describe('<App> renders on the browser', () => {
         .spyOn(MockContexts, 'useGenContext')
         .mockImplementation(() => appGenState);
 
-      const wrapper = shallow(<NavBar />);  
+      const wrapper = shallow(<NavBar />);
       const homeLink = wrapper.find('Link').childAt(0).simulate('click');
       const homeText = homeLink.text();
       //homeLink.simulate('click');
       expect(homeText).toEqual('Home');
       expect(appGenState.generalDispatch).toHaveBeenCalled();
-    })
-
+    });
   });
 });
 
