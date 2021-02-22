@@ -35,7 +35,6 @@ export default function URILink({ databaseName }) {
             document.getElementById(`${databaseName}Input`).value,
             secret
           ).toString();
-          console.log(url, 'THIS IS URL');
           fetch(`/${databaseName.toLowerCase()}`, {
             method: 'POST',
             headers: {
@@ -56,7 +55,16 @@ export default function URILink({ databaseName }) {
                 },
               });
 
-              // update Advice state
+              // update Advice state - clear state first then pass in values
+              adviceDispatch({
+                type: 'UPDATE_ADVICE',
+                payload: {
+                  advice: [],
+                  dynamicText: dynamicText([]),
+                  staticText: '',
+                },
+              });
+
               adviceDispatch({
                 type: 'UPDATE_ADVICE',
                 payload: {

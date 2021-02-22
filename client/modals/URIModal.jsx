@@ -55,7 +55,16 @@ export default function URIModal() {
                 },
               });
 
-              // update Advice state
+              // update Advice state - clear state first then pass in values
+              adviceDispatch({
+                type: 'UPDATE_ADVICE',
+                payload: {
+                  advice: [],
+                  dynamicText: dynamicText([]),
+                  staticText: '',
+                },
+              });
+
               adviceDispatch({
                 type: 'UPDATE_ADVICE',
                 payload: {
