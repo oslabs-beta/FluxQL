@@ -39,6 +39,10 @@ module.exports = {
     publicPath: '/dist',
     proxy: {
       '/': 'http://localhost:3000',
+      '/app': 'http://localhost:3000',
+      '/psql': 'http://localhost:3000',
+      '/mongo': 'http://localhost:3000',
+      '/playground': 'http://localhost:3000',
     },
     hot: true,
   },

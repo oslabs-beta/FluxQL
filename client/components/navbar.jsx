@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 // import the custom useContext
 import { useGenContext } from '../state/contexts';
 
+//export default function navbar({ history }) {
 export default function navbar() {
   // we invoke the custom useContext
   const { generalState, generalDispatch } = useGenContext();
@@ -31,6 +32,8 @@ export default function navbar() {
           to="/app"
           className="link"
           onClick={() => {
+           // history.pushState('/app', '');
+            //console.log(history);
             generalDispatch({ type: 'NOT_HOME_PAGE' });
 
             // to make the modal pop up after we reach the play page
@@ -47,7 +50,10 @@ export default function navbar() {
         <Link
           to="/"
           className="link"
-          onClick={() => generalDispatch({ type: 'ON_HOME_PAGE' })}
+          onClick={() => {
+            generalDispatch({ type: 'ON_HOME_PAGE' });
+            //history.pushState('/', '');
+          }}
         >
           Home
         </Link>

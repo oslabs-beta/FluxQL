@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, useHistory } from 'react-router-dom';
+//import { createBrowserHistory } from 'history';
 import NavBar from './components/navbar';
 
 // import pages for routes;
@@ -10,8 +11,10 @@ import AppPage from './pages/appPage';
 import { GeneralContext } from './state/contexts';
 import { initialGeneralState, generalReducer } from './state/reducers';
 
-const App = () => {
 
+const App = () => {
+  //const customHistory = useHistory();
+  
   const [generalState, generalDispatch] = useReducer(generalReducer, initialGeneralState);
 
   return (
@@ -20,42 +23,45 @@ const App = () => {
         generalState,
         generalDispatch
       }}>
-      <Router>
-        <div id='appHeader'>
-          <Link to="/"
-            onClick={() => {
-              generalDispatch({ type: 'ON_HOME_PAGE' })
-            }}
-          >
-            <img
-              className='logo'
-              id='logo'
-              src='./assets/bannericon.png'
-              alt='DraQLa Logo'
-              height='75px'
-              width='75px'
-            ></img>
-            <img
-              id='logotext'
-              src='./assets/logotext.png'
-              alt='DraQLa Text'
-              height='65px'
-              width='150px'
-            ></img>
+      
+      <div id='appHeader'>
+        <Link to="/"
+          onClick={() => {
+            generalDispatch({ type: 'ON_HOME_PAGE' });
+            //history.pushState('/', '');
+          }}
+        >
+          <img
+            className='logo'
+            id='logo'
+            src='./assets/bannericon.png'
+            alt='DraQLa Logo'
+            height='75px'
+            width='75px'
+          ></img>
+          <img
+            id='logotext'
+            src='./assets/logotext.png'
+            alt='DraQLa Text'
+            height='65px'
+            width='150px'
+          ></img>
 
-          </Link>
-          <NavBar />
-        </div>
+        </Link>
+        {/*<NavBar history={history}/>*/}
+        <NavBar />
+      </div>
 
-        <Switch>
-          <Route path='/app' render={() => (
-            <AppPage />)}
-          />
-          <Route path='/' exact component={HomePage} />
-        </Switch>
-      </Router>
+      {/*<Switch history={customHistory}>*/}
+      <Switch>
+        <Route path='/app' render={() => (
+          <AppPage />)}
+        />
+        <Route path='/' exact component={HomePage} />
+      </Switch>
+      
     </GeneralContext.Provider>
-  )
+  );
 };
 
 export default App;

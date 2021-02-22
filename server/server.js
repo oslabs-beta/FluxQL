@@ -7,17 +7,6 @@ const schema = require('./graphQLServer/schema');
 
 const PORT = 3000;
 
-// if (process.env.NODE_ENV === 'production') {
-//   console.log(process.env.NODE_ENV)
-//   // statically serve everything in the build folder on the route '/build'
-//   app.use('/build', express.static(path.join(__dirname, '../build')));
-//   // serve index.html on the route '/'
-//   app.get('/', (req, res) => {
-//     return res.status(200).sendFile(path.join(__dirname, '../index.html'));
-//   });
-// }
-
-
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -28,36 +17,22 @@ app.use((req, res, next) => {
   return next();
 });
 
+/* Route for Mongo & PG URI */
+app.use('/', router);
 
 /* DEVELOPMENT MODE */
-app.get('/app', (req, res, next) => {
-  return res.status(200).sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.use(express.static(path.resolve(__dirname, '../dist')));
-
-app.use(express.static(path.resolve(__dirname, '../client')));
-
-/* PRODUCTION MODE */
-// app.use('/dist', express.static(path.join(__dirname, '../dist')));
-// app.get('/', (req, res) => {
-//   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
-// });
-// // app.get('/app', (req, res) => {
-// //   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
-// // });
-
-
-app.use(
-  '/graphql',
+app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+app.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
+app.use('/graphql',
   graphqlHTTP({
     schema,
     graphiql: true,
   })
 );
 
-/* Route for Mongo & PG URI */
-app.use('/', router);
+app.get('/*', (req, res) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 // catch all
 app.use('*', (req, res, next) => {
