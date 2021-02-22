@@ -9,26 +9,18 @@ const PORT = 3000;
 
 app.use(express.json());
 
-app.use((req, res, next) => {
-  console.log(`
-  *** FLOW METHOD ***\n
-  URL: ${req.url}\n
-  METHOD: ${req.method}\n`);
-  return next();
-});
-
-/* Route for PG URI */
-app.use('/', router);
-
-/* DEVELOPMENT MODE */
-app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
-app.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
+/* route handlers */
 app.use('/graphql',
   graphqlHTTP({
     schema,
     graphiql: true,
   })
 );
+app.use('/', router);
+
+/* handles static files */
+app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+app.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
 
 app.get('/*', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));

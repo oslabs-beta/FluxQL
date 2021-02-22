@@ -1,11 +1,4 @@
-// for sample database
-import SampleSchema from '../sampleData/schemaString';
-import SampleResolver from '../sampleData/resolverString';
-import treeData from '../sampleData/treeData';
-import adviceSample from '../sampleData/adviceSample';
-
 export const initialGeneralState = {
-  onHomePage: true,
   URImodal: false,
   helpModal: false,
 };
@@ -30,16 +23,6 @@ export const initialAdviceState = {
 
 export const generalReducer = (state, action) => {
   switch (action.type) {
-    case 'ON_HOME_PAGE':
-      return {
-        ...state,
-        onHomePage: true,
-      };
-    case 'NOT_HOME_PAGE':
-      return {
-        ...state,
-        onHomePage: false,
-      };
     case 'OPEN_URI_MODAL':
       return {
         ...state,
@@ -60,7 +43,7 @@ export const generalReducer = (state, action) => {
         ...state,
         helpModal: false,
       };
-  }
+    }
 };
 
 export const codeReducer = (state, action) => {
