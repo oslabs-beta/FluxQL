@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function helpButton({ handleHelpModal }) {
   return (
@@ -6,5 +6,5 @@ export default function helpButton({ handleHelpModal }) {
       <span className="noselect">Help</span>
       <div id="circle"></div>
     </div>
-  )
+  );
 }

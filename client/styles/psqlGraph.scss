@@ -1,5 +1,4 @@
 // Graph Buttons Styling
-
 .graphBtns {
   display: flex;
   flex-direction: row;
@@ -7,15 +6,11 @@
   background-color: $currentline;
   margin-bottom: 5px;
   padding-bottom: 8px;
-  // border-bottom: 1px solid black;
 }
 
 // PSQL Graph Styling
-
 svg {
   background-color: #44475a;
-  //width: 100%;
-  //height: 100%;
 }
 
 .node circle {
@@ -28,11 +23,6 @@ svg {
 
 .link {
   fill: none;
-  //stroke: #ffd1ff;
   stroke: $cyan;
   stroke-width: 0.7px;
 }
-
-// ! eventually move to stylesheet
-// document.querySelector('style').textContent +=
-// '@media(max-width:767px) {#pieChart { transform: rotate(90deg); transform-origin: 50% 50%; transition: 1s; max-width: 50%; } .text-container { width: 100%; min-height: 0; }} @media(min-width:768px) {#pieChart { transition: 1s;}}';

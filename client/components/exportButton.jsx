@@ -7,31 +7,30 @@ import fileGenerator from '../zipFiles/zipFileHelpers';
 import { CodeContext } from '../state/contexts';
 
 export default function exportButton() {
-  // ! need to pass down state for finalized schema & resolvers
   const { codeState } = useContext(CodeContext);
 
   const handleExport = () => {
-
     const zip = new JSZip();
 
     // creating a new zip folder, called 'DraQLa'
     const draqlaFolder = zip.folder('DraQLa');
 
-
     // creating new files called 'schema.js' and generating text to put inside each file using helper functions
-    draqlaFolder.file('schema.js', fileGenerator.schemaFile(codeState.schema, codeState.resolver));
+    draqlaFolder.file(
+      'schema.js',
+      fileGenerator.schemaFile(codeState.schema, codeState.resolver)
+    );
     draqlaFolder.file('README.md', fileGenerator.readMeFile());
 
-    zip.generateAsync({ type: 'blob' })
-      .then(content => {
-        FileSaver.saveAs(content, 'DraQLa.zip');
-      });
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      FileSaver.saveAs(content, 'DraQLa.zip');
+    });
   };
 
   return (
-    <div className="exportButton buttonClass" onClick={handleExport}>          
-    <span className="noselect">Export</span>
+    <div className="exportButton buttonClass" onClick={handleExport}>
+      <span className="noselect">Export</span>
       <div id="circle"></div>
     </div>
-  )
-};
+  );
+}

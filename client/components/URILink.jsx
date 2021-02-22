@@ -30,12 +30,15 @@ export default function URILink({ databaseName }) {
         className="buttonClass"
         id="submitbtn"
         onClick={() => {
+          // place holder for the element
+          const target = document.getElementById(`${databaseName}Input`);
+          // if the uri input is incorrect
+          if (target.value.length === 0 || target.value.length < 20) {
+            alert('Invalid URI Input');
+          }
+          // encrypting URI
+          const url = CryptoJS.AES.encrypt(target.value, secret).toString();
           // send inputted URL to server
-          const url = CryptoJS.AES.encrypt(
-            document.getElementById(`${databaseName}Input`).value,
-            secret
-          ).toString();
-          console.log(url, 'THIS IS URL');
           fetch(`/${databaseName.toLowerCase()}`, {
             method: 'POST',
             headers: {
@@ -56,7 +59,16 @@ export default function URILink({ databaseName }) {
                 },
               });
 
-              // update Advice state
+              // update Advice state - clear state first then pass in values
+              adviceDispatch({
+                type: 'UPDATE_ADVICE',
+                payload: {
+                  advice: [],
+                  dynamicText: dynamicText([]),
+                  staticText: '',
+                },
+              });
+
               adviceDispatch({
                 type: 'UPDATE_ADVICE',
                 payload: {

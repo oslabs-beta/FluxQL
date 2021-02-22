@@ -22,30 +22,11 @@ export default function adviceGraph() {
     // if there is an update in advice state, render new graph
 
     if (adviceState.advice.length > 0) {
-      //  if there is an exisiting graph, clear out the graph and old text before rendering the new one
-      //   if (adviceGraphContainer.current && pieText.current) {
-      //     //d3.select(adviceGraphContainer.current).html('');
-      //     // clear out the title
-      //     d3.select('#segmentTitle').html('');
-      //     d3.select('#segmentText').html('');
-      //     d3.select('#segmentTitle').html('Advice Console');
-      //     d3.select('#segmentText').html(adviceState.dynamicText);
-      //     d3.select('#staticText').html(adviceState.staticText);
-      //  }
+      d3.select('#segmentTitle').text('Advice Console');
 
-      //const pieText = d3.select(pieTextContainer.current)
-      d3.select('#segmentTitle')
-        //.append('h1')
-        //.attr('id', 'segmentTitle')
-        .text('Advice Console');
+      d3.select('#segmentText').text(adviceState.dynamicText);
 
-      d3.select('#segmentText')
-        // .append('p')
-        .text(adviceState.dynamicText);
-
-      d3.select('#staticText')
-        // .append('p')
-        .text(adviceState.staticText);
+      d3.select('#staticText').text(adviceState.staticText);
 
       const width = parseInt(
         d3.select(adviceGraphContainer.current).style('width'),
@@ -68,7 +49,6 @@ export default function adviceGraph() {
       const color = d3
         .scaleOrdinal()
         .domain(type(adviceState.advice))
-        // .range(["#E24161",'#8be9fd', "#EE6617", "#FFBF00"]);
         .range(['#0f4c75', '#c3bef0', '#c06c84', '#f67280']);
 
       //! creating the outer arc of the graph
@@ -93,6 +73,7 @@ export default function adviceGraph() {
 
       // ! creates the transition of the onClick
 
+      // eslint-disable-next-line no-inner-declarations
       function change(d, i) {
         const angle =
           90 -
@@ -146,9 +127,6 @@ export default function adviceGraph() {
           //! invokes the rotating of the graph
           change(d, this);
 
-          //! hides the original text
-          //d3.select('.text-container').hide();
-
           //! updating the Header for text card
           if (d.data.Type === 'Types' || d.data.Type === 'Resolvers') {
             d3.select('#segmentTitle').html(
@@ -177,22 +155,16 @@ export default function adviceGraph() {
           );
 
           //! write out our own logic to clean up the original CopyBlock and render new CopyBlock
-
           adviceDispatch({
             type: 'SHOW_EXAMPLE',
             payload: d.data.Example,
           });
-
-          //d3.select('.text-container').fadeIn(400);
         });
     }
     return function cleanUpAdvice() {
       d3.select(adviceGraphContainer.current).html('');
-      // clear out the title
       d3.select('#segmentTitle').html('');
       d3.select('#segmentText').html('');
-      // d3.select('#segmentTitle').html('Advice Console');
-      // d3.select('#segmentText').html(adviceState.dynamicText);
     };
   }, [adviceState.dynamicText]);
 
