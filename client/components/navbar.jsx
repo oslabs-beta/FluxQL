@@ -4,19 +4,14 @@ import { Link } from 'react-router-dom';
 // import the custom useContext
 import { useGenContext } from '../state/contexts';
 
-export default function Navbar({ history }) {  
-//export default function navbar() {
+export default function navbar({location}) {
   // we invoke the custom useContext
   const { generalState, generalDispatch } = useGenContext();
-  console.log('generalState:', generalState);
-
-  console.log('sessionStorage./app: ', sessionStorage['/app']);
-  console.log('sessionStorage.refresh: ', sessionStorage.refresh);
-  
 
   let navbarDisplay;
 
-  if (generalState.onHomePage){
+  //if (generalState.onHomePage){
+  if (location === '/'){
     navbarDisplay = (
       <>
         <a href="#" className="link">
@@ -41,7 +36,7 @@ export default function Navbar({ history }) {
             // sessionStorage.setItem('/app', true);
             // sessionStorage.setItem('refresh', false);
 
-            generalDispatch({ type: 'NOT_HOME_PAGE' });
+            //generalDispatch({ type: 'NOT_HOME_PAGE' });
 
             // to make the modal pop up after we reach the play page
             setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
@@ -51,16 +46,16 @@ export default function Navbar({ history }) {
         </Link>
       </>
     );
-  } else {
+  } else if (location === '/app'){
     navbarDisplay = (
       <>
         <Link
           to="/"
           className="link"
           onClick={() => {
-            delete sessionStorage['/app'];
-            generalDispatch({ type: 'ON_HOME_PAGE' });
+            //delete sessionStorage['/app'];
             //history.push('/');
+            //generalDispatch({ type: 'ON_HOME_PAGE' });
           }}
         >
           Home
