@@ -17,7 +17,7 @@ app.use((req, res, next) => {
   return next();
 });
 
-/* Route for Mongo & PG URI */
+/* Route for PG URI */
 app.use('/', router);
 
 /* DEVELOPMENT MODE */

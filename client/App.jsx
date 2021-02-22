@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
-import { Route, Switch, Link, useHistory } from 'react-router-dom';
-//import { createBrowserHistory } from 'history';
+import { Route, Switch, Link } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import NavBar from './components/navbar';
 
 // import pages for routes;
@@ -13,9 +13,19 @@ import { initialGeneralState, generalReducer } from './state/reducers';
 
 
 const App = () => {
-  //const customHistory = useHistory();
+  const history = createBrowserHistory();
   
   const [generalState, generalDispatch] = useReducer(generalReducer, initialGeneralState);
+
+  if (sessionStorage.refresh === false && sessionStorage['/app'] === true){
+    console.log('hi i entered')
+    sessionStorage.refresh = true;
+    generalDispatch({ type: 'NOT_HOME_PAGE' });
+
+    // to make the modal pop up after we reach the play page
+    generalDispatch({ type: 'OPEN_URI_MODAL' });
+    console.log('generalState: after', generalState);
+  }
 
   return (
     <GeneralContext.Provider
@@ -27,8 +37,11 @@ const App = () => {
       <div id='appHeader'>
         <Link to="/"
           onClick={() => {
+            sessionStorage.removeItem('/app');
+
             generalDispatch({ type: 'ON_HOME_PAGE' });
-            //history.pushState('/', '');
+            //history.push('/');
+
           }}
         >
           <img
@@ -48,8 +61,8 @@ const App = () => {
           ></img>
 
         </Link>
-        {/*<NavBar history={history}/>*/}
-        <NavBar />
+        <NavBar history={history}/>
+       {/*<NavBar />*/}
       </div>
 
       {/*<Switch history={customHistory}>*/}
