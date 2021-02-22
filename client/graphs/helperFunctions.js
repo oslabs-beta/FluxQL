@@ -17,11 +17,14 @@ export function project(x, y) {
   return [radius * Math.cos(angle), radius * Math.sin(angle)];
 }
 
-export function dynamicText (advice) {
-  return (advice.length === 0) ? null : `Here is the breakdown of your database, in preparation for GraphQL. We generated ${advice[0].Amount} Queries and ${advice[1].Amount} Mutations for you. Click on the pie chart to view further information on each.`
-} 
+export function dynamicText(advice) {
+  return advice.length === 0
+    ? null
+    : `Here is the breakdown of your database, in preparation for GraphQL. We generated ${advice[0].Amount} Queries and ${advice[1].Amount} Mutations for you. Click on the pie chart to view further information on each.`;
+}
 
-export const staticText = `The graph on the right is a diagram of your PSQL Relational database. Currently, all tables of your database can be queried via the generated schema/resolvers below.`
+export const staticText =
+  'The graph on the right is a diagram of your PSQL Relational database. Currently, all tables of your database can be queried via the generated schema/resolvers below.';
 
 export const extraDescriptions = [
   {
@@ -48,7 +51,8 @@ export const extraDescriptions = [
   {
     Type: 'Resolvers',
     Amount: 10,
-    Description: `A resolver is GraphQL's execution algorithm. It is this algorithm that transforms the query from the client into the actual result. The resolver moves through every field in the schema and executes its logic to determine its result.`,
+    Description:
+      "A resolver is GraphQL's execution algorithm. It is this algorithm that transforms the query from the client into the actual result. The resolver moves through every field in the schema and executes its logic to determine its result.",
     Example: `  const resolver = {
       Query: {
         person: (parent, args) => {
@@ -61,4 +65,4 @@ export const extraDescriptions = [
           }
         }`,
   },
-]
+];

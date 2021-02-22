@@ -27,7 +27,6 @@ pgController.SQLTableData = (req, res, next) => {
     const decrypted = CryptoJS.AES.decrypt(req.body.psqlURI, secret).toString(
       CryptoJS.enc.Utf8
     );
-    console.log(decrypted);
     psqlURI = decrypted;
   }
 
