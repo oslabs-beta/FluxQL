@@ -12,7 +12,7 @@ import { initialGeneralState, generalReducer } from './state/reducers';
 
 
 const App = () => {
-  
+  // to grab the current URL path
   const location = useLocation();
   
   const [generalState, generalDispatch] = useReducer(generalReducer, initialGeneralState);
@@ -25,15 +25,7 @@ const App = () => {
       }}>
       
       <div id='appHeader'>
-        <Link to="/"
-          onClick={() => {
-            //sessionStorage.removeItem('/app');
-
-            //generalDispatch({ type: 'ON_HOME_PAGE' });
-            //history.push('/');
-
-          }}
-        >
+        <Link to="/">
           <img
             className='logo'
             id='logo'
@@ -52,10 +44,8 @@ const App = () => {
 
         </Link>
         <NavBar location={location.pathname}/>
-       {/*<NavBar />*/}
       </div>
 
-      {/*<Switch history={customHistory}>*/}
       <Switch>
         <Route path='/app' render={() => (
           <AppPage />)}
