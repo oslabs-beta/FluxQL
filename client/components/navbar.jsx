@@ -1,19 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import the custom useContext
 import { useGenContext } from '../state/contexts';
 
-export default function navbar() {
+export default function navbar({ location }) {
   // we invoke the custom useContext
-  const { generalState, generalDispatch } = useGenContext();
+  const { generalDispatch } = useGenContext();
 
   let navbarDisplay;
 
-  // this should be context){ // onHomePage => true or false
-  if (generalState.onHomePage) {
+  if (location === '/'){
     navbarDisplay = (
-      <div className="NavBarContainer">
+      <>
         <a href="#" className="link">
           About
         </a>
@@ -32,24 +31,19 @@ export default function navbar() {
           to="/app"
           className="link"
           onClick={() => {
-            generalDispatch({ type: 'NOT_HOME_PAGE' });
-
-            // to make the modal pop up after we reach the play page
             setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
           }}
         >
           Play
         </Link>
-      </div>
+      </>
     );
-  } else {
+  } else if (location === '/app'){
     navbarDisplay = (
-      <div className="NavBarContainer">
+      <>
         <Link
           to="/"
-          className="link"
-          onClick={() => generalDispatch({ type: 'ON_HOME_PAGE' })}
-        >
+          className="link">
           Home
         </Link>
 
@@ -73,9 +67,13 @@ export default function navbar() {
         >
           Playground
         </a>
-      </div>
+      </>
     );
   }
 
-  return navbarDisplay;
+  return (
+    <div className="NavBarContainer">
+      {navbarDisplay}
+    </div>
+  );
 }
