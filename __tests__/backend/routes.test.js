@@ -1,7 +1,9 @@
 const request = require('supertest');
-const sampleURI = require('../../server/controllers/testPSQL');
+const { URI, secret } = require('../../server/controllers/testPSQL');
+const CryptoJS = require('crypto-js');
 const app = require('../../server/server');
 
+const sampleURI = CryptoJS.AES.encrypt(URI, secret).toString();
 
 describe('Route integration', () => {
   describe('/', () => {
@@ -16,7 +18,7 @@ describe('Route integration', () => {
   })
 
   describe('/psql', () => {
-    describe('POST -> postgres URI', () => {
+    describe('POST -> postgres uri', () => {
       it('responds with 200 status and application/json content type with psqlURI passed in req body', (done) => {
         return request(app)
           .post('/psql')
@@ -71,8 +73,17 @@ describe('Route integration', () => {
               return done();
             })
         })
-
-        
     })
+  })
+
+  xdescribe('/graphql', () => {
+    describe('GET -> graphql playground', () => {
+      it('responds with 200 status and application/json content type', (done) => {
+        return request(app)
+          .get('/graphql')
+          .expect('Content-Type', /application\/json/)
+          .expect(200, done);
+      });
+    });
   })
 }) 
