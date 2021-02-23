@@ -9,7 +9,7 @@ export const initialHomeState = {
   info: [
     [
       `First, start by importing the desired PostgreSQL database that you want to convert into a GraphQL API and enter 
-      the URI as prompted. (If you don't have one, feel free to test with our Sample Database!)`,
+      the URI as prompted. We encrypt your URI on both client and server side to ensure your privacy. If you don't have one, feel free to test with our Sample Database!`,
       '../assets/modal.gif',
       'Getting Started',
     ],

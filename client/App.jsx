@@ -31,8 +31,8 @@ const App = () => {
             id='logo'
             src='./assets/bannericon.png'
             alt='DraQLa Logo'
-            height='75px'
-            width='75px'
+            height='80px'
+            width='80px'
           ></img>
           <img
             id='logotext'
