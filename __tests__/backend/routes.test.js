@@ -17,6 +17,38 @@ describe('Route integration', () => {
     });
   })
 
+  describe('/app', () => {
+    describe('GET -> app page', () => {
+      it('responds with 200 status and text/html content type', (done) => {
+        return request(app)
+          .get('/app')
+          .expect('Content-Type', /text\/html/)
+          .expect(200, done);
+      });
+    });
+  })
+
+  describe('/graphql', () => {
+    describe('GET -> graphql playground', () => {
+      it('responds with 200 status and application/json content type AFTER successful POST to /psql', (done) => {
+        return request(app)
+          .post('/psql')
+          .send({ psqlURI: sampleURI })
+          .expect(200)
+            .expect('Content-Type', /application\/json/)
+            .end(() => {
+              request(app)
+              .get('/graphql')
+              .expect('Content-Type', /application\/json/)
+              .expect(200)
+              .end(() => {
+                return done();
+              })
+            })
+      });
+    });
+  })
+
   describe('/psql', () => {
     describe('POST -> postgres uri', () => {
       it('responds with 200 status and application/json content type with psqlURI passed in req body', (done) => {
@@ -61,6 +93,7 @@ describe('Route integration', () => {
               return done();
             })
         })
+
       
         it('responds to invalid request with 400 status and error message in body', (done) => {
           return request(app)
@@ -76,14 +109,4 @@ describe('Route integration', () => {
     })
   })
 
-  xdescribe('/graphql', () => {
-    describe('GET -> graphql playground', () => {
-      it('responds with 200 status and application/json content type', (done) => {
-        return request(app)
-          .get('/graphql')
-          .expect('Content-Type', /application\/json/)
-          .expect(200, done);
-      });
-    });
-  })
 }) 
