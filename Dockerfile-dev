@@ -1,0 +1,6 @@
+FROM node:12.18.3
+RUN npm install --global webpack
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+EXPOSE 8080
