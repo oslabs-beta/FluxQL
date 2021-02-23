@@ -11,6 +11,7 @@ export default function teamContainer() {
   });
 
   return (
+  
     <div className ='teamContainer'>
       {cards}
     </div>

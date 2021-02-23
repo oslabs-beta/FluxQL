@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import DemoRow from '../components/demoRow';
 import { useHomeContext } from '../state/contexts';
+import { useInfiniteScroll, useLazyLoading } from '../state/customHooks';
 
 export default function DemoContainer() {
 
+  const { homeDispatch } = useHomeContext();
   const { overview, info } = useHomeContext().homeState;
+
+  const bottomBoundaryRef = useRef(null);
+  useLazyLoading('.demoImage', info);
+  useInfiniteScroll(bottomBoundaryRef, homeDispatch, info);
+
+
 
   const rows = info.map((pair, i) => {
     return (
@@ -19,11 +27,14 @@ export default function DemoContainer() {
   });
 
   return (
-    <div className="demoContainer">
-      <div className="demoOverview">
-        <h1 id="overviewText">{overview}</h1>
+    <>
+      <div className="demoContainer">
+        <div className="demoOverview">
+          <h1 id="overviewText">{overview}</h1>
+        </div>
+        {rows}
       </div>
-      {rows}
-    </div>
+      <div id='page-bottom-boundary' style={{ border: '1px solid red' }} ref={bottomBoundaryRef}></div>
+    </>
   );
 }

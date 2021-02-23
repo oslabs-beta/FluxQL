@@ -26,25 +26,6 @@ export const initialHomeState = {
       '../assets/graphgif.gif',
       'Visualize Your Schema',
     ],
-    [
-      `The Advice Console provides an overview on: GraphQL schema, 
-      how you and your clients can access and manipulate your database, and
-      a sample query and mutation.`,
-      '../assets/advice.gif',
-      'Advice and Overview',
-    ],
-    [
-      `In addition to your new schema, DraQLa spins up a temporary GraphQL server to allow you to test out 
-      the sample query via GraphQL's Playground.`,
-      '../assets/playground.gif',
-      'Test Your Queries',
-    ],
-    [
-      `When you're ready to adopt your schema, click "Export" to receieve the code and further integration 
-    instructions.`,
-      '',
-      'Export Your Code',
-    ],
   ],
   humans: [ 
     {name: 'Emily Krebs', profilePic: '../assets/emily.jpg', github: 'https://github.com/emilykrebs', linkedin: 'https://www.linkedin.com/in/emilyrkrebs/'}, 
@@ -100,12 +81,39 @@ export const generalReducer = (state, action) => {
 
 export const homeReducer = (state, action) => {
   switch (action.type) {
-    case '':
+  case 'LOAD_MORE_DESCRIPTIONS':
+    const chunk2 = [
+      [
+        `The Advice Console provides an overview on: GraphQL schema, 
+        how you and your clients can access and manipulate your database, and
+        a sample query and mutation.`,
+        '../assets/advice.gif',
+        'Advice and Overview',
+      ],
+      [
+        `In addition to your new schema, DraQLa spins up a temporary GraphQL server to allow you to test out 
+        the sample query via GraphQL's Playground.`,
+        '../assets/playground.gif',
+        'Test Your Queries',
+      ],
+      [
+        `When you're ready to adopt your schema, click "Export" to receieve the code and further integration 
+      instructions.`,
+        '',
+        'Export Your Code',
+      ],
+    ];
+
+    return {
+      ...state,
+      info: state.info.concat(chunk2)
+    };
+  
+    case 'LOAD_HUMANS':
       return {
         ...state,
-
-      };
-};
+      }
+  }
 };
 
 export const codeReducer = (state, action) => {
