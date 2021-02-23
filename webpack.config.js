@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   // webpack will take the files from ./client/index
   entry: './client/index.js',
+  mode: process.env.NODE_ENV,
   // and output it into /dist as bundle.js
   output: {
     path: path.join(__dirname, '/dist'),
@@ -42,6 +43,10 @@ module.exports = {
     publicPath: '/dist',
     proxy: {
       '/': 'http://localhost:3000',
+      '/app': 'http://localhost:3000',
+      '/psql': 'http://localhost:3000',
+      '/mongo': 'http://localhost:3000',
+      '/playground': 'http://localhost:3000',
     },
     hot: true,
   },

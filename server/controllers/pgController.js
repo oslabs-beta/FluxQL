@@ -19,8 +19,7 @@ const pgController = {};
 pgController.SQLTableData = (req, res, next) => {
   let psqlURI;
 
-  //checking if sample URI is needed
-  //req.body.sample ? (psqlURI = URI) : (psqlURI = req.body.psqlURI);
+  //decrypting the URL and checking if sample URI is needed
   if (req.body.sample) {
     psqlURI = URI;
   } else {
