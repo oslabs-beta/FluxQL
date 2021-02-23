@@ -1,6 +1,9 @@
 export const initialGeneralState = {
   URImodal: false,
   helpModal: false,
+};
+
+export const initialHomeState = {
   overview: `DraQLA is a GraphQL migration assistance tool that empowers developers to build GraphQL schemas by 
   introspecting existing PostGreSQL databases, all without writing any code.`,
   info: [
@@ -42,6 +45,13 @@ export const initialGeneralState = {
       '',
       'Export Your Code',
     ],
+  ],
+  humans: [ 
+    {name: 'Emily Krebs', profilePic: '../assets/emily.jpg', github: 'https://github.com/emilykrebs', linkedin: 'https://www.linkedin.com/in/emilyrkrebs/'}, 
+    {name: 'Ross Sarcona', profilePic: '../assets/ross.jpg', github: 'https://github.com/RossRSarc', linkedin: 'https://www.linkedin.com/in/rosssarcona/'}, 
+    {name: 'Daniel Dolich', profilePic: '../assets/daniel.jpg', github: 'https://github.com/danieldolich', linkedin: 'https://www.linkedin.com/in/daniel-dolich-2a5a97206/'},
+    {name: 'Heidi Kim', profilePic: '../assets/heidi.jpg', github: 'https://github.com/heidiyoora', linkedin: 'https://www.linkedin.com/in/heidiykim/'},
+    {name: 'Tommy Liang', profilePic: '../assets/tommy.jpg', github: 'https://github.com/mrtommyliang', linkedin: 'https://www.linkedin.com/in/mrtommyliang/'}  
   ]
 };
 
@@ -86,6 +96,16 @@ export const generalReducer = (state, action) => {
         helpModal: false,
       };
     }
+};
+
+export const homeReducer = (state, action) => {
+  switch (action.type) {
+    case '':
+      return {
+        ...state,
+
+      };
+};
 };
 
 export const codeReducer = (state, action) => {
