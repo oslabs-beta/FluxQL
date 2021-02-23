@@ -47,10 +47,8 @@ const App = () => {
       </div>
 
       <Switch>
-        <Route path='/app' render={() => (
-          <AppPage />)}
-        />
-        <Route path='/' exact component={HomePage} />
+        <Route path='/app' component={AppPage} />
+        <Route exact path='/' component={HomePage} />
       </Switch>
       
     </GeneralContext.Provider>
