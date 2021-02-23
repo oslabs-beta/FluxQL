@@ -90,7 +90,7 @@ export const mongoReducer = (state, action) => {
 export const adviceReducer = (state, action) => {
   switch (action.type) {
     case 'UPDATE_ADVICE':
-      const newState = {...state};
+      const newState = { ...state };
       newState.advice = action.payload.advice;
       newState.dynamicText = action.payload.dynamicText;
       newState.staticText = action.payload.staticText;

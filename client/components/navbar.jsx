@@ -23,6 +23,7 @@ export default function navbar({ location }) {
           href="https://github.com/oslabs-beta/DraQLa"
           target="_blank"
           className="link"
+          rel="noreferrer"
         >
           GitHub
         </a>

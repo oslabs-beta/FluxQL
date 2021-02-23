@@ -25,7 +25,7 @@ const App = () => {
       }}>
       
       <div id='appHeader'>
-        <Link to="/">
+        <Link to='/'>
           <img
             className='logo'
             id='logo'
