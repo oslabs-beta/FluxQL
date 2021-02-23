@@ -17,13 +17,19 @@ import AdviceGraph from '../../client/graphs/adviceGraph';
 
 configure({ adapter: new Adapter() });
 
-xdescribe('<App> renders on the browser', () => {
-  const wrapper = shallow(<App />);
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: () => ({
+    pathname: 'localhost:8080/'
+  })
+}));
 
-  /** ! took out this one
+describe('<App> renders on the browser', () => {
+  const wrapper = shallow(<App />);
+  
   it('renders correctly', () => {
     shallow(<App />);
-  });*/
+  });
 
   it('App contains Logo and Logotext', () => {
     expect(wrapper.find('img').length).toEqual(2);
