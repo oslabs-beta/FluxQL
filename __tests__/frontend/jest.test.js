@@ -41,12 +41,6 @@ afterEach(() => {
 afterAll(() => server.close());
 
 describe('Renders website', () => {
-  describe('Renders SPA', () => {
-    test('renders App', () => {
-      render(<App />);
-    });
-  });
-
   describe('Renders Home Page', () => {
     test('renders Home Page Component', async () => {
       const { findByText } = render(<HomePage />);
