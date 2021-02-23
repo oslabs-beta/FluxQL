@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import NavBar from './components/navbar';
 
 // import pages for routes;
@@ -10,51 +10,49 @@ import AppPage from './pages/appPage';
 import { GeneralContext } from './state/contexts';
 import { initialGeneralState, generalReducer } from './state/reducers';
 
+
 const App = () => {
-  const [generalState, generalDispatch] = useReducer(
-    generalReducer,
-    initialGeneralState
-  );
+  // to grab the current URL path
+  const location = useLocation();
+  
+  const [generalState, generalDispatch] = useReducer(generalReducer, initialGeneralState);
 
   return (
     <GeneralContext.Provider
       value={{
         generalState,
-        generalDispatch,
-      }}
-    >
-      <Router>
-        <div id="appHeader">
-          <Link
-            to="/"
-            onClick={() => {
-              generalDispatch({ type: 'ON_HOME_PAGE' });
-            }}
-          >
-            <img
-              className="logo"
-              id="logo"
-              src="./assets/bannericon.png"
-              alt="DraQLa Logo"
-              height="75px"
-              width="75px"
-            ></img>
-            <img
-              id="logotext"
-              src="./assets/logotext.png"
-              alt="DraQLa Text"
-              height="65px"
-              width="150px"
-            ></img>
-          </Link>
-          <NavBar />
-        </div>
+        generalDispatch
+      }}>
+      
+      <div id='appHeader'>
+        <Link to='/'>
+          <img
+            className='logo'
+            id='logo'
+            src='./assets/bannericon.png'
+            alt='DraQLa Logo'
+            height='75px'
+            width='75px'
+          ></img>
+          <img
+            id='logotext'
+            src='./assets/logotext.png'
+            alt='DraQLa Text'
+            height='65px'
+            width='150px'
+          ></img>
 
-        <Switch>
-          <Route path="/app" render={() => <AppPage />} />
-          <Route path="/" exact component={HomePage} />
-        </Switch>
-      </Router>
+        </Link>
+        <NavBar location={location.pathname}/>
+      </div>
+
+      <Switch>
+        <Route path='/app' render={() => (
+          <AppPage />)}
+        />
+        <Route path='/' exact component={HomePage} />
+      </Switch>
+      
     </GeneralContext.Provider>
   );
 };

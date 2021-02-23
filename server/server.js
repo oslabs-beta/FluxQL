@@ -9,35 +9,22 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// flow check
-app.use((req, res, next) => {
-  console.log(`
-  👻 👻 👻 FLOW METHOD 👻 👻 👻
-  URL: ${req.url}\n
-  METHOD: ${req.method}\n`);
-  return next();
-});
-
-// static file for webpack dev-server
-app.use(express.static(path.resolve(__dirname, '../dist')));
-
-/*** MAIN PAGE ***/
-app.use(express.static(path.resolve(__dirname, '../client')));
-
-// app.get('/*', (req, res, next) => {
-//   return res.status(200).sendFile(path.join(__dirname, 'dist', 'index.html'));
-// });
-
-app.use(
-  '/graphql',
+/* route handlers */
+app.use('/graphql',
   graphqlHTTP({
     schema,
     graphiql: true,
   })
 );
-
-/* Route for Mongo & PG URI */
 app.use('/', router);
+
+/* handles static files */
+app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+app.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
+
+app.get('/*', (req, res) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+});
 
 // catch all
 app.use('*', (req, res, next) => {
