@@ -9,9 +9,8 @@ export default function DemoContainer() {
   const { overview, info } = useHomeContext().homeState;
 
   const bottomBoundaryRef = useRef(null);
-  useLazyLoading('.demoImage', info);
-  useInfiniteScroll(bottomBoundaryRef, homeDispatch, info);
-
+  // useLazyLoading('.demoImage', info);
+  // useInfiniteScroll(bottomBoundaryRef, homeDispatch, info);
 
 
   const rows = info.map((pair, i) => {

@@ -3,20 +3,27 @@ import { useEffect, useCallback, useRef} from 'react';
 export const useInfiniteScroll = (scrollRef, dispatch, info) => {
   //scrollRef sets up the observer
 
-  const scrollObserver = useCallback(
-    node => {
-      new IntersectionObserver(entries => {
-        entries.forEach(en => {
-          if (en.intersectionRatio > 0){
-            dispatch({type: 'LOAD_MORE_DESCRIPTIONS'});
-          }
-        });
-      }).observe(node);
-    }, [dispatch]
+  const scrollObserver = useCallback(node => {
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.intersectionRatio > 0 && info.length < 6){
+          console.log('hi');
+
+          dispatch({type: 'LOAD_MORE_DESCRIPTIONS'});
+        }
+      });
+    });
+      
+    observer.observe(node);
+    if (info.length === 6) observer.unobserve(node);
+    
+    }, [dispatch, info]
   );
 
   useEffect(() => {
-    if (scrollRef.current && info.length < 6){
+    if (scrollRef.current){
+      console.log('hiii from UIS UseEffect')
       scrollObserver(scrollRef.current);
     }
   }, [scrollObserver, scrollRef, info]);
@@ -30,28 +37,22 @@ export const useLazyLoading = (imgSelector, items) => {
       entries.forEach(en => {
         if (en.intersectionRatio > 0) {
           const currentImg = en.target;
-          const newImgSrc = currentImg.dataset.src;
-          // only swap out the image source if the new url exists
 
-          if (!newImgSrc) {
-            console.error('Image source is invalid');
-          } else {
-            currentImg.src = newImgSrc;
-          }
+          const newImgSrc = currentImg.src;
 
           intObs.unobserve(node); // detach the observer when done
         }
       });
     });
 
-    console.log(intObs);
     intObs.observe(node);
   }, []);
 
   const imagesRef = useRef(null);
 
   useEffect(() => {
-    imagesRef.current = document.querySelectorAll('demoImage');
+    imagesRef.current = document.querySelectorAll('.demoImage');
+    console.log('hi from LL');
     if (imagesRef.current) {
       imagesRef.current.forEach(img => imgObserver(img));
     }
