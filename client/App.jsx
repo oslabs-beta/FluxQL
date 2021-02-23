@@ -1,10 +1,10 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, lazy, Suspense } from 'react';
 import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import NavBar from './components/navbar';
 
 // import pages for routes;
-import HomePage from './pages/homePage';
-import AppPage from './pages/appPage';
+const HomePage = lazy(() => import('./pages/homePage'));
+const AppPage = lazy(() => import('./pages/appPage'));
 
 // import context object
 import { GeneralContext } from './state/contexts';
@@ -46,10 +46,12 @@ const App = () => {
         <NavBar location={location.pathname}/>
       </div>
 
-      <Switch>
-        <Route path='/app' component={AppPage} />
-        <Route exact path='/' component={HomePage} />
-      </Switch>
+      <Suspense fallback={<div>YOOOO</div>}>
+        <Switch>
+          <Route path='/app' component={AppPage} />
+          <Route exact path='/' component={HomePage} />
+        </Switch>
+      </Suspense>
       
     </GeneralContext.Provider>
   );

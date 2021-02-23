@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import DemoRow from '../components/demoRow';
+import { GeneralContext } from '../state/contexts';
 
-export default function demoContainer() {
+export default function DemoContainer() {
+
+  const { overview, info } = useContext(GeneralContext).generalState;
+
+  const rows = info.map((pair, i) => {
+    return (
+      <DemoRow
+        key={i}
+        index={i}
+        text={pair[0]}
+        gif={pair[1]}
+        header={pair[2]}
+      />
+    );
+  });
+
+  return (
+    <div className="demoContainer">
+      <div className="demoOverview">
+        <h1 id="overviewText">{overview}</h1>
+      </div>
+      {rows}
+    </div>
+  );
+}
+
+
+/*
   const overview = `DraQLA is a GraphQL migration assistance tool that empowers developers to build GraphQL schemas by 
     introspecting existing PostGreSQL databases, all without writing any code.`;
 
@@ -46,24 +74,5 @@ export default function demoContainer() {
     ],
   ];
 
-  const rows = info.map((pair, i) => {
-    return (
-      <DemoRow
-        key={i}
-        index={i}
-        text={pair[0]}
-        gif={pair[1]}
-        header={pair[2]}
-      />
-    );
-  });
 
-  return (
-    <div className="demoContainer">
-      <div className="demoOverview">
-        <h1 id="overviewText">{overview}</h1>
-      </div>
-      {rows}
-    </div>
-  );
-}
+*/
