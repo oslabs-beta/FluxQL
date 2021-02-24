@@ -10,8 +10,8 @@ export default function splashContainer() {
         <img src='../assets/logoclear.png' width='300px' height='300px'></img>
         <span>Dra<span id='QL'>QL</span>a</span>
       </div>
-      <section id="section05" class="demo">
-        <a href="#aboutFlex"><span></span>Scroll</a>
+      <section id="scrollDown" class="pointerDown">
+        <a id="scrollDownLink"href="#aboutFlex"><span></span>Scroll</a>
       </section>
     </>
   );

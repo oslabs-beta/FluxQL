@@ -13,6 +13,7 @@
 
   #demoTitle{
     font-size: 42px;
+    margin-bottom: 80px;
   }
 
   .demoRow {
@@ -22,7 +23,6 @@
     max-width: 75%;
     padding: 40px 20px;
     justify-content: center;
-    //border: 1px solid white;
     
     .demoDescription {
       display: flex;
