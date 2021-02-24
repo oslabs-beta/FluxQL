@@ -10,10 +10,13 @@ export default function featureContainer() {
         <hr></hr>
       </div>
       <div className='featureQuote'>
-        <a href={medium} target='_' ><h1>"DraQLa makes migrating 
+       <h1>"DraQLa makes migrating 
           <br></br>
-          <i>fang</i>-tastic!"</h1></a>
+          <i>fang</i>-tastic!"</h1>
       </div>
+      <a href='https://medium.com/@erkrebs/9f0e019c4582' target='_'>
+        <img src='../assets/medium.png'></img>
+      </a>
     </div>
   );
 }
