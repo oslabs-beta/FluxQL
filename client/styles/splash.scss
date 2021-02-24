@@ -1,9 +1,9 @@
 
 // n is number of stars required
 @function multiple-box-shadow($n) {
-  $value: '#{random(2000)}px #{random(2000)}px #FFF';
+  $value: '#{random(3800)}px #{random(3800)}px #FFF';
   @for $i from 2 through $n{
-    $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF';
+    $value: '#{$value} , #{random(3800)}px #{random(3800)}px #FFF';
   }
 
   @return unquote($value)
@@ -19,6 +19,7 @@ $shadows-big:    multiple-box-shadow(100);
   height: 200%;
   width: 100%;
   text-align: center;
+  justify-content: center;
 
   #stars{
     width: 1px;
@@ -78,6 +79,7 @@ $shadows-big:    multiple-box-shadow(100);
 
 #homeTitle{
   margin-top: 100px;
+  margin-bottom: 200px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -89,8 +91,8 @@ $shadows-big:    multiple-box-shadow(100);
   }
 
   span {
-    margin-top: 20px;
-    font-family: 'Roboto';
+    margin-top: 50px;
+    font-family: 'Lato Normal';
     font-weight: 300;
     font-size: 50px;
     letter-spacing: 8px;

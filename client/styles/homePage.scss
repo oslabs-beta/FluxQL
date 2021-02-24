@@ -1,0 +1,19 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  #teamHeader {
+    color: #c3bef0;
+    margin-top: 10%;
+  }
+
+  .teamPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
