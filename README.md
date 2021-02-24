@@ -1,12 +1,9 @@
 ![Splash Image](https://res.cloudinary.com/mrtommyliang/image/upload/v1614012242/DraQLA/bannerlarge_o9khsj.png) <br>
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/oslabs-beta/LucidQL/blob/master/LICENSE) ![GitHub package.json version](https://img.shields.io/github/package-json/v/oslabs-beta/LucidQL?color=blue) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/oslabs-beta/LucidQL/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/oslabs-beta/DraQLa/blob/main/LICENSE) ![GitHub package.json version](https://img.shields.io/badge/version-v1.0.0-blue) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/oslabs-beta/DraQLa/issues) ![Stars](https://img.shields.io/github/stars/oslabs-beta/DraQLa?color=red)
 
 # DraQLa 
 
 DraQLA is a GraphQL migration assistance tool that empowers developers to build GraphQL schemas by introspecting existing PostGreSQL databases, all without writing any code. 
-
-
-<!-- REST has been the dominant API style for building backends for a long time but it iss notorious for its waterfall requests. Problems include over fetching and multiple requests for multiple resources which is why GraphQL has been gaining so much momentum over the years. GraphQL is a query language that allows you to ask for what you want in a single query which saves bandwidth by specifying the exact types and fields and reduces waterfall requests. Despite GraphQL’s attractive query flexibility, companies have trouble migrating from their legacy REST API framework to GraphQL as it is time-consuming to learn a new language and can require extensive overhead, all with the risk of potentially  -->
 
 
 Accelerated by [OS Labs](https://github.com/oslabs-beta/)
@@ -19,8 +16,7 @@ Visit [draqlabs.io](https://draqlabs.io) to sink your teeth into the tool.
 * Visual interactive diagram of current PostgreSQL database
 * Advice Console that provides high level breakdown of the generated boilerplate
 * Temporary dummy server and sample query/mutation to test the personalized schema with GraphQL's Playground GUI
-<!-- mention how our app is surface level. doesn't penetrate through and tap into real data-->
-<!-- all while mainintaing your database's privacy? -->
+* Encrypted URI on client and server side to keep your data private
 
 ## How does DraQLa work? 
 First, start by importing the desired PostgreSQL database that you want to convert into a GraphQL API and enter the URI as prompted. (If you don't have one, feel free to test with our Sample Database!) 
