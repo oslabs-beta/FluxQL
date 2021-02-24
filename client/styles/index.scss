@@ -1,6 +1,6 @@
 @import './_fonts.scss';
 @import './_colors.scss';
-@import './home.scss';
+@import './splash.scss';
 @import './psqlGraph.scss';
 @import './codeMirror.scss';
 @import './navbar.scss';
@@ -22,8 +22,11 @@ svg:hover {
   cursor: pointer;
 }
 
-body {
+html {
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+body {
   color: white;
   font-family: 'Roboto';
   height: 100%;
@@ -36,6 +39,10 @@ h1 {
   // -webkit-text-stroke: 1px white;
   text-shadow: -1px 0 rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.3),
     1px 0 rgba(255, 255, 255, 0.3), 0 -1px rgba(255, 255, 255, 0.3);
+}
+
+#lazyLoading {
+  height: 100%;
 }
 
 // for App Page

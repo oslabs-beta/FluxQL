@@ -16,7 +16,7 @@ $shadows-big:    multiple-box-shadow(100);
 
 .starWrapper {
   background: transparent;
-  height: 100%;
+  height: 200%;
   width: 100%;
   text-align: center;
 
@@ -97,7 +97,12 @@ $shadows-big:    multiple-box-shadow(100);
     background: -webkit-linear-gradient(white, #38495a);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
 
+  #QL{
+    background: -webkit-linear-gradient($red, $logodarkred);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 

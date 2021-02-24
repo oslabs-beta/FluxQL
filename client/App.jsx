@@ -25,10 +25,7 @@ const App = () => {
       }}>
       
       <div id='appHeader'>
-        {location.pathname === '/app' && <Link to='/' onClick={() => {
-          // const body = document.querySelector('body');
-          // body.style.background = `radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);`;
-        }}>
+        {location.pathname === '/app' && <Link to='/'>
           <img
             className='logo'
             id='logo'
@@ -37,19 +34,12 @@ const App = () => {
             height='80px'
             width='80px'
           ></img>
-          {/* <img
-            id='logotext'
-            src='./assets/logotext.png'
-            alt='DraQLa Text'
-            height='65px'
-            width='150px'
-          ></img> */}
-
+          
         </Link>}
         <NavBar location={location.pathname}/>
       </div>
 
-      <Suspense fallback={<div>YOOOO</div>}>
+      <Suspense fallback={<div id='lazyLoading'>YOOOOOOO</div>}>
         <Switch>
           <Route path='/app' component={AppPage} />
           <Route exact path='/' component={HomePage} />
