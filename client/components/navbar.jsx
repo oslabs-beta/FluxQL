@@ -11,9 +11,11 @@ export default function navbar({ location }) {
   let navbarDisplay;
 
   if (location === '/'){
+    // document.querySelector('.NavBarContainer').style.position = 'fixed';
     navbarDisplay = (
+
       <>
-        <a href="#overviewText" className="link">
+        <a href="#aboutFlex" className="link">
           About
         </a>
         <a href="#teamHeader" className="link">
@@ -31,8 +33,8 @@ export default function navbar({ location }) {
           to="/app"
           className="link"
           onClick={() => {
-            const body = document.querySelector('body');
-            body.style.background = '#282a36;';
+            // const body = document.querySelector('body');
+            // body.style.background = '#282a36;';
 
             setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
           }}
@@ -42,6 +44,7 @@ export default function navbar({ location }) {
       </>
     );
   } else if (location === '/app'){
+    // document.querySelector('.NavBarContainer').style.position = 'absolute';
     navbarDisplay = (
       <>
         <Link

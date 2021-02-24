@@ -78,23 +78,25 @@ $shadows-big:    multiple-box-shadow(100);
 }
 
 #homeTitle{
-  margin-top: 100px;
-  margin-bottom: 200px;
+  //margin-top: 50px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   text-align: center;
+  height: 100vh;
+  justify-content: center;
 
   img {
     z-index: 1000;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -200px;
   }
 
   span {
     margin-top: 50px;
-    font-family: 'Lato Normal';
-    font-weight: 300;
-    font-size: 50px;
+    font-family: 'Lato Title';
+    font-size: 55px;
     letter-spacing: 8px;
     background: -webkit-linear-gradient(white, #38495a);
     -webkit-background-clip: text;

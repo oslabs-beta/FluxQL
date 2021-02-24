@@ -4,8 +4,6 @@ export const initialGeneralState = {
 };
 
 export const initialHomeState = {
-  // overview: `DraQLA is a GraphQL migration assistance tool that empowers developers to build GraphQL schemas by 
-  // introspecting existing PostGreSQL databases, all without writing any code.`,
   info: [
     [
       `First, start by importing the desired PostgreSQL database that you want to convert into a GraphQL API and enter 

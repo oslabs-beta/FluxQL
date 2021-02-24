@@ -4,7 +4,7 @@ import { useHomeContext } from '../state/contexts';
 
 export default function DemoContainer() {
 
-  const { overview, info } = useHomeContext().homeState;
+  const { info } = useHomeContext().homeState;
 
 
   const rows = info.map((pair, i) => {
@@ -23,7 +23,6 @@ export default function DemoContainer() {
     <>
       <div className="demoContainer">
         <div className="demoOverview">
-          <h1 id="overviewText">{overview}</h1>
         </div>
         {rows}
       </div>

@@ -2,18 +2,23 @@ import React from 'react';
 
 export default function aboutContainer() {
   return (
-    <div className='aboutFlex'>
-      <di className='aboutFlexItem'>
+    <div id='aboutFlex'>
+      <div className='aboutFlexItem'>
         <h3>Your Story</h3>
-        <p>You are seeking an upgrade from your legacy REST API framework to GraphQL but the evolution is time-consuming: learning a new language and can require extensive overhead.</p>
-      </di>
+        <p>You are seeking an upgrade from your REST API framework to GraphQL but the evolution seems daunting.</p>
+      </div>
       <div className='aboutFlexItem'>
         <h3>Our Vision</h3>
-        <p></p>
+        <p>DraQLA is a GraphQL migration assistance tool that empowers developers to build GraphQL schemas, without writing any code.</p>
       </div>
       <div className='aboutFlexItem'>
         <h3>Features</h3>
-        <p></p>
+        <p>
+          GENERATE <br></br><br></br>
+          ADVISE <br></br><br></br>
+          TEST <br></br><br></br>
+          PLAY <br></br><br></br>
+        </p>
       </div>
     </div>
   );

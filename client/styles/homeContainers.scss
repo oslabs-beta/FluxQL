@@ -1,14 +1,15 @@
 // About Container
-.aboutFlex{
+#aboutFlex{
   margin-left: auto;
   margin-right: auto;
   display: flex;
   width: 100%;
-  height: 500px;
+  height: 50vh;
   justify-content: space-evenly;
   align-items: center;
   background: $background;
-
+  box-shadow: 2px 4px 25px rgba(255, 255, 255, .15);
+  
   .aboutFlexItem {
     width: 30%;
     height: 80%;
@@ -31,14 +32,71 @@
   }
 }
 
+// Feature Container
 .featureContainer {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
   background: $background;
-  height: 500px;
-  padding-top: 10%;
+  height: 50vh;
   margin-bottom: 100px;
+  box-shadow: 2px 4px 25px rgba(255, 255, 255, .15);
+}
+
+// Contact Container
+#contactForm {
+  position: relative;
+  width: 500px;
+  margin: 50px auto 100px auto;
+  box-shadow: 2px 4px 25px rgba(255, 255, 255, .05);
+
+  input {
+    font-family: 'Overpass', sans-serif;
+    font-size: 0.875em;
+    width: 470px;
+    height: 50px;
+    padding:0px 15px 0px 15px;
+    background: transparent;
+    outline: none;
+    color: #726659;
+    border: solid 1px #b3aca7;
+    border-bottom: none;
+  }
+
+  textarea {
+    width: 470px;
+    max-width: 470px;
+    height: 110px;
+    max-height: 110px;
+    padding: 15px;
+    background: transparent;
+    outline: none;
+    color: #726659;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    border: solid 1px #b3aca7;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+  }
+
+  #submit {
+    width: 502px;
+    padding: 0;
+    margin: -5px 0px 0px 0px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.875em;
+    color: #b3aca7;
+    outline:none;
+    cursor: pointer;
+    border: solid 1px #b3aca7;
+    border-top: none;
+  }
+  
+  #submit:hover {
+    color: #e2dedb;
+  }
 }
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
@@ -118,64 +176,6 @@ input:hover:focus::-ms-placeholder, textarea:hover::focus:-ms-placeholder {
 
 
 
-#form {
-  position: relative;
-  width: 500px;
-  margin: 50px auto 100px auto;
-  input {
-    font-family: 'Overpass', sans-serif;
-    font-size: 0.875em;
-    width: 470px;
-    height: 50px;
-    padding:0px 15px 0px 15px;
-    background: transparent;
-    outline: none;
-    color: #726659;
-    border: solid 1px #b3aca7;
-    border-bottom: none;
-  }
-  textarea {
-    width: 470px;
-    max-width: 470px;
-    height: 110px;
-    max-height: 110px;
-    padding: 15px;
-    
-    background: transparent;
-    outline: none;
-    
-    color: #726659;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.875em;
-    
-    border: solid 1px #b3aca7;
-    
-    transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-  }
-  #submit {
-    width: 502px;
-    
-    padding: 0;
-    margin: -5px 0px 0px 0px;
-    
-    font-family: 'Lato', sans-serif;
-    font-size: 0.875em;
-    color: #b3aca7;
-    
-    outline:none;
-    cursor: pointer;
-    
-    border: solid 1px #b3aca7;
-    border-top: none;
-  }
-  
-  #submit:hover {
-    color: #e2dedb;
-  }
-}
 
 
 
