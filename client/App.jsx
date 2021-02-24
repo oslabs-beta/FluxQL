@@ -1,10 +1,10 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, lazy, Suspense } from 'react';
 import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import NavBar from './components/navbar';
 
 // import pages for routes;
-import HomePage from './pages/homePage';
-import AppPage from './pages/appPage';
+const HomePage = lazy(() => import('./pages/homePage'));
+const AppPage = lazy(() => import('./pages/appPage'));
 
 // import context object
 import { GeneralContext } from './state/contexts';
@@ -25,33 +25,36 @@ const App = () => {
       }}>
       
       <div id='appHeader'>
-        <Link to='/'>
+        {location.pathname === '/app' && <Link to='/' onClick={() => {
+          // const body = document.querySelector('body');
+          // body.style.background = `radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);`;
+        }}>
           <img
             className='logo'
             id='logo'
-            src='./assets/bannericon.png'
+            src='./assets/logoclear.png'
             alt='DraQLa Logo'
-            height='75px'
-            width='75px'
+            height='80px'
+            width='80px'
           ></img>
-          <img
+          {/* <img
             id='logotext'
             src='./assets/logotext.png'
             alt='DraQLa Text'
             height='65px'
             width='150px'
-          ></img>
+          ></img> */}
 
-        </Link>
+        </Link>}
         <NavBar location={location.pathname}/>
       </div>
 
-      <Switch>
-        <Route path='/app' render={() => (
-          <AppPage />)}
-        />
-        <Route path='/' exact component={HomePage} />
-      </Switch>
+      <Suspense fallback={<div>YOOOO</div>}>
+        <Switch>
+          <Route path='/app' component={AppPage} />
+          <Route exact path='/' component={HomePage} />
+        </Switch>
+      </Suspense>
       
     </GeneralContext.Provider>
   );

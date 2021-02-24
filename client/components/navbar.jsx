@@ -13,10 +13,10 @@ export default function navbar({ location }) {
   if (location === '/'){
     navbarDisplay = (
       <>
-        <a href="#" className="link">
+        <a href="#overviewText" className="link">
           About
         </a>
-        <a href="#" className="link">
+        <a href="#teamHeader" className="link">
           Team
         </a>
         <a
@@ -31,6 +31,9 @@ export default function navbar({ location }) {
           to="/app"
           className="link"
           onClick={() => {
+            const body = document.querySelector('body');
+            body.style.background = '#282a36;';
+
             setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
           }}
         >
