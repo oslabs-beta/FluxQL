@@ -14,11 +14,11 @@ export default function navbar({ location }) {
   if (location === '/'){
     navbarDisplay = (
       <>
-        <a href="#aboutFlex" className="link">
+        <a href="#about" className="link">
           About
         </a>
-        <a href="#teamHeader" className="link">
-          Team
+        <a href="#contact" className="link">
+          Contact Us
         </a>
         <a
           href="https://github.com/oslabs-beta/DraQLa"

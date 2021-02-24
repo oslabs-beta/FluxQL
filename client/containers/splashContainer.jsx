@@ -11,7 +11,7 @@ export default function splashContainer() {
         <span>Dra<span id='QL'>QL</span>a</span>
       </div>
       <section id="scrollDown" class="pointerDown">
-        <a id="scrollDownLink"href="#aboutFlex"><span></span>Scroll</a>
+        <a id="scrollDownLink"href="#about"><span></span>Scroll</a>
       </section>
     </>
   );

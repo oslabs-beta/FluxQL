@@ -2,7 +2,14 @@ import React from 'react'
 
 export default function contactContainer() {
   return (
-    <div className='contactContainer'>
+    <div id='contact'>
+      <div className ='contactDescription'>
+
+
+      </div>
+
+
+
       <form id='contactForm' className='topBefore'>
         <input id='name' type='text' placeholder='NAME'/>
         <input id='email' type='text' placeholder='E-MAIL'/>

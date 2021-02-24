@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function aboutContainer() {
   return (
-    <div id='aboutFlex'>
+    <div id='about'>
       <div className='aboutFlexItem'>
         <img src='../assets/story.png'></img>
         <h3>Your Story</h3>

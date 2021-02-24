@@ -14,7 +14,7 @@ export default function featureContainer() {
           <br></br>
           <i>fang</i>-tastic!"</h1>
       </div>
-      <a href='https://medium.com/@erkrebs/9f0e019c4582' target='_'>
+      <a href={medium} target='_'>
         <img src='../assets/medium.png'></img>
       </a>
     </div>
