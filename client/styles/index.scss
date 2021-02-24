@@ -22,7 +22,8 @@ svg:hover {
 }
 
 body {
-  background: radial-gradient(ellipse at bottom, $logodarkgray 0%, $background 100%);
+  // background: radial-gradient(ellipse at bottom, $logodarkgray 0%, $background 100%);
+  background: white;
   color: white;
   font-family: 'Roboto';
 }
