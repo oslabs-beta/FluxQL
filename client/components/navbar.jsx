@@ -9,9 +9,8 @@ export default function navbar({ location }) {
   const { generalDispatch } = useGenContext();
 
   let navbarDisplay;
-
+  
   if (location === '/'){
-    // document.querySelector('.NavBarContainer').style.position = 'fixed';
     navbarDisplay = (
 
       <>
@@ -44,7 +43,6 @@ export default function navbar({ location }) {
       </>
     );
   } else if (location === '/app'){
-    // document.querySelector('.NavBarContainer').style.position = 'absolute';
     navbarDisplay = (
       <>
         <Link
@@ -76,9 +74,8 @@ export default function navbar({ location }) {
       </>
     );
   }
-
   return (
-    <div className="NavBarContainer">
+    <div id="NavBarContainer">
       {navbarDisplay}
     </div>
   );

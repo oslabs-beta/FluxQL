@@ -22,8 +22,7 @@ export default function DemoContainer() {
   return (
     <>
       <div className="demoContainer">
-        <div className="demoOverview">
-        </div>
+        <h1 id='demoTitle'>How It Works</h1>
         {rows}
       </div>
     </>

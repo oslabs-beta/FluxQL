@@ -11,7 +11,11 @@ const TeamContainer = lazy(()=> import('../containers/teamContainer'));
 
 
 export default function homePage() {
-
+  if (window.location.pathname === '/') {
+    document.querySelector('#NavBarContainer').style.position = 'fixed';
+  } else if (window.location.pathname === 'app') {
+    document.querySelector('#NavBarContainer').style.position = 'static';
+  }
   const [homeState, homeDispatch] = useReducer(homeReducer, initialHomeState);
 
   return (
