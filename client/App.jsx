@@ -25,24 +25,27 @@ const App = () => {
       }}>
       
       <div id='appHeader'>
-        <Link to='/'>
+        {location.pathname === '/app' && <Link to='/' onClick={() => {
+          // const body = document.querySelector('body');
+          // body.style.background = `radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);`;
+        }}>
           <img
             className='logo'
             id='logo'
-            src='./assets/bannericon.png'
+            src='./assets/logoclear.png'
             alt='DraQLa Logo'
             height='80px'
             width='80px'
           ></img>
-          <img
+          {/* <img
             id='logotext'
             src='./assets/logotext.png'
             alt='DraQLa Text'
             height='65px'
             width='150px'
-          ></img>
+          ></img> */}
 
-        </Link>
+        </Link>}
         <NavBar location={location.pathname}/>
       </div>
 

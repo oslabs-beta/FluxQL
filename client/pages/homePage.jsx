@@ -16,7 +16,7 @@ export default function homePage() {
         homeDispatch
       }}>
         <DemoContainer />
-        <h1 id='teamHeader'>Team Members</h1>
+        <h1 id='teamHeader'>DraQLabs Developers</h1>
         <div className = 'teamPage'>
           <TeamContainer />
         </div>

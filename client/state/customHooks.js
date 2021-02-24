@@ -8,7 +8,7 @@ export const useInfiniteScroll = (scrollRef, dispatch, info) => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (en.intersectionRatio > 0 && info.length < 6){
-          console.log('hi');
+          //console.log('hi');
 
           dispatch({type: 'LOAD_MORE_DESCRIPTIONS'});
         }
