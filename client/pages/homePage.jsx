@@ -25,11 +25,11 @@ export default function homePage() {
           <AboutContainer />
           <DemoContainer />
           <FeatureContainer />
-          <ContactContainer />
           <h1 id='teamHeader'>DraQLabs Developers</h1>
           <div className = 'teamPage'>
             <TeamContainer />
           </div>
+          <ContactContainer />
         </div>
       </HomeContext.Provider>
     </div>

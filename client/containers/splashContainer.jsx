@@ -11,7 +11,7 @@ export default function splashContainer() {
       <div id='stars2'></div>
       <div id='stars3'></div>
       <div id='homeTitle'>
-        <Link to='/app' id='mainLink' onClick={() =>{
+        <Link to='/app' onClick={() =>{
           setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
         }}>
           <img src='../assets/logoclear.png' width='300px' height='300px'></img>

@@ -95,6 +95,21 @@
 // Contact Container
 #contact{
   padding-top: 100px;
+
+  h3 {
+    margin: 5px;
+    font-family: 'Raleway';
+    font-size: 30px;
+    color: $logocream;
+    text-shadow: 0px 0px 5px rgb(247, 246, 199);
+    letter-spacing: 1.2px;
+  }
+
+hr {
+  width: 87%;
+}
+
+
 }
 
 

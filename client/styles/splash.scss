@@ -90,12 +90,11 @@ $shadows-big:    multiple-box-shadow(300);
     margin-left: auto;
     margin-right: auto;
     margin-top: -200px;
-    transition: ease 3s;
+    transition: ease 2s;
   }
 
   img:hover{
-    //box-shadow: 0px 0px 10px rgb(247, 246, 199);
-    transform: rotate(180deg);
+    animation: wiggle .5s ease;
   }
 
   span {
@@ -118,41 +117,39 @@ $shadows-big:    multiple-box-shadow(300);
 
 
 .pointerDown a {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
+  position: relative;
+  bottom: 120px;
   z-index: 2;
   display: inline-block;
   -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
-  color: #fff;
-  font : 'Lato';
+  color: $lightgold;
   letter-spacing: .1em;
   text-decoration: none;
   transition: opacity .3s;
 }
 
 
-#scrollDown {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-#scrollDown::after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  content: '';
-  width: 100%;
-  height: 80%;
-  background: -webkit-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,.8) 80%,rgba(0,0,0,.8) 100%);
-  background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.8) 80%,rgba(0,0,0,.8) 100%);
-}
+// #scrollDown {
+//   position: relative;
+//   width: 100%;
+//   height: 100%;
+//   margin-left: auto !important;
+//   margin-right: auto !important;
+// }
+// #scrollDown:after {
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   content: '';
+//   width: 100%;
+//   height: 80%;
+//   background: -webkit-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,.8) 80%,rgba(0,0,0,.8) 100%);
+//   background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.8) 80%,rgba(0,0,0,.8) 100%);
+// }
 
-#scrollDown a {
+#scrollDown a {1
   padding-top: 70px;
-  margin-left: auto;
-  margin-right: auto;
 }
 #scrollDown a span {
   position: absolute;
@@ -205,5 +202,27 @@ $shadows-big:    multiple-box-shadow(300);
   }	
   to {
     transform: translateY(-2000px)
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(20deg);
+  }
+
+  50% {
+    transform: rotate(-20deg)
+  }
+
+  85% {
+    transform: rotate(10deg)
+  }
+
+  95% {
+    transform: rotate(10deg)
+  }
+
+  100% {
+    transform: rotate(-20deg);
   }
 }
