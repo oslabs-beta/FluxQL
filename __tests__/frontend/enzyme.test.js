@@ -31,7 +31,7 @@ describe('<App> renders on the browser', () => {
     shallow(<App />);
   });
 
-  it('App contains Logo and Logotext', () => {
+  xit('App contains Logo and Logotext', () => {
     expect(wrapper.find('img').length).toEqual(2);
   });
 });

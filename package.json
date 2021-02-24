@@ -4,7 +4,7 @@
   "description": "A GraphQL migration assistance platform that sets up the basic boilerplate (schema, resolvers, mutations) by introspecting your existing PostGreSQL database",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "NODE_ENV=test jest --verbose",
     "start": "NODE_ENV=production nodemon server/server.js",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "cross-env NODE_ENV=development webpack serve --open --hot & nodemon server/server.js"
