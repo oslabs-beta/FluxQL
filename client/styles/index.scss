@@ -1,5 +1,6 @@
 @import './_fonts.scss';
 @import './_colors.scss';
+@import './home.scss';
 @import './psqlGraph.scss';
 @import './codeMirror.scss';
 @import './navbar.scss';
@@ -22,9 +23,10 @@ svg:hover {
 }
 
 body {
-  background: radial-gradient(ellipse at bottom, $logodarkgray 0%, $background 100%);
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   color: white;
   font-family: 'Roboto';
+  height: 100%;
 }
 
 h1 {

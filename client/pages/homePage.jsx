@@ -15,13 +15,19 @@ export default function homePage() {
         homeState,
         homeDispatch
       }}>
-        <div id='homeTitle'>
-
-        </div>
-        <DemoContainer />
-        <h1 id='teamHeader'>DraQLabs Developers</h1>
-        <div className = 'teamPage'>
-          <TeamContainer />
+        <div className='starWrapper'>
+          <div id='stars'></div>
+          <div id='stars2'></div>
+          <div id='stars3'></div>
+          <div id='homeTitle'>
+            <img src='../assets/logoclear.png' width='300px' height='300px'></img>
+            <span>DraQLa</span>
+          </div>
+          <DemoContainer />
+          <h1 id='teamHeader'>DraQLabs Developers</h1>
+          <div className = 'teamPage'>
+            <TeamContainer />
+          </div>
         </div>
       </HomeContext.Provider>
     </div>
