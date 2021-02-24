@@ -4,10 +4,13 @@ export default function featureContainer() {
   return (
     <div className='featureContainer'>
       <div className='featureTitle'>
-        <p>Featured on Medium</p>
+        <span>Featured on Medium</span>
+        <hr></hr>
       </div>
       <div className='featureQuote'>
-        <h1>Now thats an App I can sink my fangs into</h1>
+        <h1>"DraQLa makes migrating 
+          <br></br>
+          <i>fang</i>-tastic!"</h1>
       </div>
     </div>
   );

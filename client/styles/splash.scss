@@ -1,18 +1,18 @@
 
 // n is number of stars required
 @function multiple-box-shadow($n) {
-  $value: '#{random(3800)}px #{random(3800)}px #FFF';
+  $value: '#{random(5000)}px #{random(10000)}px #FFF';
   @for $i from 2 through $n{
-    $value: '#{$value} , #{random(3800)}px #{random(3800)}px #FFF';
+    $value: '#{$value} , #{random(5000)}px #{random(10000)}px #FFF';
   }
 
   @return unquote($value)
 }
 
 
-$shadows-small:  multiple-box-shadow(700);
-$shadows-medium: multiple-box-shadow(200);
-$shadows-big:    multiple-box-shadow(100);
+$shadows-small:  multiple-box-shadow(1000);
+$shadows-medium: multiple-box-shadow(700);
+$shadows-big:    multiple-box-shadow(300);
 
 
 .starWrapper {

@@ -32,11 +32,11 @@
     }
 
     h3 {
-      font-family: 'Lato Bold';
+      font-family: 'Raleway';
       font-size: 30px;
       color: $logocream;
       text-shadow: 0px 0px 5px rgb(247, 246, 199);
-
+      letter-spacing: 1.2px;
     }
     p{
       padding-left: 30px;
@@ -50,6 +50,9 @@
 
 // Feature Container
 .featureContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -59,11 +62,25 @@
   box-shadow: 2px 4px 25px rgba(255, 255, 255, .15);
 
   .featureTitle {
-    padding-top: 20vh;
+    letter-spacing: 0.8px;
+    color: $logocream;
+  }
+
+  hr {
+    margin-top: 15px;
+    width: 80px;
   }
 
   .featureQuote {
-
+    
+    h1 {
+      font-family: 'Raleway';
+      font-size: 55px;
+      letter-spacing: 2px;
+      line-height: 70px;
+      color: $logocream;
+      text-shadow: 0px 0px 5px rgb(247, 246, 199);
+    }
   }
 }
 
