@@ -1,4 +1,4 @@
-import React, { useContext, lazy, useReducer, useEffect } from 'react';
+import React, { useContext, lazy, useReducer, useState } from 'react';
 import { HomeContext } from '../state/contexts';
 import { initialHomeState, homeReducer } from '../state/reducers';
 
@@ -11,12 +11,8 @@ const TeamContainer = lazy(()=> import('../containers/teamContainer'));
 
 
 export default function homePage() {
-  if (window.location.pathname === '/') {
-    document.querySelector('#NavBarContainer').style.position = 'fixed';
-  } else if (window.location.pathname === 'app') {
-    document.querySelector('#NavBarContainer').style.position = 'static';
-  }
   const [homeState, homeDispatch] = useReducer(homeReducer, initialHomeState);
+  // const [path, setPath] = useState('')
 
   return (
     <div className= 'homePage'>

@@ -1,4 +1,4 @@
-import React, { useReducer, lazy, Suspense } from 'react';
+import React, { useReducer, lazy, Suspense, useEffect } from 'react';
 import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import NavBar from './components/navbar';
 
@@ -16,6 +16,18 @@ const App = () => {
   const location = useLocation();
   
   const [generalState, generalDispatch] = useReducer(generalReducer, initialGeneralState);
+
+  useEffect(() => {
+    const nav = document.getElementById('NavBarContainer').style;
+    const html = document.querySelector('html').style;
+
+    if (location.pathname === '/') {
+      nav.position = 'fixed' 
+    } else {
+      html.background = '$currentline';
+      nav.position = '';
+    }
+  });
 
   return (
     <GeneralContext.Provider

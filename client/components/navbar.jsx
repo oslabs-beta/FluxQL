@@ -9,10 +9,10 @@ export default function navbar({ location }) {
   const { generalDispatch } = useGenContext();
 
   let navbarDisplay;
-  
+
+
   if (location === '/'){
     navbarDisplay = (
-
       <>
         <a href="#aboutFlex" className="link">
           About
@@ -32,9 +32,6 @@ export default function navbar({ location }) {
           to="/app"
           className="link"
           onClick={() => {
-            // const body = document.querySelector('body');
-            // body.style.background = '#282a36;';
-
             setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
           }}
         >
