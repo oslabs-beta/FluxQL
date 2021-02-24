@@ -40,7 +40,7 @@ afterEach(() => {
 // clean up once the tests are done
 afterAll(() => server.close());
 
-describe('Renders website', () => {
+xdescribe('Renders website', () => {
   describe('Renders Home Page', () => {
     test('renders Home Page Component', async () => {
       const { findByText } = render(<HomePage />);

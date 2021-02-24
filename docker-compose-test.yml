@@ -1,0 +1,13 @@
+version: "3.0"
+services:
+  test:
+    image: draqla/app-test
+    container_name: 'app-test'
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    command: npm test
+volumes:
+  node_modules:
