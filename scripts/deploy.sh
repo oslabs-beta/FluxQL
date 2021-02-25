@@ -6,9 +6,9 @@ aws configure set default.region us-east-2
 # Log in to ECR
 eval $(aws ecr get-login --no-include-email --region us-east-1)
 # Build docker image based on our production Dockerfile
-docker build -t draqla/app .
+docker build -t draqla/app-prod .
 # tag the image with the Travis-CI SHA
-docker tag draqla/app:latest 416156120607.dkr.ecr.us-east-2.amazonaws.com/draqla:$TRAVIS_COMMIT
+docker tag draqla/app-prod:latest 416156120607.dkr.ecr.us-east-2.amazonaws.com/draqla:$TRAVIS_COMMIT
 # Push built image to ECS
 docker push 416156120607.dkr.ecr.us-east-2.amazonaws.com/draqla:$TRAVIS_COMMIT
 # Use the linux sed command to replace the text '<VERSION>' in our Dockerrun file with the Travis-CI SHA key
