@@ -5,6 +5,8 @@
     "@babel/preset-typescript"
   ],
   "plugins": [
-    "@babel/plugin-transform-react-jsx"
+    "@babel/plugin-transform-react-jsx",
+    "@babel/plugin-transform-runtime",
+    "@babel/transform-async-to-generator"
   ]
 }
