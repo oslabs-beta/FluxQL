@@ -20,12 +20,15 @@ const App = () => {
   useEffect(() => {
     const nav = document.getElementById('NavBarContainer').style;
     const html = document.querySelector('html').style;
+    const appHeader = document.getElementById('appHeader').style;
 
     if (location.pathname === '/') {
-      nav.position = 'fixed' 
+      nav.position = 'fixed';
+      appHeader.justifyContent = 'flex-end';
     } else {
       html.background = '$currentline';
       nav.position = '';
+      appHeader.justifyContent = 'space-between';
     }
   });
 
@@ -43,15 +46,15 @@ const App = () => {
             id='logo'
             src='./assets/logoclear.png'
             alt='DraQLa Logo'
-            height='80px'
-            width='80px'
+            height='100px'
+            width='100px'
           ></img>
           
         </Link>}
         <NavBar location={location.pathname}/>
       </div>
 
-      <Suspense fallback={<div id='lazyLoading'>YOOOOOOO</div>}>
+      <Suspense fallback={<div id='lazyLoading'></div>}>
         <Switch>
           <Route path='/app' component={AppPage} />
           <Route exact path='/' component={HomePage} />
