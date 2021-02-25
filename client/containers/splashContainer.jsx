@@ -14,9 +14,10 @@ export default function splashContainer() {
         <Link to='/app' onClick={() =>{
           setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
         }}>
-          <img src='../assets/logoclear.png' width='300px' height='300px'></img>
+          <img src='../assets/logoclear.png' width='300px' height='300px' id='homelogo'></img>
         </Link>
-          <span>Dra<span id='QL'>QL</span>a</span>
+          {/* <span>Dra<span id='QL'>QL</span>a</span> */}
+          <img id='homelogotext' src='../assets/logotext.png'></img>
       </div>
       <section id="scrollDown" className="pointerDown">
         <a id="scrollDownLink"href="#about"><span></span>scroll to learn more<br></br>or click on our logo to get started</a>

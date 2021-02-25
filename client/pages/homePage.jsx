@@ -6,8 +6,9 @@ const SplashContainer = lazy(()=> import('../containers/splashContainer'));
 const AboutContainer = lazy(()=> import('../containers/aboutContainer'));
 const DemoContainer = lazy(()=> import('../containers/demoContainer'));
 const FeatureContainer = lazy(()=> import('../containers/featureContainer'));
-const ContactContainer = lazy(()=> import('../containers/contactContainer'));
 const TeamContainer = lazy(()=> import('../containers/teamContainer'));
+const ContactContainer = lazy(()=> import('../containers/contactContainer'));
+const FooterContainer = lazy(()=> import('../containers/footerContainer'));
 
 
 export default function homePage() {
@@ -25,13 +26,14 @@ export default function homePage() {
           <AboutContainer />
           <DemoContainer />
           <FeatureContainer />
-          <h1 id='teamHeader'>DraQLabs Developers</h1>
+          <h1 id='teamHeader'>The Dra<span>QL</span>abs Team</h1>
           <div className = 'teamPage'>
             <TeamContainer />
           </div>
           <ContactContainer />
         </div>
       </HomeContext.Provider>
+      <FooterContainer />
     </div>
   );
 }

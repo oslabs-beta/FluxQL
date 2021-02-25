@@ -63,7 +63,7 @@
 
   .featureTitle {
     letter-spacing: 0.8px;
-    color: $logocream;
+    color: $lightgold;
   }
 
   hr {
@@ -81,13 +81,21 @@
       color: $logocream;
       text-shadow: 0px 0px 5px rgb(247, 246, 199);
     }
+
+    i {
+      color: $logodarkred;
+      text-shadow: 0px 0px 5px maroon;
+    }
   }
 
   img {
     opacity: 0.7;
     width: 35px;
     height: 35px;
-    
+  }
+
+  img:hover {
+    box-shadow: 0px 0px 5px rgb(247, 246, 199);
   }
 
 }
@@ -97,19 +105,20 @@
   padding-top: 100px;
 
   h3 {
-    margin: 5px;
+    margin: 25px;
+    margin-top: 80px;
     font-family: 'Raleway';
     font-size: 30px;
     color: $logocream;
     text-shadow: 0px 0px 5px rgb(247, 246, 199);
-    letter-spacing: 1.2px;
+    letter-spacing: 2px;
+    line-height: 50px;
   }
 
-hr {
-  width: 87%;
-}
-
-
+  hr {
+    opacity: 50%;
+    width: 87%;
+  }
 }
 
 
@@ -127,7 +136,7 @@ hr {
     padding:0px 15px 0px 15px;
     background: transparent;
     outline: none;
-    color: #726659;
+    color: $logocream;
     border: solid 1px #b3aca7;
     border-bottom: none;
   }
@@ -140,7 +149,7 @@ hr {
     padding: 15px;
     background: transparent;
     outline: none;
-    color: #726659;
+    color: $logocream;
     font-family: 'Lato', sans-serif;
     font-size: 0.875em;
     border: solid 1px #b3aca7;
@@ -167,6 +176,36 @@ hr {
     color: #e2dedb;
   }
 }
+
+.footerContainer {
+  width: 100%;
+
+  .footerIconContainer {
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footerIcon {
+    height: 50px;
+    width: 50px;
+    filter: invert(100%);
+    opacity: 50%;
+    margin: 10px;
+    transition: ease .5s;
+    border-radius: 50%;
+    box-shadow: 2px 4px 25px rgb(0 0 0 / 10%);
+  }
+  .footerIcon:hover {
+    opacity: 75%;
+  }
+
+  hr {
+    opacity: 50%;
+    width: 87%;
+  }
+}
+
+
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
   color: #aca49c;
