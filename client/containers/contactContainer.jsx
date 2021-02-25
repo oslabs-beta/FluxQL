@@ -7,10 +7,10 @@ export default function contactContainer() {
         <hr />
         <h3> Please feel free to submit <br></br>any comments or suggestions! </h3>
       </div>
-      <form id='contactForm' className='topBefore'>
-        <input id='name' type='text' placeholder='NAME'/>
-        <input id='email' type='text' placeholder='E-MAIL'/>
-        <textarea id='messageBody' type='text' placeholder='MESSAGE'/>
+      <form id='contactForm' className='topBefore' action='https://formspree.io/f/xyybqywd' method='POST'>
+        <input id='name' type='text' name='name'placeholder='NAME'/>
+        <input id='email' type='email' name='_replyto' placeholder='E-MAIL'/>
+        <textarea id='messageBody' type='text' name='message' placeholder='MESSAGE'/>
         <input id="submit" type="submit" value="SUBMIT"/>
       </form>
     </div>
