@@ -19,5 +19,5 @@ GLOBAL:
 DEPLOY:
   PROVIDER: script
   SKIP_CLEANUP: true
-  ON: master
+  ON: main
   SCRIPT: sh $TRAVIS_BUILD_DIR/scripts/deploy.sh
