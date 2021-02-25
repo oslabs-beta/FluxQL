@@ -11,16 +11,16 @@ export default function aboutContainer() {
       <div className='aboutFlexItem'>
         <img src='../assets/idea.png'></img>
         <h3>Our Vision</h3>
-        <p>DraQLA is a GraphQL migration assistance tool that empowers developers to build GraphQL schemas, without writing any code.</p>
+        <p>DraQLa is a GraphQL migration assistance tool that empowers developers to build GraphQL schemas, without writing any code.</p>
       </div>
       <div className='aboutFlexItem'>
         <img id='feature' src='../assets/logoclear.png'></img>
         <h3>Features</h3>
         <p>
-          GENERATE <br></br>
-          ADVISE <br></br>
-          TEST <br></br>
-          PLAY <br></br>
+          Custom GraphQL schema <br></br>
+          Advice Overview <br></br>
+          Interactive Visualizer <br></br>
+          Testing Opportunities <br></br>
         </p>
       </div>
     </div>
