@@ -3,18 +3,18 @@ const app = express();
 const path = require('path');
 const router = require('../server/router.js');
 const { graphqlHTTP } = require('express-graphql');
-// const schema = require('../server/graphQLServer/schema');
+const schema = require('../server/graphQLServer/schema');
 
 
 app.use(express.json());
 
 /* route handlers */
-// app.use('/graphql',
-//   graphqlHTTP({
-//     schema,
-//     graphiql: true,
-//   })
-// );
+app.use('/graphql',
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+  })
+);
 app.use('/', router);
 
 /* handles static files */
