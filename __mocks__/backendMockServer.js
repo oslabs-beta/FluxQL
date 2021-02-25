@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = require('./router');
+const router = require('../server/router.js');
 const { graphqlHTTP } = require('express-graphql');
-const schema = require('./graphQLServer/schema');
+const schema = require('../server/graphQLServer/schema');
 
-const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -44,8 +43,4 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).send(errorObj.message);
 });
 
-
-const server = app.listen(PORT, () => console.log(`App is running on 🚀 ${PORT}... 🚀`));
-
-module.exports = server;
-
+module.exports = app;

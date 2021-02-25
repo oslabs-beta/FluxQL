@@ -1,6 +1,2 @@
 node_modules
 dist/
-testPSQL.js
-graphQLServer/
-server/graphQLServer/schema.js
-schema.js
