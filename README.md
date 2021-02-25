@@ -49,11 +49,16 @@ How you can contribute:
 * Submitting or resolving GitHub issues
 * Help market our application
 ## Developers
-* [Daniel Dolich](https://github.com/danieldolich)
-* [Emily Krebs](https://github.com/emilykrebs)
-* [Heidi Kim](https://github.com/heidiyoora)
-* [Ross Sarcona](https://github.com/RossRSarc)
-* [Tommy Liang](https://github.com/mrtommyliang)
+Daniel Dolich | [LinkedIn](https://www.linkedin.com/in/danieldolich/) | [GitHub](https://github.com/danieldolich)
+
+Emily Krebs || [LinkedIn](https://www.linkedin.com/in/emilyrkrebs/) | [GitHub](https://github.com/emilykrebs)
+
+Heidi Kim || [LinkedIn](https://www.linkedin.com/in/heidiykim/) | [GitHub](https://github.com/heidiyoora)
+
+Ross Sarcona || [Linkedin](https://www.linkedin.com/in/rosssarcona/) | [GitHub](https://github.com/RossRSarc)
+
+Tommy Liang || [LinkedIn](https://www.linkedin.com/in/mrtommyliang/) | [GitHub](https://github.com/mrtommyliang)
+
 
 ## License
 This project is licensed under the MIT License
