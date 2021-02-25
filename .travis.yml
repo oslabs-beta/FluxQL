@@ -18,8 +18,8 @@ env:
     - PATH=/opt/python/3.7.1/bin:$PATH
 
 deploy:
-  - provider: script
-  - skip_cleanup: true
-  - on: 
-      branch: master
-  - script: sh $TRAVIS_BUILD_DIR/scripts/deploy.sh
+  provider: script
+  cleanup: true
+  on:
+    branch: main
+  script: sh $TRAVIS_BUILD_DIR/scripts/deploy.sh
