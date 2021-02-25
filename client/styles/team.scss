@@ -1,9 +1,9 @@
 #teamHeader {
-  font-family: 'Raleway';
-  color: $logocream;
+//   font-family: 'Raleway';
+//   color: $logocream;
   margin-top: 20vh;
   margin-bottom: 100px;
-  text-shadow: 2px 4px 25px rgba(255, 255, 255, 0.527);
+//   text-shadow: 2px 4px 25px rgba(255, 255, 255, 0.527);
 }
 
 .teamContainer {
@@ -37,14 +37,12 @@
           height: 50px;
           filter: invert(100%);
           padding: 5px;
-          // transition: ease .3s;
           border-radius: 50%;
           cursor: pointer;
         }
         
         .logos:hover {
           box-shadow: 2px 4px 25px rgb(0 0 0 / 10%);
-          // transform: rotate(10deg);
           animation: jiggle .4s ease;
         }
       }

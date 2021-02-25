@@ -16,7 +16,6 @@ export default function splashContainer() {
         }}>
           <img src='../assets/logoclear.png' width='300px' height='300px' id='homelogo'></img>
         </Link>
-          {/* <span>Dra<span id='QL'>QL</span>a</span> */}
           <img id='homelogotext' src='../assets/logotext.png'></img>
       </div>
       <section id="scrollDown" className="pointerDown">

@@ -26,7 +26,8 @@ export default function homePage() {
           <AboutContainer />
           <DemoContainer />
           <FeatureContainer />
-          <h1 id='teamHeader'>The Dra<span>QL</span>abs Team</h1>
+          {/* <h1 id='teamHeader'>The Dra<span>QL</span>abs Team</h1> */}
+          <img id='teamHeader' src='../assets/teamdraqlabs.png'></img>
           <div className = 'teamPage'>
             <TeamContainer />
           </div>
