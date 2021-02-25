@@ -20,6 +20,6 @@ env:
 deploy:
   - provider: script
   - skip_cleanup: true
-  - on:
-    branch: main
+  - on: 
+      branch: master
   - script: sh $TRAVIS_BUILD_DIR/scripts/deploy.sh
