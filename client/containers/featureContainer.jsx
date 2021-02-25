@@ -10,7 +10,7 @@ export default function featureContainer() {
         <hr></hr>
       </div>
       <div className='featureQuote'>
-       <h1>"DraQLa makes migrating 
+        <h1>"DraQLa makes migrating 
           <br></br>
           <i>fang</i>-tastic!"</h1>
       </div>
