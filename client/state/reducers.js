@@ -40,7 +40,7 @@ export const initialHomeState = {
     [
       `When you're ready to adopt your schema, click "Export" to receieve the code and further integration 
     instructions.`,
-      '',
+      '../assets/export.gif',
       'Export Your Code',
     ]
   ],

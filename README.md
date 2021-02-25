@@ -1,4 +1,4 @@
-![Splash Image](https://res.cloudinary.com/mrtommyliang/image/upload/v1614012242/DraQLA/bannerlarge_o9khsj.png) <br>
+![Splash Image](./client/assets/splashgif.gif) <br>
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/oslabs-beta/DraQLa/blob/main/LICENSE) ![GitHub package.json version](https://img.shields.io/badge/version-v1.0.0-blue) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/oslabs-beta/DraQLa/issues) ![Stars](https://img.shields.io/github/stars/oslabs-beta/DraQLa?color=red)
 
 # DraQLa 
