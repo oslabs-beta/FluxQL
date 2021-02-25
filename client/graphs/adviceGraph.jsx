@@ -96,8 +96,8 @@ export default function adviceGraph() {
       const svg = d3
         .select(adviceGraphContainer.current)
         .append('svg')
-        .attr('width', '20%') // originally 100%
-        .attr('height', '20%') // originally 100%
+        .attr('width', '20%') 
+        .attr('height', '20%') 
         .attr(
           'viewBox',
           '0 0 ' + Math.min(width, height) + ' ' + Math.min(width, height)

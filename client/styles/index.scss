@@ -41,8 +41,9 @@ h1 {
     1px 0 rgba(255, 255, 255, 0.3), 0 -1px rgba(255, 255, 255, 0.3);
 }
 
-#lazyLoading {
-  height: 100%;
+#lazy{
+  height: 100vh;
+  background: black;
 }
 
 // for App Page
@@ -52,7 +53,7 @@ h1 {
   margin-right: auto;
   width: 90%;
   box-shadow: 2px 4px 25px rgb(0 0 0 / 20%);
-  height: 100%; // come back to check on the scroll...
+  height: 100%; 
 
   #AppPage {
     display: grid;

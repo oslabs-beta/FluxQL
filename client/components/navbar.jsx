@@ -10,7 +10,7 @@ export default function navbar({ location }) {
 
   let navbarDisplay;
 
-
+  // conditional rendering depending on URL endpoint
   if (location === '/'){
     navbarDisplay = (
       <>

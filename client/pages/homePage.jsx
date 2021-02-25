@@ -1,4 +1,4 @@
-import React, { useContext, lazy, useReducer, useState } from 'react';
+import React, { useContext, lazy, useReducer } from 'react';
 import { HomeContext } from '../state/contexts';
 import { initialHomeState, homeReducer } from '../state/reducers';
 
@@ -13,7 +13,6 @@ const FooterContainer = lazy(()=> import('../containers/footerContainer'));
 
 export default function homePage() {
   const [homeState, homeDispatch] = useReducer(homeReducer, initialHomeState);
-  // const [path, setPath] = useState('')
 
   return (
     <div className= 'homePage'>
@@ -26,7 +25,6 @@ export default function homePage() {
           <AboutContainer />
           <DemoContainer />
           <FeatureContainer />
-          {/* <h1 id='teamHeader'>The Dra<span>QL</span>abs Team</h1> */}
           <img id='teamHeader' src='../assets/teamdraqlabs.png'></img>
           <div className = 'teamPage'>
             <TeamContainer />

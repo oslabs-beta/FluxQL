@@ -54,7 +54,7 @@ const App = () => {
         <NavBar location={location.pathname}/>
       </div>
 
-      <Suspense fallback={<div id='lazyLoading'></div>}>
+      <Suspense fallback={<div id='lazy'></div>}>
         <Switch>
           <Route path='/app' component={AppPage} />
           <Route exact path='/' component={HomePage} />

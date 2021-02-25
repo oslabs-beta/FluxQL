@@ -26,20 +26,17 @@ export default function psqlGraph() {
       const svg = d3
         .select(psqlGraphRef.current)
         .attr('preserveAspectRatio', 'xMinYMin meet')
-        .attr('viewBox', '0 0 960 1000'); // width 960, height 1000
-      //.attr('transform', 'translate(' + diameter/2 + ',' + diameter/2 +')');
+        .attr('viewBox', '0 0 960 1000'); 
+
 
       const g = svg.append('g').attr(
         'transform',
         'translate(' + width / 2 + ',' + height / 2 + ')'
-        //! the code below shifted the starting coordinates of our root...
-        //'translate(' + (width / 2 + 40) + ',' + (height / 2 + 90) + ')'
       );
 
       //defining where the actual area of the tree is
       const treemap = d3
         .tree()
-        //.size([360, 250]); // ! not sure what our original did. codepen inspo below
         .size([360, diameter / 2 - 80])
         .separation((a, b) => {
           // ! sets the space between non-related children
