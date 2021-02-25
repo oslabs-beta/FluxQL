@@ -1,4 +1,4 @@
-import React, { useReducer, lazy, Suspense } from 'react';
+import React, { useReducer, lazy, Suspense, useEffect } from 'react';
 import { Route, Switch, Link, useLocation } from 'react-router-dom';
 import NavBar from './components/navbar';
 
@@ -17,6 +17,21 @@ const App = () => {
   
   const [generalState, generalDispatch] = useReducer(generalReducer, initialGeneralState);
 
+  useEffect(() => {
+    const nav = document.getElementById('NavBarContainer').style;
+    const html = document.querySelector('html').style;
+    const appHeader = document.getElementById('appHeader').style;
+
+    if (location.pathname === '/') {
+      nav.position = 'fixed';
+      appHeader.justifyContent = 'flex-end';
+    } else {
+      html.background = '$currentline';
+      nav.position = '';
+      appHeader.justifyContent = 'space-between';
+    }
+  });
+
   return (
     <GeneralContext.Provider
       value={{
@@ -25,31 +40,21 @@ const App = () => {
       }}>
       
       <div id='appHeader'>
-        {location.pathname === '/app' && <Link to='/' onClick={() => {
-          // const body = document.querySelector('body');
-          // body.style.background = `radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);`;
-        }}>
+        {location.pathname === '/app' && <Link to='/'>
           <img
             className='logo'
             id='logo'
             src='./assets/logoclear.png'
             alt='DraQLa Logo'
-            height='80px'
-            width='80px'
+            height='100px'
+            width='100px'
           ></img>
-          {/* <img
-            id='logotext'
-            src='./assets/logotext.png'
-            alt='DraQLa Text'
-            height='65px'
-            width='150px'
-          ></img> */}
-
+          
         </Link>}
         <NavBar location={location.pathname}/>
       </div>
 
-      <Suspense fallback={<div>YOOOO</div>}>
+      <Suspense fallback={<div id='lazy'></div>}>
         <Switch>
           <Route path='/app' component={AppPage} />
           <Route exact path='/' component={HomePage} />

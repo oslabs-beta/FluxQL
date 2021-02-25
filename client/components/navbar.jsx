@@ -10,14 +10,15 @@ export default function navbar({ location }) {
 
   let navbarDisplay;
 
+  // conditional rendering depending on URL endpoint
   if (location === '/'){
     navbarDisplay = (
       <>
-        <a href="#overviewText" className="link">
+        <a href="#about" className="link">
           About
         </a>
-        <a href="#teamHeader" className="link">
-          Team
+        <a href="#contact" className="link">
+          Contact Us
         </a>
         <a
           href="https://github.com/oslabs-beta/DraQLa"
@@ -31,9 +32,6 @@ export default function navbar({ location }) {
           to="/app"
           className="link"
           onClick={() => {
-            const body = document.querySelector('body');
-            body.style.background = '#282a36;';
-
             setTimeout(generalDispatch({ type: 'OPEN_URI_MODAL' }), 1000);
           }}
         >
@@ -73,9 +71,8 @@ export default function navbar({ location }) {
       </>
     );
   }
-
   return (
-    <div className="NavBarContainer">
+    <div id="NavBarContainer">
       {navbarDisplay}
     </div>
   );

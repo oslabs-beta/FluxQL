@@ -27,24 +27,7 @@ const typeSet = (str) => {
   }
 };
 
-// function typeSet (str: string): string {
-//     switch (str) {
-//     case 'character varying':
-//       return 'String';
-//     case 'character':
-//       return 'String';
-//     case 'integer':
-//       return 'Int';
-//     case 'text':
-//       return 'String';
-//     case 'date':
-//       return 'String';
-//     case 'boolean':
-//       return 'Boolean';
-//     default:
-//       return 'Int';
-//   }
-// }
+//convert typeSet to typeConversion
 
 const typeConversion = {
   'character varying': 'String',
@@ -99,11 +82,11 @@ mutationHelper.paramType = (primaryKey, foreignKeys, columns, isRequired) => {
     if (isRequired && columnName === primaryKey) {
       typeDef += `      ${columnName}: ${
         typeConversion[dataType] ? typeConversion[dataType] : 'Int'
-      }!,\n`; //see if this breaks it
+      }!,\n`; 
     } else {
       typeDef += `      ${columnName}: ${
         typeConversion[dataType] ? typeConversion[dataType] : 'Int'
-      }`; // SEE IF THIS BREAKS TOO
+      }`; 
       if (isNullable !== 'YES') typeDef += '!';
       typeDef += ',\n';
     }

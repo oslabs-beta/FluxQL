@@ -58,12 +58,3 @@ module.exports = {
     }),
   ],
 };
-
-/*
-* maybe file loader?? 
-  {
-    test: /.(png|jpg|woff|woff2|eot|ttf|svg|gif)$/,
-    loader: 'url-loader?limit=1024000',
-  },
-
-*/

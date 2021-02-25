@@ -1,25 +1,34 @@
 .demoContainer {
+  margin-top: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
 
-  #overviewText {
-    text-align: center;
-    color: #c3bef0;
+  h1 {
+    color: $logocream;
+    text-shadow: 0px 0px 5px rgb(247, 246, 199);
   }
 
-  .demoOverview {
-    max-width: 40%;
-    overflow-wrap: break-word;
+  #demoTitle{
+    font-size: 42px;
+    margin-bottom: 80px;
+    font-family: 'Raleway';
+    letter-spacing: 1.2px;
   }
 
   .demoRow {
     display: flex;
+    height: 50vh;
     flex-direction: row;
-    max-width: 50%;
-    padding: 75px;
+    max-width: 75%;
+    padding: 40px 20px;
+    justify-content: center;
+
+    .demoHeader{
+      letter-spacing: 1px;
+    }
     
     .demoDescription {
       display: flex;
@@ -29,23 +38,19 @@
       margin: 15px;
       overflow-wrap: break-word;
       flex-grow: 1;
-      max-width: 50%;
+      max-width: 600px;
       padding: 5%;
       border-radius: 8px;;
 
-      .demoHeader {
-        color: #c3bef0;
-      }
-
       .demoText {
         text-align: center;
-        font-family: 'Open sans';
+        letter-spacing: 0.4px;
+        color: $logocream;
+        line-height: 35px;
       }
     }
 
     .demoImage {
-      flex-grow: 2;
-      min-width: 25%;
       border-radius: 8px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }

@@ -10,7 +10,7 @@ export default function graphContainer() {
   const { psqlState } = useContext(PSQLContext);
   // const { mongoState } = useContext(MongoContext);
 
-  // ! to toggle between the different graphs
+  // ! to toggle between the different graphs - stretch feature
   let graph;
 
   if (psqlState.d3Tables.name) {

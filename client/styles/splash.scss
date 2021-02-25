@@ -1,0 +1,195 @@
+
+// n is number of stars required
+@function multiple-box-shadow($n) {
+  $value: '#{random(5000)}px #{random(10000)}px #FFF';
+  @for $i from 2 through $n{
+    $value: '#{$value} , #{random(5000)}px #{random(10000)}px #FFF';
+  }
+
+  @return unquote($value)
+}
+
+
+$shadows-small:  multiple-box-shadow(1000);
+$shadows-medium: multiple-box-shadow(700);
+$shadows-big:    multiple-box-shadow(300);
+
+
+.starWrapper {
+  background: transparent;
+  height: 200%;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+
+  #stars{
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    animation: animStar 50s linear infinite;
+    box-shadow: $shadows-small;
+    
+  }
+  
+  #stars:after{
+    content: '';
+    position: absolute;
+    top: 2000px;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: $shadows-small;
+  }
+
+  #stars2{
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: $shadows-medium;
+    animation: animStar 100s linear infinite;
+  }
+
+  #stars2:after{
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: $shadows-medium;
+  }
+  
+  #stars3{
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: $shadows-big;
+    animation: animStar 150s linear infinite;
+  }
+
+  #stars3:after{
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: $shadows-big;
+  }
+}
+
+#homeTitle{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 100vh;
+  justify-content: center;
+
+  img {
+    z-index: 1000;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -200px;
+    transition: ease 2s;
+  }
+  
+  #homelogo:hover{
+    //animation: wiggle .5s ease;
+    transform: rotate(180deg);
+  }
+
+  #homelogotext{
+    margin-top: 65px;
+    width: 300px;
+  }
+}
+
+
+// scroll down
+.pointerDown a {
+  position: relative;
+  bottom: 120px;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  color: $lightgold;
+  letter-spacing: .1em;
+  text-decoration: none;
+  transition: opacity .3s;
+}
+
+#scrollDown {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#scrollDown a {
+  padding-top: 70px;
+}
+
+#scrollDown a span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: sdb05 1.5s infinite;
+  animation: sdb05 1.5s infinite;
+  box-sizing: border-box;
+}
+@-webkit-keyframes sdb05 {
+  0% {
+    -webkit-transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+
+
+@keyframes sdb05 {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+@keyframes animStar{
+  from{
+    transform: translateY(0px)
+  }	
+  to {
+    transform: translateY(-2000px)
+  }
+}
+
+@keyframes wiggle {
+  from {
+    transform: scale(1.01, 1.01) rotate(30deg);
+    opacity: .5;
+  }
+  to {
+    transform: scale(1.02, 1.02) rotate(-30deg);
+    opacity: .8;
+  }
+}

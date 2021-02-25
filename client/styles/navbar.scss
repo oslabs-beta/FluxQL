@@ -1,16 +1,13 @@
 #appHeader {
-  // position: fixed;
-  // top: 0;
   display: flex;
-  justify-content: flex-end;
 
-  #logotext {
-    justify-self: end;
-    align-self: end;
+  #logo {
+    margin-left: 10px;
+    margin-top: 8px;
   }
 }
 
-.NavBarContainer {
+#NavBarContainer {
   width: 50%;
   display: flex;
   justify-content: flex-end;
@@ -27,7 +24,7 @@
   }
 
   .link:hover {
-    color: $cyan;
+    color: $lightgold;
   }
 
   .link:hover:nth-child(4) {
@@ -35,12 +32,3 @@
     color: $red;
   }
 }
-
-/*
-.logo {
-  transition: ease 1s;
-}
-.logo:hover {
-  transform: rotate(180deg);
-}
-*/

@@ -65,7 +65,6 @@ pgController.SQLTableData = (req, res, next) => {
 pgController.generateSchema = (req, res, next) => {
   const { tables } = res.locals;
   try {
-    // here we will break apart the larger assemble into types & resolvers
     const {
       types,
       queryTypeCount,
@@ -105,7 +104,6 @@ pgController.generateSchema = (req, res, next) => {
         Example: resolverExample,
       },
     ];
-    // * TEST ERROR HANDLING; Might need to add statement to check if either function returns undefined, etc
     return next();
   } catch (err) {
     const errObj = {
