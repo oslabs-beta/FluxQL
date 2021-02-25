@@ -10,7 +10,7 @@ script:
 
 before_deploy:
   - python3 -m pip install --user awscli
-  - python3 -m pip install --user awsecli
+  - python3 -m pip install --user awsebcli
   - export PATH=$PATH:$HOME/.local/bin
 
 env:
