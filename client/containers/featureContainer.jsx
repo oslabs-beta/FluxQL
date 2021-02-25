@@ -1,6 +1,6 @@
 import React from 'react';
 
-const medium = 'https://medium.com/@erkrebs/9f0e019c4582';
+const medium = 'https://erkrebs.medium.com/thinking-of-migrating-from-rest-to-graphql-9f0e019c4582';
 
 export default function featureContainer() {
   return (
